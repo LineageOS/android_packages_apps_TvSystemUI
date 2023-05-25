@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package com.android.systemui.tv
+package com.android.systemui.tv.hdmi
 
-import android.content.Context
-import com.android.systemui.SystemUIAppComponentFactoryBase
-import com.android.systemui.tv.dagger.TvSystemUIInitializer
+import android.app.Activity
+import dagger.Binds
+import dagger.Module
+import dagger.multibindings.ClassKey
+import dagger.multibindings.IntoMap
 
-/**
- * Starts up SystemUI using [TvSystemUIInitializer].
- *
- * The [SystemUIAppComponentFactoryBase] is required for proper SystemUI functionality.
- *
- * @see SystemUIAppComponentFactoryBase
- */
-class TvSystemUIAppComponentFactory : SystemUIAppComponentFactoryBase()  {
+@Module
+interface HdmiModule {
 
-    override fun createSystemUIInitializer(context: Context) = TvSystemUIInitializer(context)
+    /** Inject into HdmiCecSetMenuLanguageActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(HdmiCecSetMenuLanguageActivity::class)
+    fun bindHdmiCecSetMenuLanguageActivity(activity: HdmiCecSetMenuLanguageActivity): Activity
 }

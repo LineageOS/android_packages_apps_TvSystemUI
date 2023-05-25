@@ -13,21 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.android.systemui.tv.dagger
 
-package com.android.systemui.tv
-
-import android.content.Context
-import com.android.systemui.SystemUIAppComponentFactoryBase
-import com.android.systemui.tv.dagger.TvSystemUIInitializer
+import com.android.systemui.dagger.WMComponent
+import com.android.wm.shell.dagger.TvWMShellModule
+import com.android.wm.shell.dagger.WMSingleton
+import dagger.Subcomponent
 
 /**
- * Starts up SystemUI using [TvSystemUIInitializer].
- *
- * The [SystemUIAppComponentFactoryBase] is required for proper SystemUI functionality.
- *
- * @see SystemUIAppComponentFactoryBase
+ * Dagger Subcomponent for WindowManager.
  */
-class TvSystemUIAppComponentFactory : SystemUIAppComponentFactoryBase()  {
-
-    override fun createSystemUIInitializer(context: Context) = TvSystemUIInitializer(context)
+@WMSingleton
+@Subcomponent(modules = [TvWMShellModule::class])
+interface TvWMComponent : WMComponent {
+    /**
+     * Builder for a SysUIComponent.
+     */
+    @Subcomponent.Builder
+    interface Builder : WMComponent.Builder {
+        override fun build(): TvWMComponent
+    }
 }

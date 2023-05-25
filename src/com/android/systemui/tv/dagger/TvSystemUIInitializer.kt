@@ -13,21 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.android.systemui.tv
+package com.android.systemui.tv.dagger
 
 import android.content.Context
-import com.android.systemui.SystemUIAppComponentFactoryBase
-import com.android.systemui.tv.dagger.TvSystemUIInitializer
+import com.android.systemui.SystemUIInitializer
+import com.android.systemui.dagger.GlobalRootComponent
 
 /**
- * Starts up SystemUI using [TvSystemUIInitializer].
- *
- * The [SystemUIAppComponentFactoryBase] is required for proper SystemUI functionality.
- *
- * @see SystemUIAppComponentFactoryBase
+ * TV variant [SystemUIInitializer], that substitutes default [GlobalRootComponent] for
+ * [TvGlobalRootComponent].
  */
-class TvSystemUIAppComponentFactory : SystemUIAppComponentFactoryBase()  {
-
-    override fun createSystemUIInitializer(context: Context) = TvSystemUIInitializer(context)
+class TvSystemUIInitializer(context: Context) : SystemUIInitializer(context) {
+    override fun getGlobalRootComponentBuilder(): GlobalRootComponent.Builder =
+            DaggerTvGlobalRootComponent.builder()
 }

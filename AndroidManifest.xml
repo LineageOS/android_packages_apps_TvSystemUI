@@ -23,8 +23,75 @@
 
     <original-package android:name="com.android.systemui"/>
 
+    <uses-permission android:name="android.permission.BROADCAST_OPTION_INTERACTIVE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS" />
+    <uses-permission android:name="android.permission.MANAGE_ROLE_HOLDERS" />
+    <uses-permission android:name="android.permission.MANAGE_SENSOR_PRIVACY" />
+    <uses-permission android:name="android.permission.MANAGE_USB" />
+    <uses-permission android:name="android.permission.STATUS_BAR_SERVICE" />
+
     <application
         android:appComponentFactory="com.android.systemui.tv.TvSystemUIAppComponentFactory"
         tools:replace="android:appComponentFactory">
+
+        <!-- started from HdmiCecLocalDevicePlayback -->
+        <activity
+            android:name="tv.hdmi.HdmiCecSetMenuLanguageActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:launchMode="singleTop"
+            android:permission="android.permission.CHANGE_CONFIGURATION"
+            android:theme="@style/BottomSheet" />
+
+        <!-- started from TvNotificationPanel -->
+        <activity
+            android:name=".tv.notifications.TvNotificationPanelActivity"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:theme="@style/TvSidePanelTheme" />
+
+        <!-- started from SensoryPrivacyService -->
+        <activity
+            android:name=".tv.sensorprivacy.TvSensorPrivacyChangedActivity"
+            android:exported="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:launchMode="singleTop"
+            android:permission="android.permission.MANAGE_SENSOR_PRIVACY"
+            android:showForAllUsers="true"
+            android:theme="@style/BottomSheet" />
+
+        <!-- started from SensoryPrivacyService -->
+        <activity
+            android:name="tv.sensorprivacy.TvUnblockSensorActivity"
+            android:exported="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:launchMode="singleTop"
+            android:permission="android.permission.MANAGE_SENSOR_PRIVACY"
+            android:showForAllUsers="true"
+            android:theme="@style/BottomSheet" />
+
+        <!-- started from UsbDeviceSettingsManager -->
+        <activity
+            android:name="tv.usb.TvUsbConfirmActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:launchMode="singleTop"
+            android:permission="android.permission.MANAGE_USB"
+            android:theme="@style/BottomSheet" />
+
+        <!-- started from UsbDeviceSettingsManager -->
+        <activity
+            android:name="tv.usb.TvUsbPermissionActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:launchMode="singleTop"
+            android:permission="android.permission.MANAGE_USB"
+            android:theme="@style/BottomSheet" />
+
     </application>
 </manifest>
