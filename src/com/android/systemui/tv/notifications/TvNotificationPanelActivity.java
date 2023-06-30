@@ -63,14 +63,14 @@ public class TvNotificationPanelActivity extends Activity implements
         }
         mPanelAlreadyOpen = true;
 
-        setContentView(R.layout.tv_notification_panel);
+        setContentView(R.layout.notification_panel);
 
-        mNotificationPlaceholder = findViewById(R.id.no_tv_notifications);
+        mNotificationPlaceholder = findViewById(R.id.no_notifications);
         mTvNotificationAdapter = new TvNotificationAdapter();
 
         mNotificationListView = findViewById(R.id.notifications_list);
         mNotificationListView.setAdapter(mTvNotificationAdapter);
-        mNotificationListView.setColumnWidth(R.dimen.tv_notification_panel_width);
+        mNotificationListView.setColumnWidth(R.dimen.notification_panel_width);
 
         mTvNotificationHandler.setTvNotificationListener(this);
         notificationsUpdated(mTvNotificationHandler.getCurrentNotifications());
@@ -117,13 +117,13 @@ public class TvNotificationPanelActivity extends Activity implements
     private void enableBlur(boolean enabled) {
         if (enabled) {
             int blurRadius = getResources().getDimensionPixelSize(
-                    R.dimen.tv_notification_blur_radius);
+                    R.dimen.notification_blur_radius);
             getWindow().setBackgroundDrawable(
-                    new ColorDrawable(getColor(R.color.tv_notification_blur_background_color)));
+                    new ColorDrawable(getColor(R.color.notification_blur_background_color)));
             getWindow().setBackgroundBlurRadius(blurRadius);
         } else {
             getWindow().setBackgroundDrawable(
-                    new ColorDrawable(getColor(R.color.tv_notification_default_background_color)));
+                    new ColorDrawable(getColor(R.color.notification_default_background_color)));
             getWindow().setBackgroundBlurRadius(0);
         }
     }

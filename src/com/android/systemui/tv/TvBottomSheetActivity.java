@@ -51,9 +51,9 @@ public abstract class TvBottomSheetActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tv_bottom_sheet);
+        setContentView(R.layout.bottom_sheet);
 
-        overridePendingTransition(R.anim.tv_bottom_sheet_enter, 0);
+        overridePendingTransition(R.anim.bottom_sheet_enter, 0);
 
         mBackgroundWithBlur = getResources()
                 .getDrawable(R.drawable.bottom_sheet_background_with_blur);
@@ -101,7 +101,7 @@ public abstract class TvBottomSheetActivity extends Activity {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, R.anim.tv_bottom_sheet_exit);
+        overridePendingTransition(0, R.anim.bottom_sheet_exit);
     }
 
 }

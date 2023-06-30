@@ -105,7 +105,7 @@ public class PrivacyItemsChip extends FrameLayout {
         mIconMarginHorizontal =
                 res.getDimensionPixelSize(R.dimen.privacy_chip_icon_margin_in_between);
 
-        LayoutInflater.from(context).inflate(R.layout.tv_ongoing_privacy_chip, this);
+        LayoutInflater.from(context).inflate(R.layout.ongoing_privacy_chip, this);
         LinearLayout iconsContainer = findViewById(R.id.icons_container);
 
         mChipBackgroundDrawable = new PrivacyChipDrawable(
