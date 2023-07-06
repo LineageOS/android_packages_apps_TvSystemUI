@@ -7,3 +7,13 @@
 }
 
 -keep,allowoptimization,allowaccessmodification class com.android.systemui.tv.DaggerTvGlobalRootComponent** { !synthetic *; }
+
+# TODO(b/284411203) delete the following rules
+-keep class com.android.systemui.statusbar.notification.row.wrapper.NotificationHeaderViewWrapper {
+    public android.view.View getExpandButton();
+}
+
+-keep class com.android.systemui.statusbar.notification.stack.NotificationChildrenContainer {
+    private com.android.systemui.statusbar.notification.row.wrapper.NotificationHeaderViewWrapper mNotificationHeaderWrapper;
+    private com.android.systemui.statusbar.notification.row.wrapper.NotificationHeaderViewWrapper mNotificationHeaderWrapperLowPriority;
+}
