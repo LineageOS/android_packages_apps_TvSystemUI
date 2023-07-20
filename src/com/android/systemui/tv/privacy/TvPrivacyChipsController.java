@@ -141,9 +141,9 @@ public class TvPrivacyChipsController
         updateStaticPrivacyIndicatorBounds();
 
         Interpolator collapseInterpolator = AnimationUtils.loadInterpolator(context,
-                R.interpolator.tv_privacy_chip_collapse_interpolator);
+                R.interpolator.privacy_chip_collapse_interpolator);
         Interpolator expandInterpolator = AnimationUtils.loadInterpolator(context,
-                R.interpolator.tv_privacy_chip_expand_interpolator);
+                R.interpolator.privacy_chip_expand_interpolator);
 
         TransitionSet chipFadeTransition = new TransitionSet()
                 .addTransition(new Fade(Fade.IN))
@@ -368,7 +368,7 @@ public class TvPrivacyChipsController
         Context privacyChipContext = new ContextThemeWrapper(mContext, R.style.PrivacyChip);
         mChips = new ArrayList<>();
         mChipsContainer = (ViewGroup) LayoutInflater.from(privacyChipContext)
-                .inflate(R.layout.tv_privacy_chip_container, null);
+                .inflate(R.layout.privacy_chip_container, null);
 
         int chipMargins = privacyChipContext.getResources()
                 .getDimensionPixelSize(R.dimen.privacy_chip_margin);

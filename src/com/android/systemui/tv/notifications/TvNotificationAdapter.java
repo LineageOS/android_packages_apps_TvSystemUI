@@ -46,7 +46,7 @@ public class TvNotificationAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @NonNull
     @Override
     public TvNotificationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_notification_item,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.notification_item,
                 parent, false);
         return new TvNotificationViewHolder(view);
     }
@@ -92,8 +92,8 @@ public class TvNotificationAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         protected TvNotificationViewHolder(View itemView) {
             super(itemView);
-            mTitle = itemView.findViewById(R.id.tv_notification_title);
-            mDetails = itemView.findViewById(R.id.tv_notification_details);
+            mTitle = itemView.findViewById(R.id.notification_title);
+            mDetails = itemView.findViewById(R.id.notification_details);
             itemView.setOnClickListener(this);
         }
 

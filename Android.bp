@@ -23,7 +23,9 @@ android_library {
         "src/**/*.java",
         "src/**/*.kt",
     ],
-    resource_dirs: [],
+    resource_dirs: [
+        "res",
+    ],
     static_libs: [
         "SystemUI-core",
         "SystemUIPluginLib",

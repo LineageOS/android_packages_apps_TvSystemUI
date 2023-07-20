@@ -90,9 +90,9 @@ public class PrivacyChipDrawable extends Drawable {
         mExpandedChipRadius = res.getDimensionPixelSize(R.dimen.privacy_chip_radius);
         mCollapsedChipRadius = res.getDimensionPixelSize(R.dimen.privacy_chip_dot_radius);
 
-        mExpand = AnimatorInflater.loadAnimator(context, R.anim.tv_privacy_chip_expand);
+        mExpand = AnimatorInflater.loadAnimator(context, R.anim.privacy_chip_expand);
         mExpand.setTarget(this);
-        mCollapse = AnimatorInflater.loadAnimator(context, R.anim.tv_privacy_chip_collapse);
+        mCollapse = AnimatorInflater.loadAnimator(context, R.anim.privacy_chip_collapse);
         mCollapse.setTarget(this);
     }
 
