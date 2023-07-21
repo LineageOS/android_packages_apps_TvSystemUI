@@ -23,6 +23,7 @@ import com.android.systemui.dagger.qualifiers.PerUser
 import com.android.systemui.globalactions.GlobalActionsComponent
 import com.android.systemui.keyboard.KeyboardUI
 import com.android.systemui.media.RingtonePlayer
+import com.android.systemui.media.dialog.MediaOutputSwitcherDialogUI
 import com.android.systemui.media.systemsounds.HomeSoundEffectController
 import com.android.systemui.power.PowerUI
 import com.android.systemui.tv.privacy.TvPrivacyChipsController
@@ -71,6 +72,12 @@ abstract class TVSystemUICoreStartableModule {
     @IntoMap
     @ClassKey(KeyboardUI::class)
     abstract fun bindKeyboardUI(sysui: KeyboardUI): CoreStartable
+
+    /** Inject into MediaOutputSwitcherDialogUI.  */
+    @Binds
+    @IntoMap
+    @ClassKey(MediaOutputSwitcherDialogUI::class)
+    abstract fun bindMediaOutputSwitcherDialogUI(sysui: MediaOutputSwitcherDialogUI): CoreStartable
 
     /** Inject into NotificationChannels.  */
     @Binds
