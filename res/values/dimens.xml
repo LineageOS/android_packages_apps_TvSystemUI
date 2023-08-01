@@ -62,4 +62,31 @@
 
     <dimen name="notification_panel_width">360dp</dimen>
     <dimen name="notification_blur_radius">31dp</dimen>
+
+    <dimen name="media_dialog_bg_radius">20dp</dimen>
+    <dimen name="media_dialog_item_bg_radius">16dp</dimen>
+    <dimen name="media_dialog_icon_bg_radius">16dp</dimen>
+
+    <dimen name="media_dialog_width">272dp</dimen>
+    <dimen name="media_dialog_margin_vertical">16dp</dimen>
+    <dimen name="media_dialog_margin_end">24dp</dimen>
+    <dimen name="media_dialog_item_margin_horizontal">12dp</dimen>
+    <dimen name="media_dialog_title_margin">16dp</dimen>
+
+    <dimen name="media_dialog_item_spacing">8dp</dimen>
+    <dimen name="media_dialog_item_padding">12dp</dimen>
+    <dimen name="media_dialog_icon_size">16dp</dimen>
+    <dimen name="media_dialog_icon_bg_size">32dp</dimen>
+    <dimen name="media_dialog_radio_size">24dp</dimen>
+
+    <dimen name="media_dialog_title">14sp</dimen>
+    <dimen name="media_dialog_divider_text">9sp</dimen>
+    <dimen name="media_dialog_item_title">12sp</dimen>
+    <dimen name="media_dialog_item_subtitle">12sp</dimen>
+    <item name="media_dialog_item_selection_scaled" format="float" type="dimen">1.025</item>
+
+    <dimen name="media_output_divider_width">60dp</dimen>
+    <dimen name="media_output_divider_height">1dp</dimen>
+    <dimen name="media_output_divider_margin_vertical">14dp</dimen>
+    <dimen name="media_output_text_divider_margin_top">20dp</dimen>
 </resources>

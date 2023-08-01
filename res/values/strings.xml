@@ -34,4 +34,7 @@
     <string name="screen_recording_announcement">Screen recording started</string>
     <string name="screen_stopped_recording_announcement">Screen recording stopped</string>
 
+    <string name="media_output_dialog_title">Audio Output</string>
+    <string name="media_output_dialog_other_devices">Other devices</string>
+    <string name="media_output_dialog_pairing_new">Connect another device</string>
 </resources>
