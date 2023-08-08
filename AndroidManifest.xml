@@ -37,7 +37,7 @@
 
         <!-- started from HdmiCecLocalDevicePlayback -->
         <activity
-            android:name="tv.hdmi.HdmiCecSetMenuLanguageActivity"
+            android:name=".tv.hdmi.HdmiCecSetMenuLanguageActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:finishOnCloseSystemDialogs="true"
@@ -65,7 +65,7 @@
 
         <!-- started from SensoryPrivacyService -->
         <activity
-            android:name="tv.sensorprivacy.TvUnblockSensorActivity"
+            android:name=".tv.sensorprivacy.TvUnblockSensorActivity"
             android:exported="true"
             android:finishOnCloseSystemDialogs="true"
             android:launchMode="singleTop"
@@ -75,7 +75,7 @@
 
         <!-- started from UsbDeviceSettingsManager -->
         <activity
-            android:name="tv.usb.TvUsbConfirmActivity"
+            android:name=".tv.usb.TvUsbConfirmActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:finishOnCloseSystemDialogs="true"
@@ -85,7 +85,7 @@
 
         <!-- started from UsbDeviceSettingsManager -->
         <activity
-            android:name="tv.usb.TvUsbPermissionActivity"
+            android:name=".tv.usb.TvUsbPermissionActivity"
             android:excludeFromRecents="true"
             android:exported="true"
             android:finishOnCloseSystemDialogs="true"
