@@ -41,7 +41,6 @@ import com.android.systemui.recents.RecentsImplementation
 import com.android.systemui.screenshot.ReferenceScreenshotModule
 import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.settings.dagger.MultiUserUtilsModule
-import com.android.systemui.shade.NotificationShadeWindowControllerImpl
 import com.android.systemui.shade.ShadeEmptyImplModule
 import com.android.systemui.shade.ShadeExpansionStateManager
 import com.android.systemui.statusbar.CommandQueue
@@ -70,6 +69,7 @@ import com.android.systemui.statusbar.policy.SensorPrivacyController
 import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl
 import com.android.systemui.tv.notifications.TvNotificationHandler
 import com.android.systemui.tv.notifications.TvNotificationsModule
+import com.android.systemui.tv.shade.TvNotificationShadeWindowController
 import com.android.systemui.volume.dagger.VolumeModule
 import dagger.Binds
 import dagger.Module
@@ -120,7 +120,8 @@ abstract class TvSystemUIModule {
 
     @Binds
     abstract fun bindNotificationShadeController(
-            notificationShadeWindowController: NotificationShadeWindowControllerImpl): NotificationShadeWindowController
+            notificationShadeWindowController: TvNotificationShadeWindowController
+    ): NotificationShadeWindowController
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Binds
