@@ -32,6 +32,7 @@ android_library {
         "SystemUISharedLib",
     ],
     manifest: "AndroidManifest.xml",
+    additional_manifests: ["AndroidManifest-exclude-overrides.xml"],
     plugins: ["dagger2-compiler"],
 }
 
