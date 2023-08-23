@@ -57,9 +57,6 @@
         <receiver android:name=".screenshot.SmartActionsReceiver"
             tools:node="remove" />
         <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".sensorprivacy.SensorUseStartedActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
         <activity android:name=".usb.UsbAccessoryUriActivity"
             tools:node="remove" />
         <!-- TODO(b/295161958) check if this can be removed safely -->
