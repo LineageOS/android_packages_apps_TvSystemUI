@@ -21,11 +21,11 @@ import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.dagger.SystemUIModule
 import com.android.systemui.globalactions.ShutdownUiModule
 import com.android.systemui.keyguard.dagger.KeyguardModule
-import com.android.systemui.recents.RecentsModule
 import com.android.systemui.scene.ShadelessSceneContainerFrameworkModule
 import com.android.systemui.statusbar.dagger.CentralSurfacesDependenciesModule
 import com.android.systemui.statusbar.notification.dagger.NotificationsModule
 import com.android.systemui.statusbar.notification.row.NotificationRowModule
+import com.android.systemui.tv.recents.TvRecentsModule
 import com.android.systemui.wallpapers.dagger.NoopWallpaperModule
 import dagger.Subcomponent
 
@@ -43,7 +43,7 @@ import dagger.Subcomponent
     NoopWallpaperModule::class,
     NotificationRowModule::class,
     NotificationsModule::class,
-    RecentsModule::class,
+    TvRecentsModule::class,
     ShadelessSceneContainerFrameworkModule::class,
     ShutdownUiModule::class,
     SystemUIModule::class,

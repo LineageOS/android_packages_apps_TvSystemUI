@@ -27,7 +27,6 @@ import com.android.systemui.dagger.qualifiers.Main
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
-import com.android.systemui.tv.hdmi.HdmiModule
 import com.android.systemui.navigationbar.gestural.GestureModule
 import com.android.systemui.plugins.qs.QSFactory
 import com.android.systemui.plugins.statusbar.StatusBarStateController
@@ -36,14 +35,10 @@ import com.android.systemui.privacy.MediaProjectionPrivacyItemMonitor
 import com.android.systemui.privacy.PrivacyItemMonitor
 import com.android.systemui.qs.dagger.QSModule
 import com.android.systemui.qs.tileimpl.QSFactoryImpl
-import com.android.systemui.recents.Recents
-import com.android.systemui.recents.RecentsImplementation
 import com.android.systemui.screenshot.ReferenceScreenshotModule
-import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.settings.dagger.MultiUserUtilsModule
 import com.android.systemui.shade.ShadeEmptyImplModule
 import com.android.systemui.shade.ShadeExpansionStateManager
-import com.android.systemui.statusbar.CommandQueue
 import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
 import com.android.systemui.statusbar.NotificationLockscreenUserManager
@@ -67,16 +62,18 @@ import com.android.systemui.statusbar.policy.IndividualSensorPrivacyController
 import com.android.systemui.statusbar.policy.IndividualSensorPrivacyControllerImpl
 import com.android.systemui.statusbar.policy.SensorPrivacyController
 import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl
+import com.android.systemui.tv.hdmi.HdmiModule
 import com.android.systemui.tv.notifications.TvNotificationHandler
 import com.android.systemui.tv.notifications.TvNotificationsModule
+import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.tv.shade.TvNotificationShadeWindowController
 import com.android.systemui.volume.dagger.VolumeModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoSet
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Named
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * A TV specific version of [ReferenceSystemUIModule].
@@ -84,7 +81,8 @@ import javax.inject.Named
  * Code here should be specific to the TV variant of SystemUI and will not be included in other
  * variants of SystemUI.
  */
-@Module(includes = [
+@Module(
+    includes = [
     AospPolicyModule::class,
     GestureModule::class,
     HdmiModule::class,
@@ -98,11 +96,13 @@ import javax.inject.Named
     TvSensorPrivacyModule::class,
     VolumeModule::class,
     KeyboardShortcutsModule::class,
-])
+]
+)
 abstract class TvSystemUIModule {
     @Binds
     abstract fun bindNotificationLockscreenUserManager(
-            notificationLockscreenUserManager: NotificationLockscreenUserManagerImpl): NotificationLockscreenUserManager
+            notificationLockscreenUserManager: NotificationLockscreenUserManagerImpl
+    ): NotificationLockscreenUserManager
 
     @Binds
     @SysUISingleton
@@ -116,7 +116,8 @@ abstract class TvSystemUIModule {
 
     @Binds
     abstract fun bindKeyguardViewController(
-            statusBarKeyguardViewManager: StatusBarKeyguardViewManager): KeyguardViewController
+            statusBarKeyguardViewManager: StatusBarKeyguardViewManager
+    ): KeyguardViewController
 
     @Binds
     abstract fun bindNotificationShadeController(
@@ -133,7 +134,8 @@ abstract class TvSystemUIModule {
     @Binds
     @IntoSet
     abstract fun bindMediaProjectionPrivacyItemMonitor(
-            mediaProjectionPrivacyItemMonitor: MediaProjectionPrivacyItemMonitor): PrivacyItemMonitor
+            mediaProjectionPrivacyItemMonitor: MediaProjectionPrivacyItemMonitor
+    ): PrivacyItemMonitor
 
     companion object {
         @SysUISingleton
@@ -144,18 +146,16 @@ abstract class TvSystemUIModule {
         @Provides
         @SysUISingleton
         fun provideSensorPrivacyController(
-                sensorPrivacyManager: SensorPrivacyManager): SensorPrivacyController =
-                SensorPrivacyControllerImpl(sensorPrivacyManager).apply {
-                    init()
-                }
+                sensorPrivacyManager: SensorPrivacyManager
+        ): SensorPrivacyController =
+                SensorPrivacyControllerImpl(sensorPrivacyManager).apply { init() }
 
         @Provides
         @SysUISingleton
         fun provideIndividualSensorPrivacyController(
-                sensorPrivacyManager: SensorPrivacyManager): IndividualSensorPrivacyController =
-                IndividualSensorPrivacyControllerImpl(sensorPrivacyManager).apply {
-                    init()
-                }
+                sensorPrivacyManager: SensorPrivacyManager
+        ): IndividualSensorPrivacyController =
+                IndividualSensorPrivacyControllerImpl(sensorPrivacyManager).apply { init() }
 
         @SysUISingleton
         @Provides
@@ -175,7 +175,8 @@ abstract class TvSystemUIModule {
                 @Main handler: Handler,
                 accessibilityManagerWrapper: AccessibilityManagerWrapper,
                 uiEventLogger: UiEventLogger,
-                shadeExpansionStateManager: ShadeExpansionStateManager): HeadsUpManagerPhone {
+                shadeExpansionStateManager: ShadeExpansionStateManager
+        ): HeadsUpManagerPhone {
             return HeadsUpManagerPhone(
                     context,
                     headsUpManagerLogger,
@@ -191,17 +192,11 @@ abstract class TvSystemUIModule {
             )
         }
 
-        @Provides
-        @SysUISingleton
-        fun provideRecents(context: Context,
-                           recentsImplementation: RecentsImplementation,
-                           commandQueue: CommandQueue): Recents =
-                Recents(context, recentsImplementation, commandQueue)
-
         @SysUISingleton
         @Provides
         fun providesDeviceProvisionedController(
-                deviceProvisionedController: DeviceProvisionedControllerImpl): DeviceProvisionedController {
+                deviceProvisionedController: DeviceProvisionedControllerImpl
+        ): DeviceProvisionedController {
             deviceProvisionedController.init()
             return deviceProvisionedController
         }
@@ -209,7 +204,7 @@ abstract class TvSystemUIModule {
         @Provides
         @SysUISingleton
         fun provideTvNotificationHandler(
-                notificationListener: NotificationListener): TvNotificationHandler =
-                TvNotificationHandler(notificationListener)
+                notificationListener: NotificationListener
+        ): TvNotificationHandler = TvNotificationHandler(notificationListener)
     }
 }
