@@ -166,18 +166,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             mTitle.setText(mediaDevice.getName());
 
             // Subtitle
-            CharSequence summary;
-            if (mediaDevice.getState()
-                    == LocalMediaManager.MediaDeviceState.STATE_CONNECTING_FAILED) {
-                summary =
-                        mContext.getString(
-                                com.android.systemui.R.string.media_output_dialog_connect_failed);
-            } else {
-                summary = mediaDevice.getSummary();
-            }
-            mSubtitle.setText(summary);
-            mSubtitle.setVisibility(summary != null && !summary.isEmpty()
-                    ? View.VISIBLE : View.GONE);
+            setSummary(mediaDevice);
 
             // Icon
             Drawable icon;
@@ -197,7 +186,10 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             mIcon.setImageDrawable(icon);
 
             mRadioButton.setVisibility(mediaDevice.isConnected() ? View.VISIBLE : View.GONE);
+            mRadioButton.setChecked(isCurrentlyConnected(mediaDevice));
+
             itemView.setOnFocusChangeListener((view, focused) -> {
+                setSummary(mediaDevice);
                 mRadioButton.getButtonDrawable().setTint(
                         focused ? mFocusedRadioTint : mUnfocusedRadioTint);
                 mTitle.setSelected(focused);
@@ -205,8 +197,23 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             });
 
             itemView.setOnClickListener(v -> transferOutput(mediaDevice));
+        }
 
-            mRadioButton.setChecked(isCurrentlyConnected(mediaDevice));
+        private void setSummary(MediaDevice mediaDevice) {
+            CharSequence summary;
+            if (mediaDevice.getState()
+                    == LocalMediaManager.MediaDeviceState.STATE_CONNECTING_FAILED) {
+                summary = mContext.getString(
+                        com.android.systemui.R.string.media_output_dialog_connect_failed);
+            } else {
+                summary = mediaDevice.getSummaryForTv(itemView.hasFocus()
+                        ? R.color.media_dialog_low_battery_focused
+                        : R.color.media_dialog_low_battery_unfocused);
+            }
+
+            mSubtitle.setText(summary);
+            mSubtitle.setVisibility(summary == null || summary.isEmpty()
+                    ? View.GONE : View.VISIBLE);
         }
 
         private void transferOutput(MediaDevice mediaDevice) {
