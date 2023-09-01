@@ -15,7 +15,6 @@
  */
 package com.android.systemui.tv.dagger
 
-import com.android.systemui.dagger.DefaultComponentBinder
 import com.android.systemui.dagger.DependencyProvider
 import com.android.systemui.dagger.SysUIComponent
 import com.android.systemui.dagger.SysUISingleton
@@ -31,13 +30,14 @@ import com.android.systemui.wallpapers.dagger.NoopWallpaperModule
 import dagger.Subcomponent
 
 /**
- * Dagger Subcomponent for Core SysUI.
+ * Dagger Subcomponent for Tv SysUI.
  */
 @SysUISingleton
 @Subcomponent(
     modules = [
     CentralSurfacesDependenciesModule::class,
-    DefaultComponentBinder::class,
+    TvServiceBinder::class,
+    TvBroadcastReceiverBinder::class,
     DependencyProvider::class,
     KeyguardModule::class,
     NoopWallpaperModule::class,
