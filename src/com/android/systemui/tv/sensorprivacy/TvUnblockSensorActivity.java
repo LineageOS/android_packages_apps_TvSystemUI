@@ -149,13 +149,14 @@ public class TvUnblockSensorActivity extends TvBottomSheetActivity {
     }
 
     private void initUI() {
-        mTitle = findViewById(R.id.bottom_sheet_title);
-        mContent = findViewById(R.id.bottom_sheet_body);
-        mIcon = findViewById(R.id.bottom_sheet_icon);
+        mTitle = findViewById(com.android.systemui.tv.res.R.id.bottom_sheet_title);
+        mContent = findViewById(com.android.systemui.tv.res.R.id.bottom_sheet_body);
+        mIcon = findViewById(com.android.systemui.tv.res.R.id.bottom_sheet_icon);
         // mic icon if both icons are shown
-        mSecondIcon = findViewById(R.id.bottom_sheet_second_icon);
-        mPositiveButton = findViewById(R.id.bottom_sheet_positive_button);
-        mCancelButton = findViewById(R.id.bottom_sheet_negative_button);
+        mSecondIcon = findViewById(com.android.systemui.tv.res.R.id.bottom_sheet_second_icon);
+        mPositiveButton =
+                findViewById(com.android.systemui.tv.res.R.id.bottom_sheet_positive_button);
+        mCancelButton = findViewById(com.android.systemui.tv.res.R.id.bottom_sheet_negative_button);
 
         mCancelButton.setText(android.R.string.cancel);
         mCancelButton.setOnClickListener(v -> finish());
@@ -181,8 +182,12 @@ public class TvUnblockSensorActivity extends TvBottomSheetActivity {
         boolean cameraBlocked = (mSensor == Sensors.CAMERA || mSensor == ALL_SENSORS)
                 && mSensorPrivacyController.isSensorBlockedByHardwareToggle(Sensors.CAMERA);
 
-        setIconTint(resources.getBoolean(R.bool.config_unblockHwSensorIconEnableTint));
-        setIconSize(R.dimen.unblock_hw_sensor_icon_width, R.dimen.unblock_hw_sensor_icon_height);
+        setIconTint(
+                resources.getBoolean(
+                        com.android.systemui.tv.res.R.bool.config_unblockHwSensorIconEnableTint));
+        setIconSize(
+                com.android.systemui.tv.res.R.dimen.unblock_hw_sensor_icon_width,
+                com.android.systemui.tv.res.R.dimen.unblock_hw_sensor_icon_height);
 
         if (micBlocked && cameraBlocked) {
             mTitle.setText(R.string.sensor_privacy_start_use_mic_camera_blocked_dialog_title);
@@ -221,7 +226,9 @@ public class TvUnblockSensorActivity extends TvBottomSheetActivity {
 
     private void updateUiForSoftwareToggle() {
         setIconTint(true);
-        setIconSize(R.dimen.bottom_sheet_icon_size, R.dimen.bottom_sheet_icon_size);
+        setIconSize(
+                com.android.systemui.tv.res.R.dimen.bottom_sheet_icon_size,
+                com.android.systemui.tv.res.R.dimen.bottom_sheet_icon_size);
 
         switch (mSensor) {
             case Sensors.MICROPHONE:
@@ -260,7 +267,9 @@ public class TvUnblockSensorActivity extends TvBottomSheetActivity {
 
     private void updateUiForHTT() {
         setIconTint(true);
-        setIconSize(R.dimen.bottom_sheet_icon_size, R.dimen.bottom_sheet_icon_size);
+        setIconSize(
+                com.android.systemui.tv.res.R.dimen.bottom_sheet_icon_size,
+                com.android.systemui.tv.res.R.dimen.bottom_sheet_icon_size);
 
         mTitle.setText(R.string.sensor_privacy_start_use_mic_blocked_dialog_title);
         mContent.setText(R.string.sensor_privacy_htt_blocked_dialog_content);
@@ -285,8 +294,10 @@ public class TvUnblockSensorActivity extends TvBottomSheetActivity {
         final Resources resources = getResources();
 
         if (enableTint) {
-            final ColorStateList iconTint = resources.getColorStateList(
-                    R.color.bottom_sheet_icon_color, getTheme());
+            final ColorStateList iconTint =
+                    resources.getColorStateList(
+                            com.android.systemui.tv.res.R.color.bottom_sheet_icon_color,
+                            getTheme());
             mIcon.setImageTintList(iconTint);
             mSecondIcon.setImageTintList(iconTint);
         } else {

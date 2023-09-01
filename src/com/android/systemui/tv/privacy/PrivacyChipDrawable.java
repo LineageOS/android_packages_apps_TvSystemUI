@@ -36,7 +36,7 @@ import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.android.systemui.R;
+import com.android.systemui.tv.res.R;
 
 /**
  * Drawable that can go from being the background of the privacy icons to a small dot.

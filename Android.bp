@@ -18,18 +18,27 @@ package {
 }
 
 android_library {
+    name: "TvSystemUI-res",
+    resource_dirs: [
+        "res",
+    ],
+    manifest: "AndroidManifest-res.xml",
+    use_resource_processor: true,
+}
+
+android_library {
     name: "TvSystemUI-core",
     srcs: [
         "src/**/*.java",
         "src/**/*.kt",
     ],
-    resource_dirs: [
-        "res",
-    ],
+    resource_dirs: [],
+    use_resource_processor: true,
     static_libs: [
         "SystemUI-core",
         "SystemUIPluginLib",
         "SystemUISharedLib",
+        "TvSystemUI-res",
     ],
     manifest: "AndroidManifest.xml",
     additional_manifests: ["AndroidManifest-exclude-overrides.xml"],
@@ -49,6 +58,7 @@ android_app {
         "SystemUI",
     ],
     resource_dirs: [],
+    use_resource_processor: true,
 
     platform_apis: true,
     system_ext_specific: true,

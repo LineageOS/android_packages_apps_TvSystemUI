@@ -25,9 +25,9 @@ import android.content.Context
 import com.android.internal.messages.nano.SystemMessageProto
 import com.android.internal.net.VpnConfig
 import com.android.systemui.CoreStartable
-import com.android.systemui.R
 import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.statusbar.policy.SecurityController
+import com.android.systemui.tv.res.R
 import javax.inject.Inject
 
 /**
@@ -48,9 +48,9 @@ class VpnStatusObserver @Inject constructor(
 
     private val vpnIconId: Int
         get() = if (securityController.isVpnBranded) {
-            R.drawable.stat_sys_branded_vpn
+            com.android.systemui.R.drawable.stat_sys_branded_vpn
         } else {
-            R.drawable.stat_sys_vpn_ic
+            com.android.systemui.R.drawable.stat_sys_vpn_ic
         }
 
     private val vpnName: String?
@@ -85,8 +85,10 @@ class VpnStatusObserver @Inject constructor(
         cancel(NOTIFICATION_TAG, SystemMessageProto.SystemMessage.NOTE_VPN_STATUS)
         // show the disconnected notification only for a short while
         notify(
-            NOTIFICATION_TAG, SystemMessageProto.SystemMessage.NOTE_VPN_DISCONNECTED,
-                vpnDisconnectedNotification)
+            NOTIFICATION_TAG,
+            SystemMessageProto.SystemMessage.NOTE_VPN_DISCONNECTED,
+                vpnDisconnectedNotification
+        )
     }
 
     private fun createNotificationChannel() =
@@ -99,17 +101,13 @@ class VpnStatusObserver @Inject constructor(
             }
 
     private fun createVpnConnectedNotification() =
-            vpnConnectedNotificationBuilder
-                    .apply {
-                        vpnName?.let {
+            vpnConnectedNotificationBuilder.apply {
+                vpnName?.let {
                             setContentText(
-                                    context.getString(
-                                            R.string.notification_disclosure_vpn_text, it
-                                    )
+                                context.getString(R.string.notification_disclosure_vpn_text, it)
                             )
-                        }
                     }
-                    .build()
+                }.build()
 
     private fun createVpnConnectedNotificationBuilder() =
             Notification.Builder(context, NOTIFICATION_CHANNEL_TV_VPN)

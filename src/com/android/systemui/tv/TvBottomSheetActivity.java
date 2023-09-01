@@ -27,7 +27,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.android.systemui.R;
+import com.android.systemui.tv.res.R;
 
 import java.util.Collections;
 import java.util.function.Consumer;

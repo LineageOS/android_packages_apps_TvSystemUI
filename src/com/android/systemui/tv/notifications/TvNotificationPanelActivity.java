@@ -29,7 +29,7 @@ import android.view.View;
 
 import androidx.leanback.widget.VerticalGridView;
 
-import com.android.systemui.R;
+import com.android.systemui.tv.res.R;
 
 import java.util.function.Consumer;
 

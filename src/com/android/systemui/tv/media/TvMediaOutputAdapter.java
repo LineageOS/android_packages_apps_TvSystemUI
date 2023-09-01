@@ -35,9 +35,9 @@ import androidx.annotation.NonNull;
 import com.android.internal.widget.RecyclerView;
 import com.android.settingslib.media.LocalMediaManager;
 import com.android.settingslib.media.MediaDevice;
-import com.android.systemui.R;
 import com.android.systemui.media.dialog.MediaItem;
 import com.android.systemui.media.dialog.MediaOutputController;
+import com.android.systemui.tv.res.R;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -169,7 +169,9 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             CharSequence summary;
             if (mediaDevice.getState()
                     == LocalMediaManager.MediaDeviceState.STATE_CONNECTING_FAILED) {
-                summary = mContext.getString(R.string.media_output_dialog_connect_failed);
+                summary =
+                        mContext.getString(
+                                com.android.systemui.R.string.media_output_dialog_connect_failed);
             } else {
                 summary = mediaDevice.getSummary();
             }
@@ -181,7 +183,9 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             Drawable icon;
             if (mediaDevice.getState()
                     == LocalMediaManager.MediaDeviceState.STATE_CONNECTING_FAILED) {
-                icon = mContext.getDrawable(R.drawable.media_output_status_failed);
+                icon =
+                        mContext.getDrawable(
+                                com.android.systemui.R.drawable.media_output_status_failed);
             } else {
                 icon = mediaDevice.getIconWithoutBackground();
             }
@@ -229,7 +233,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
         void onBindNewDevice() {
-            mIcon.setImageResource(R.drawable.ic_add);
+            mIcon.setImageResource(com.android.systemui.R.drawable.ic_add);
             mTitle.setText(R.string.media_output_dialog_pairing_new);
             mSubtitle.setVisibility(View.GONE);
             mRadioButton.setVisibility(View.GONE);

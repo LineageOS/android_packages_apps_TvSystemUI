@@ -32,8 +32,8 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 
-import com.android.systemui.R;
 import com.android.systemui.privacy.PrivacyType;
+import com.android.systemui.tv.res.R;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

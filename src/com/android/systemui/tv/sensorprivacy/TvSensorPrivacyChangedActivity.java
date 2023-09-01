@@ -32,9 +32,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.systemui.R;
 import com.android.systemui.statusbar.policy.IndividualSensorPrivacyController;
 import com.android.systemui.tv.TvBottomSheetActivity;
+import com.android.systemui.tv.res.R;
 import com.android.systemui.util.settings.GlobalSettings;
 
 import javax.inject.Inject;
@@ -149,17 +149,23 @@ public class TvSensorPrivacyChangedActivity extends TvBottomSheetActivity {
 
     private void updateUiForMicUpdate(boolean blocked) {
         if (blocked) {
-            mTitle.setText(R.string.sensor_privacy_mic_turned_off_dialog_title);
+            mTitle.setText(
+                    com.android.systemui.R.string.sensor_privacy_mic_turned_off_dialog_title);
             if (isExplicitUserInteractionAudioBypassAllowed()) {
-                mContent.setText(R.string.sensor_privacy_mic_blocked_with_exception_dialog_content);
+                mContent.setText(
+                        com.android.systemui.R.string
+                                .sensor_privacy_mic_blocked_with_exception_dialog_content);
             } else {
-                mContent.setText(R.string.sensor_privacy_mic_blocked_no_exception_dialog_content);
+                mContent.setText(
+                        com.android.systemui.R.string
+                                .sensor_privacy_mic_blocked_no_exception_dialog_content);
             }
-            mIcon.setImageResource(R.drawable.unblock_hw_sensor_microphone);
+            mIcon.setImageResource(com.android.systemui.R.drawable.unblock_hw_sensor_microphone);
             mSecondIcon.setVisibility(View.GONE);
         } else {
-            mTitle.setText(R.string.sensor_privacy_mic_turned_on_dialog_title);
-            mContent.setText(R.string.sensor_privacy_mic_unblocked_dialog_content);
+            mTitle.setText(com.android.systemui.R.string.sensor_privacy_mic_turned_on_dialog_title);
+            mContent.setText(
+                    com.android.systemui.R.string.sensor_privacy_mic_unblocked_dialog_content);
             mIcon.setImageResource(com.android.internal.R.drawable.ic_mic_allowed);
             mSecondIcon.setVisibility(View.GONE);
         }
@@ -167,13 +173,17 @@ public class TvSensorPrivacyChangedActivity extends TvBottomSheetActivity {
 
     private void updateUiForCameraUpdate(boolean blocked) {
         if (blocked) {
-            mTitle.setText(R.string.sensor_privacy_camera_turned_off_dialog_title);
-            mContent.setText(R.string.sensor_privacy_camera_blocked_dialog_content);
-            mIcon.setImageResource(R.drawable.unblock_hw_sensor_camera);
+            mTitle.setText(
+                    com.android.systemui.R.string.sensor_privacy_camera_turned_off_dialog_title);
+            mContent.setText(
+                    com.android.systemui.R.string.sensor_privacy_camera_blocked_dialog_content);
+            mIcon.setImageResource(com.android.systemui.R.drawable.unblock_hw_sensor_camera);
             mSecondIcon.setVisibility(View.GONE);
         } else {
-            mTitle.setText(R.string.sensor_privacy_camera_turned_on_dialog_title);
-            mContent.setText(R.string.sensor_privacy_camera_unblocked_dialog_content);
+            mTitle.setText(
+                    com.android.systemui.R.string.sensor_privacy_camera_turned_on_dialog_title);
+            mContent.setText(
+                    com.android.systemui.R.string.sensor_privacy_camera_unblocked_dialog_content);
             mIcon.setImageResource(com.android.internal.R.drawable.ic_camera_allowed);
             mSecondIcon.setVisibility(View.GONE);
         }

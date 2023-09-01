@@ -51,11 +51,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.systemui.CoreStartable;
-import com.android.systemui.R;
 import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.privacy.PrivacyItem;
 import com.android.systemui.privacy.PrivacyItemController;
 import com.android.systemui.privacy.PrivacyType;
+import com.android.systemui.tv.res.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

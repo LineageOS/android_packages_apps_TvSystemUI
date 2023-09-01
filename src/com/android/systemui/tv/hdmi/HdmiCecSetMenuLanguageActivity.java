@@ -24,8 +24,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.systemui.R;
 import com.android.systemui.tv.TvBottomSheetActivity;
+import com.android.systemui.tv.res.R;
 
 import javax.inject.Inject;
 
@@ -59,9 +59,12 @@ public class HdmiCecSetMenuLanguageActivity extends TvBottomSheetActivity
     @Override
     public void onResume() {
         super.onResume();
-        CharSequence title = getString(R.string.hdmi_cec_set_menu_language_title,
-                mHdmiCecSetMenuLanguageHelper.getLocale().getDisplayLanguage());
-        CharSequence text = getString(R.string.hdmi_cec_set_menu_language_description);
+        CharSequence title =
+                getString(
+                        com.android.systemui.R.string.hdmi_cec_set_menu_language_title,
+                        mHdmiCecSetMenuLanguageHelper.getLocale().getDisplayLanguage());
+        CharSequence text =
+                getString(com.android.systemui.R.string.hdmi_cec_set_menu_language_description);
         initUI(title, text);
     }
 
@@ -88,10 +91,10 @@ public class HdmiCecSetMenuLanguageActivity extends TvBottomSheetActivity
         icon.setImageResource(com.android.internal.R.drawable.ic_settings_language);
         secondIcon.setVisibility(View.GONE);
 
-        okButton.setText(R.string.hdmi_cec_set_menu_language_accept);
+        okButton.setText(com.android.systemui.R.string.hdmi_cec_set_menu_language_accept);
         okButton.setOnClickListener(this);
 
-        cancelButton.setText(R.string.hdmi_cec_set_menu_language_decline);
+        cancelButton.setText(com.android.systemui.R.string.hdmi_cec_set_menu_language_decline);
         cancelButton.setOnClickListener(this);
         cancelButton.requestFocus();
     }

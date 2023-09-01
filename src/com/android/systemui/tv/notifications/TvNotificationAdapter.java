@@ -30,7 +30,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.systemui.R;
+import com.android.systemui.tv.res.R;
 
 /**
  * Adapter for the VerticalGridView of the TvNotificationsPanelView.

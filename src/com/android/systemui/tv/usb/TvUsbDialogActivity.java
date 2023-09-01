@@ -24,8 +24,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.systemui.R;
 import com.android.systemui.tv.TvBottomSheetActivity;
+import com.android.systemui.tv.res.R;
 import com.android.systemui.usb.UsbDialogHelper;
 
 abstract class TvUsbDialogActivity extends TvBottomSheetActivity implements View.OnClickListener {

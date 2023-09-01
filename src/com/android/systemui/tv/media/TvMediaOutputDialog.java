@@ -37,10 +37,10 @@ import android.view.WindowManager;
 
 import com.android.internal.widget.LinearLayoutManager;
 import com.android.internal.widget.RecyclerView;
-import com.android.systemui.R;
 import com.android.systemui.broadcast.BroadcastSender;
 import com.android.systemui.media.dialog.MediaOutputController;
 import com.android.systemui.statusbar.phone.SystemUIDialog;
+import com.android.systemui.tv.res.R;
 
 import java.util.Collections;
 
@@ -116,7 +116,9 @@ public class TvMediaOutputDialog extends SystemUIDialog implements MediaOutputCo
         window.setAttributes(lp);
         window.setElevation(getWindow().getElevation() + 5);
         window.setContentView(mDialogView);
-        window.setTitle(mContext.getString(R.string.media_output_dialog_accessibility_title));
+        window.setTitle(
+                mContext.getString(
+                        com.android.systemui.R.string.media_output_dialog_accessibility_title));
         window.setWindowAnimations(R.style.TvMediaOutputDialog);
 
         window.getDecorView().addOnLayoutChangeListener(
