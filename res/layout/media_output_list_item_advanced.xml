@@ -58,8 +58,10 @@
             android:textColor="@color/media_dialog_item_title"
             android:textSize="@dimen/media_dialog_item_title"
             android:textFontWeight="500"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
             android:duplicateParentState="true" />
         <TextView
             android:id="@+id/media_dialog_item_subtitle"
@@ -67,8 +69,10 @@
             android:layout_height="wrap_content"
             android:textColor="@color/media_dialog_item_subtitle"
             android:textSize="@dimen/media_dialog_item_subtitle"
-            android:ellipsize="end"
-            android:maxLines="1"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:scrollHorizontally="true"
             android:duplicateParentState="true" />
     </LinearLayout>
 
