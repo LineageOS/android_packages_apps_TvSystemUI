@@ -79,4 +79,9 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsFloating">true</item>
     </style>
+
+    <style name="TvMediaOutputDialog">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 </resources>
