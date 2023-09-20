@@ -154,9 +154,6 @@
             tools:node="remove" />
         <receiver android:name=".statusbar.KeyboardShortcutsReceiver"
             tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".logcat.LogAccessDialogActivity"
-            tools:node="remove" />
 
         <provider android:name="com.android.systemui.people.PeopleProvider"
             android:authorities="${applicationId}.people.PeopleProvider"
