@@ -21,6 +21,7 @@ import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.dagger.SystemUIModule
 import com.android.systemui.globalactions.ShutdownUiModule
 import com.android.systemui.keyguard.dagger.KeyguardModule
+import com.android.systemui.navigationbar.NoopNavigationBarControllerModule
 import com.android.systemui.scene.ShadelessSceneContainerFrameworkModule
 import com.android.systemui.statusbar.dagger.CentralSurfacesDependenciesModule
 import com.android.systemui.statusbar.notification.dagger.NotificationsModule
@@ -40,6 +41,7 @@ import dagger.Subcomponent
     TvBroadcastReceiverBinder::class,
     DependencyProvider::class,
     KeyguardModule::class,
+    NoopNavigationBarControllerModule::class,
     NoopWallpaperModule::class,
     NotificationRowModule::class,
     NotificationsModule::class,
