@@ -18,6 +18,7 @@ package com.android.systemui.tv.dagger
 import android.app.Service
 import com.android.systemui.SystemUIService
 import com.android.systemui.dump.SystemUIAuxiliaryDumpService
+import com.android.systemui.wallpapers.ImageWallpaper
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.ClassKey
@@ -35,4 +36,9 @@ abstract class TvServiceBinder {
   @IntoMap
   @ClassKey(SystemUIAuxiliaryDumpService::class)
   abstract fun bindSystemUIAuxiliaryDumpService(service: SystemUIAuxiliaryDumpService): Service
+
+  @Binds
+  @IntoMap
+  @ClassKey(ImageWallpaper::class)
+  abstract fun bindImageWallpaper(service: ImageWallpaper): Service
 }

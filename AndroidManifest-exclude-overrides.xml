@@ -48,8 +48,6 @@
             tools:node="remove" />
         <service android:name=".screenrecord.RecordingService"
             tools:node="remove" />
-        <service android:name=".wallpapers.ImageWallpaper"
-            tools:node="remove" />
         <receiver android:name=".screenshot.ActionProxyReceiver"
             tools:node="remove" />
         <receiver android:name=".screenshot.DeleteScreenshotReceiver"
