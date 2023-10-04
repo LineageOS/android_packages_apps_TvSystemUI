@@ -20,7 +20,6 @@ import android.content.Context
 import android.hardware.SensorPrivacyManager
 import android.media.AudioManager
 import android.media.session.MediaSessionManager
-import android.os.Handler
 import android.os.PowerExemptionManager
 import com.android.internal.logging.UiEventLogger
 import com.android.keyguard.KeyguardViewController
@@ -30,18 +29,15 @@ import com.android.systemui.animation.DialogLaunchAnimator
 import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.dagger.ReferenceSystemUIModule
 import com.android.systemui.dagger.SysUISingleton
-import com.android.systemui.dagger.qualifiers.Main
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
 import com.android.systemui.flags.FeatureFlags
 import com.android.systemui.media.dialog.MediaOutputDialogFactory
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager
-import com.android.systemui.tv.hdmi.HdmiModule
 import com.android.systemui.navigationbar.gestural.GestureModule
 import com.android.systemui.plugins.ActivityStarter
 import com.android.systemui.plugins.qs.QSFactory
-import com.android.systemui.plugins.statusbar.StatusBarStateController
 import com.android.systemui.power.dagger.PowerModule
 import com.android.systemui.privacy.MediaProjectionPrivacyItemMonitor
 import com.android.systemui.privacy.PrivacyItemMonitor
@@ -51,7 +47,6 @@ import com.android.systemui.screenshot.ReferenceScreenshotModule
 import com.android.systemui.settings.UserTracker
 import com.android.systemui.settings.dagger.MultiUserUtilsModule
 import com.android.systemui.shade.ShadeEmptyImplModule
-import com.android.systemui.shade.ShadeExpansionStateManager
 import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
 import com.android.systemui.statusbar.NotificationLockscreenUserManager
@@ -59,23 +54,17 @@ import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl
 import com.android.systemui.statusbar.NotificationShadeWindowController
 import com.android.systemui.statusbar.events.StatusBarEventsModule
 import com.android.systemui.statusbar.notification.collection.notifcollection.CommonNotifCollection
-import com.android.systemui.statusbar.notification.collection.provider.VisualStabilityProvider
-import com.android.systemui.statusbar.notification.collection.render.GroupMembershipManager
 import com.android.systemui.statusbar.phone.DozeServiceHost
-import com.android.systemui.statusbar.phone.HeadsUpManagerPhone
-import com.android.systemui.statusbar.phone.KeyguardBypassController
 import com.android.systemui.statusbar.phone.StatusBarKeyguardViewManager
-import com.android.systemui.statusbar.policy.AccessibilityManagerWrapper
 import com.android.systemui.statusbar.policy.AospPolicyModule
-import com.android.systemui.statusbar.policy.ConfigurationController
 import com.android.systemui.statusbar.policy.DeviceProvisionedController
 import com.android.systemui.statusbar.policy.DeviceProvisionedControllerImpl
-import com.android.systemui.statusbar.policy.HeadsUpManager
-import com.android.systemui.statusbar.policy.HeadsUpManagerLogger
+import com.android.systemui.statusbar.policy.HeadsUpEmptyImplModule
 import com.android.systemui.statusbar.policy.IndividualSensorPrivacyController
 import com.android.systemui.statusbar.policy.IndividualSensorPrivacyControllerImpl
 import com.android.systemui.statusbar.policy.SensorPrivacyController
 import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl
+import com.android.systemui.tv.hdmi.HdmiModule
 import com.android.systemui.tv.media.TvMediaOutputDialogFactory
 import com.android.systemui.tv.notifications.TvNotificationHandler
 import com.android.systemui.tv.notifications.TvNotificationsModule
@@ -100,6 +89,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     AospPolicyModule::class,
     GestureModule::class,
     HdmiModule::class,
+    HeadsUpEmptyImplModule::class,
     MultiUserUtilsModule::class,
     PowerModule::class,
     QSModule::class,
@@ -124,9 +114,6 @@ abstract class TvSystemUIModule {
 
     @Binds
     abstract fun bindDockManager(dockManager: DockManagerImpl): DockManager
-
-    @Binds
-    abstract fun bindHeadsUpManagerPhone(headsUpManagerPhone: HeadsUpManagerPhone): HeadsUpManager
 
     @Binds
     abstract fun bindKeyguardViewController(
@@ -178,36 +165,6 @@ abstract class TvSystemUIModule {
 
         @SysUISingleton
         @Provides
-        fun provideHeadsUpManagerPhone(
-                context: Context,
-                headsUpManagerLogger: HeadsUpManagerLogger,
-                statusBarStateController: StatusBarStateController,
-                bypassController: KeyguardBypassController,
-                groupManager: GroupMembershipManager,
-                visualStabilityProvider: VisualStabilityProvider,
-                configurationController: ConfigurationController,
-                @Main handler: Handler,
-                accessibilityManagerWrapper: AccessibilityManagerWrapper,
-                uiEventLogger: UiEventLogger,
-                shadeExpansionStateManager: ShadeExpansionStateManager
-        ): HeadsUpManagerPhone {
-            return HeadsUpManagerPhone(
-                    context,
-                    headsUpManagerLogger,
-                    statusBarStateController,
-                    bypassController,
-                    groupManager,
-                    visualStabilityProvider,
-                    configurationController,
-                    handler,
-                    accessibilityManagerWrapper,
-                    uiEventLogger,
-                    shadeExpansionStateManager
-            )
-        }
-
-        @SysUISingleton
-        @Provides
         fun providesDeviceProvisionedController(
                 deviceProvisionedController: DeviceProvisionedControllerImpl
         ): DeviceProvisionedController {
@@ -222,20 +179,22 @@ abstract class TvSystemUIModule {
         ): TvNotificationHandler = TvNotificationHandler(notificationListener)
 
         @Provides
-        fun provideMediaOutputDialogFactory(context: Context,
-                                            mediaSessionManager: MediaSessionManager,
-                                            localBluetoothManager: LocalBluetoothManager?,
-                                            activityStarter: ActivityStarter,
-                                            broadcastSender: BroadcastSender,
-                                            notifCollection: CommonNotifCollection,
-                                            uiEventLogger: UiEventLogger,
-                                            dialogLaunchAnimator: DialogLaunchAnimator,
-                                            nearbyMediaDevicesManager: NearbyMediaDevicesManager,
-                                            audioManager: AudioManager,
-                                            powerExemptionManager: PowerExemptionManager,
-                                            keyguardManager: KeyguardManager,
-                                            featureFlags: FeatureFlags,
-                                            userTracker: UserTracker): MediaOutputDialogFactory =
+        fun provideMediaOutputDialogFactory(
+            context: Context,
+            mediaSessionManager: MediaSessionManager,
+            localBluetoothManager: LocalBluetoothManager?,
+            activityStarter: ActivityStarter,
+            broadcastSender: BroadcastSender,
+            notifCollection: CommonNotifCollection,
+            uiEventLogger: UiEventLogger,
+            dialogLaunchAnimator: DialogLaunchAnimator,
+            nearbyMediaDevicesManager: NearbyMediaDevicesManager,
+            audioManager: AudioManager,
+            powerExemptionManager: PowerExemptionManager,
+            keyguardManager: KeyguardManager,
+            featureFlags: FeatureFlags,
+            userTracker: UserTracker,
+            ): MediaOutputDialogFactory =
                 TvMediaOutputDialogFactory(context, mediaSessionManager, localBluetoothManager,
                         activityStarter, broadcastSender, notifCollection, uiEventLogger,
                         dialogLaunchAnimator, nearbyMediaDevicesManager, audioManager,
