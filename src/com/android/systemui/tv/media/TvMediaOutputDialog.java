@@ -37,6 +37,7 @@ import android.view.WindowManager;
 
 import com.android.internal.widget.LinearLayoutManager;
 import com.android.internal.widget.RecyclerView;
+import com.android.settingslib.media.MediaDevice;
 import com.android.systemui.broadcast.BroadcastSender;
 import com.android.systemui.media.dialog.MediaOutputController;
 import com.android.systemui.statusbar.phone.SystemUIDialog;
@@ -66,6 +67,8 @@ public class TvMediaOutputDialog extends SystemUIDialog implements MediaOutputCo
     protected final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
 
     private boolean mDismissing;
+
+    private String mActiveDeviceId;
 
     TvMediaOutputDialog(Context context,
             TvMediaOutputController mediaOutputController,
@@ -176,11 +179,20 @@ public class TvMediaOutputDialog extends SystemUIDialog implements MediaOutputCo
     @Override
     public void onRouteChanged() {
         mMainThreadHandler.post(() -> refresh(/* deviceSetChanged= */ false));
+        MediaDevice activeDevice = mMediaOutputController.getCurrentConnectedMediaDevice();
+        if (mActiveDeviceId != null && !mActiveDeviceId.equals(activeDevice.getId())) {
+            mMediaOutputController.showVolumeDialog();
+        }
+        mActiveDeviceId = activeDevice.getId();
     }
 
     @Override
     public void onDeviceListChanged() {
         mMainThreadHandler.post(() -> refresh(/* deviceSetChanged= */ true));
+        if (mActiveDeviceId == null
+                && mMediaOutputController.getCurrentConnectedMediaDevice() != null) {
+            mActiveDeviceId = mMediaOutputController.getCurrentConnectedMediaDevice().getId();
+        }
     }
 
     @Override

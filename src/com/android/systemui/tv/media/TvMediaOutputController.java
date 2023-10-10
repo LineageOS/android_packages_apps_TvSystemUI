@@ -55,6 +55,7 @@ import java.util.List;
 public class TvMediaOutputController extends MediaOutputController {
 
     private final Context mContext;
+    private final AudioManager mAudioManager;
 
     public TvMediaOutputController(
             @NotNull Context context,
@@ -74,6 +75,11 @@ public class TvMediaOutputController extends MediaOutputController {
                 dialogLaunchAnimator, nearbyMediaDevicesManager, audioManager,
                 powerExemptionManager, keyGuardManager, featureFlags, userTracker);
         mContext = context;
+        mAudioManager = audioManager;
+    }
+
+    void showVolumeDialog() {
+        mAudioManager.adjustVolume(AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
     }
 
     /**
