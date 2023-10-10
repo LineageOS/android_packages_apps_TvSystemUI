@@ -106,7 +106,8 @@ public class TvMediaOutputDialog extends SystemUIDialog implements MediaOutputCo
 
         final Window window = getWindow();
         final WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = Gravity.TOP | Gravity.END;
+        lp.gravity = Gravity.getAbsoluteGravity(Gravity.TOP | Gravity.END,
+                res.getConfiguration().getLayoutDirection());
         lp.width = res.getDimensionPixelSize(R.dimen.media_dialog_width);
         lp.height = screenHeight - 2 * marginVerticalPx;
         lp.horizontalMargin = ((float) marginEndPx) / screenWidth;
