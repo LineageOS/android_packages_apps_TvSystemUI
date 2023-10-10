@@ -25,6 +25,7 @@ import android.view.View
 import com.android.internal.jank.InteractionJankMonitor
 import com.android.internal.logging.UiEventLogger
 import com.android.settingslib.bluetooth.LocalBluetoothManager
+import com.android.settingslib.media.flags.Flags
 import com.android.systemui.animation.DialogCuj
 import com.android.systemui.animation.DialogLaunchAnimator
 import com.android.systemui.broadcast.BroadcastSender
@@ -65,6 +66,10 @@ class TvMediaOutputDialogFactory @Inject constructor(
 
     /** Creates a [TvMediaOutputDialog]. */
     override fun create(packageName: String, aboveStatusBar: Boolean, view: View?) {
+        if (!Flags.enableTvMediaOutputDialog()) {
+            // Not showing any media output dialog since the mobile version is not navigable on TV.
+            return
+        }
         // Dismiss the previous dialog, if any.
         mediaOutputDialog?.dismiss()
 
