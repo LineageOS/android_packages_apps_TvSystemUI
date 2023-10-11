@@ -17,6 +17,14 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+prebuilt_etc {
+    name: "privapp_extension_com.android.systemui",
+    system_ext_specific: true,
+    sub_dir: "permissions",
+    src: "com.android.systemui_extension.xml",
+    filename_from_src: true,
+}
+
 android_library {
     name: "TvSystemUI-res",
     resource_dirs: [
@@ -73,5 +81,6 @@ android_app {
     },
     required: [
         "privapp_whitelist_com.android.systemui",
+        "privapp_extension_com.android.systemui"
     ],
 }
