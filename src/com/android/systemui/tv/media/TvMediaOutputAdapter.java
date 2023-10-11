@@ -200,6 +200,8 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             itemView.setOnFocusChangeListener((view, focused) -> {
                 mRadioButton.getButtonDrawable().setTint(
                         focused ? mFocusedRadioTint : mUnfocusedRadioTint);
+                mTitle.setSelected(focused);
+                mSubtitle.setSelected(focused);
             });
 
             itemView.setOnClickListener(v -> transferOutput(mediaDevice));
