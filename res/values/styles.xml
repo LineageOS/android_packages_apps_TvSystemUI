@@ -50,7 +50,7 @@
     <style name="BottomSheet.ActionItem">
         <item name="android:layout_width">@dimen/bottom_sheet_button_width</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:gravity">left|center_vertical</item>
+        <item name="android:gravity">start|center_vertical</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/bottom_sheet_button_text_color</item>
         <item name="android:background">@drawable/bottom_sheet_button_background</item>

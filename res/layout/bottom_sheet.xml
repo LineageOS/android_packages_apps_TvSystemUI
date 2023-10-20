@@ -48,14 +48,14 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/bottom_sheet_padding_horizontal"
         android:layout_weight="1"
         android:orientation="vertical">
         <TextView
             android:id="@+id/bottom_sheet_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/bottom_sheet_title_margin_bottom"
             android:textAppearance="@style/BottomSheet.TitleText"/>
