@@ -59,5 +59,7 @@
     <color name="media_dialog_item_subtitle_unfocused">#989CA3</color>
     <color name="media_dialog_low_battery_text">#EE675C</color>
     <color name="media_dialog_divider_line">#E4F3FF</color>
+    <color name="media_dialog_low_battery_focused">#8C1D18</color>
+    <color name="media_dialog_low_battery_unfocused">#C27D7A</color>
 
 </resources>
