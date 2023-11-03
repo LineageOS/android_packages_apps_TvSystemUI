@@ -21,6 +21,7 @@ import android.content.Context
 import android.media.AudioManager
 import android.media.session.MediaSessionManager
 import android.os.PowerExemptionManager
+import android.util.Log
 import android.view.View
 import com.android.internal.jank.InteractionJankMonitor
 import com.android.internal.logging.UiEventLogger
@@ -60,6 +61,7 @@ class TvMediaOutputDialogFactory @Inject constructor(
         audioManager, powerExemptionManager, keyGuardManager, featureFlags, userTracker) {
     companion object {
         private const val INTERACTION_JANK_TAG = "media_output"
+        private const val TAG = "TvMediaOutputDialogFactory"
     }
 
     private var mediaOutputDialog: TvMediaOutputDialog? = null
@@ -68,6 +70,7 @@ class TvMediaOutputDialogFactory @Inject constructor(
     override fun create(packageName: String, aboveStatusBar: Boolean, view: View?) {
         if (!Flags.enableTvMediaOutputDialog()) {
             // Not showing any media output dialog since the mobile version is not navigable on TV.
+            Log.w(TAG, "enable_tv_media_output_dialog flag is disabled")
             return
         }
         // Dismiss the previous dialog, if any.
