@@ -18,7 +18,7 @@ package com.android.systemui.tv.dagger
 
 import com.android.systemui.CoreStartable
 import com.android.systemui.SliceBroadcastRelayHandler
-import com.android.systemui.accessibility.WindowMagnification
+import com.android.systemui.accessibility.Magnification
 import com.android.systemui.dagger.qualifiers.PerUser
 import com.android.systemui.globalactions.GlobalActionsComponent
 import com.android.systemui.keyboard.KeyboardUI
@@ -26,15 +26,15 @@ import com.android.systemui.media.RingtonePlayer
 import com.android.systemui.media.dialog.MediaOutputSwitcherDialogUI
 import com.android.systemui.media.systemsounds.HomeSoundEffectController
 import com.android.systemui.power.PowerUI
-import com.android.systemui.tv.privacy.TvPrivacyChipsController
 import com.android.systemui.shortcut.ShortcutKeyDispatcher
 import com.android.systemui.statusbar.notification.InstantAppNotifier
-import com.android.systemui.tv.statusbar.TvStatusBar
-import com.android.systemui.tv.vpn.VpnStatusObserver
-import com.android.systemui.tv.notifications.TvNotificationHandler
-import com.android.systemui.tv.notifications.TvNotificationPanel
 import com.android.systemui.theme.ThemeOverlayController
 import com.android.systemui.toast.ToastUI
+import com.android.systemui.tv.notifications.TvNotificationHandler
+import com.android.systemui.tv.notifications.TvNotificationPanel
+import com.android.systemui.tv.privacy.TvPrivacyChipsController
+import com.android.systemui.tv.statusbar.TvStatusBar
+import com.android.systemui.tv.vpn.VpnStatusObserver
 import com.android.systemui.usb.StorageNotification
 import com.android.systemui.util.NotificationChannels
 import com.android.systemui.volume.VolumeUI
@@ -164,11 +164,11 @@ abstract class TVSystemUICoreStartableModule {
     @ClassKey(VpnStatusObserver::class)
     abstract fun bindVpnStatusObserver(sysui: VpnStatusObserver): CoreStartable
 
-    /** Inject into WindowMagnification.  */
+    /** Inject into Magnification.  */
     @Binds
     @IntoMap
-    @ClassKey(WindowMagnification::class)
-    abstract fun bindWindowMagnification(sysui: WindowMagnification): CoreStartable
+    @ClassKey(Magnification::class)
+    abstract fun bindMagnification(sysui: Magnification): CoreStartable
 
     /** Inject into WMShell.  */
     @Binds
