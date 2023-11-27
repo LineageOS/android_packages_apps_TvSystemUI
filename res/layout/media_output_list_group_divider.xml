@@ -39,5 +39,5 @@
         android:layout_gravity="center_horizontal"
         android:textAllCaps="true"
         android:textSize="@dimen/media_dialog_divider_text"
-        android:textColor="@color/media_dialog_text" />
+        android:textColor="@color/media_dialog_divider_text" />
 </FrameLayout>

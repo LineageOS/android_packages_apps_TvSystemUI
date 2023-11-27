@@ -57,6 +57,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private final int mFocusedRadioTint;
     private final int mUnfocusedRadioTint;
+    private final int mCheckedRadioTint;
 
     TvMediaOutputAdapter(Context context, TvMediaOutputController mediaOutputController,
             MediaOutputController.Callback callback) {
@@ -67,6 +68,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
         Resources res = mContext.getResources();
         mFocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_focused);
         mUnfocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_unfocused);
+        mCheckedRadioTint = res.getColor(R.color.media_dialog_radio_button_checked);
 
         setHasStableIds(true);
     }
@@ -187,16 +189,25 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             mRadioButton.setVisibility(mediaDevice.isConnected() ? View.VISIBLE : View.GONE);
             mRadioButton.setChecked(isCurrentlyConnected(mediaDevice));
+            setRadioButtonColor();
 
             itemView.setOnFocusChangeListener((view, focused) -> {
                 setSummary(mediaDevice);
-                mRadioButton.getButtonDrawable().setTint(
-                        focused ? mFocusedRadioTint : mUnfocusedRadioTint);
+                setRadioButtonColor();
                 mTitle.setSelected(focused);
                 mSubtitle.setSelected(focused);
             });
 
             itemView.setOnClickListener(v -> transferOutput(mediaDevice));
+        }
+
+        private void setRadioButtonColor() {
+            if (itemView.hasFocus()) {
+                mRadioButton.getButtonDrawable().setTint(
+                        mRadioButton.isChecked() ? mCheckedRadioTint : mFocusedRadioTint);
+            } else {
+                mRadioButton.getButtonDrawable().setTint(mUnfocusedRadioTint);
+            }
         }
 
         private void setSummary(MediaDevice mediaDevice) {
