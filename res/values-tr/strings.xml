@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"Kamera ve Mikrofon kaydı durdu"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"Ekran kaydı başladı"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"Ekran kaydı durduruldu"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"Ses Çıkışı"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"Ses çıkışı"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Diğer cihazlar"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Başka bir cihaz bağlayın"</string>
 </resources>

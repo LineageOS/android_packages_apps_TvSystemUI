@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"Huminto sa pag-record ang Camera at Mikropono"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"Sinimulan ang pag-record ng screen"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"Itinigil ang pag-record ng screen"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"Audio Output"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"Audio output"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Iba pang device"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Magkonekta ng ibang device"</string>
 </resources>

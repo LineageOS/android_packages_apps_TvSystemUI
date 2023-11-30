@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"카메라 녹화 및 마이크 녹음 중단됨"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"화면 녹화 시작됨"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"화면 녹화 중지됨"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"오디오 출력"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"오디오 출력"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"다른 기기"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"다른 기기 연결"</string>
 </resources>

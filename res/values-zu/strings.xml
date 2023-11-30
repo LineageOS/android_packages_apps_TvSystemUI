@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"Ikhemera nemakrofoni kuyekile ukurekhoda"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"Ukurekhoda isikrini kuqalile"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"Ukurekhoda isikrini kumisiwe"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"Okukhishwayo Komsindo"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"Okukhishwayo komsindo"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Amanye amadivayisi"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Xhuma enye idivayisi"</string>
 </resources>

@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"ကင်မရာနှင့်မိုက်ခရိုဖုန်းက မှတ်တမ်းတင်ခြင်း ရပ်ထားသည်"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"ဖန်သားပြင်ရိုက်ကူးမှုကို စတင်လိုက်ပါပြီ"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"ဖန်သားပြင်ရိုက်ကူးမှုကို ရပ်လိုက်ပါပြီ"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"အသံထွက်ပေါက်"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"အသံထွက်မည့် ကိရိယာ"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"အခြားစက်များ"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"အခြားစက်နှင့် ချိတ်ဆက်ခြင်း"</string>
 </resources>
