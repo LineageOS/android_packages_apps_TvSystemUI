@@ -63,7 +63,7 @@
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:duplicateParentState="true" />
-        <om.android.systemui.tv.SmoothScalingTextView
+        <com.android.systemui.tv.SmoothScalingTextView
             android:id="@+id/media_dialog_item_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
