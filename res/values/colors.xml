@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 <resources>
-    <color name="volume_dialog_background_color">#E61F232B</color>
+    <color name="volume_dialog_background_color">#1E232C</color>
     <color name="volume_dialog_background_color_above_blur">#C71F232B</color>
 
     <color name="bottom_sheet_icon_color">#D2E3FC</color>
