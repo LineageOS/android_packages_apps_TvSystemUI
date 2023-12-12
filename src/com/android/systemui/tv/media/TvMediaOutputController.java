@@ -50,7 +50,7 @@ import java.util.List;
 
 /**
  * Extends {@link MediaOutputController} to create a TV specific ordering and grouping of devices
- * which are shown in the {@link TvMediaOutputDialog}.
+ * which are shown in the {@link TvMediaOutputDialogActivity}.
  */
 public class TvMediaOutputController extends MediaOutputController {
 

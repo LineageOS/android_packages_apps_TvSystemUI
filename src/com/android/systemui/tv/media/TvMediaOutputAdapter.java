@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Adapter for showing the {@link MediaItem}s in the {@link TvMediaOutputDialog}.
+ * Adapter for showing the {@link MediaItem}s in the {@link TvMediaOutputDialogActivity}.
  */
 public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
