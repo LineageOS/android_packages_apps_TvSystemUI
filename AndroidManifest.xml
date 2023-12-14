@@ -94,5 +94,18 @@
             android:permission="android.permission.MANAGE_USB"
             android:theme="@style/BottomSheet" />
 
+        <!-- started from TvMediaOutputDialogFactory -->
+        <activity android:name=".tv.media.TvMediaOutputDialogActivity"
+                  android:excludeFromRecents="true"
+                  android:exported="true"
+                  android:finishOnCloseSystemDialogs="true"
+                  android:launchMode="singleTop"
+                  android:theme="@style/SidePanel">
+            <intent-filter>
+                <action android:name="com.android.systemui.TV_MEDIA_OUTPUT_DIALOG" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 </manifest>
