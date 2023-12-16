@@ -34,7 +34,31 @@
     <string name="screen_recording_announcement">Screen recording started</string>
     <string name="screen_stopped_recording_announcement">Screen recording stopped</string>
 
-    <string name="media_output_dialog_title">Audio Output</string>
+    <string name="media_output_dialog_title">Audio output</string>
     <string name="media_output_dialog_other_devices">Other devices</string>
     <string name="media_output_dialog_pairing_new">Connect another device</string>
+
+    <string name="font_display_large" translatable="false">sans-serif</string>
+    <string name="font_display_medium" translatable="false">sans-serif</string>
+    <string name="font_display_small" translatable="false">sans-serif</string>
+
+    <string name="font_headline_large" translatable="false">sans-serif</string>
+    <string name="font_headline_medium" translatable="false">sans-serif</string>
+    <string name="font_headline_small" translatable="false">sans-serif</string>
+
+    <string name="font_title_large" translatable="false">sans-serif</string>
+    <string name="font_title_medium" translatable="false">roboto-medium</string>
+    <string name="font_title_small" translatable="false">roboto-medium</string>
+
+    <string name="font_label_extra_large" translatable="false">roboto-medium</string>
+    <string name="font_label_large" translatable="false">roboto-medium</string>
+    <string name="font_label_medium" translatable="false">roboto-medium</string>
+    <string name="font_label_small" translatable="false">roboto-medium</string>
+
+    <string name="font_body_large" translatable="false">roboto</string>
+    <string name="font_body_medium" translatable="false">roboto</string>
+    <string name="font_body_small" translatable="false">roboto</string>
+    <string name="font_body_extra_small" translatable="false">roboto</string>
+
+    <string name="font_overline" translatable="false">sans-serif</string>
 </resources>

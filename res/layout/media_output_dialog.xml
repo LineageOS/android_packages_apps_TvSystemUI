@@ -30,8 +30,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/media_dialog_title_margin"
         android:text="@string/media_output_dialog_title"
-        android:textColor="@color/media_dialog_text"
-        android:textFontWeight="500"
+        android:textColor="@color/media_dialog_title"
+        android:fontFamily="@string/font_label_large"
         android:textSize="@dimen/media_dialog_title" />
 
     <com.android.internal.widget.RecyclerView

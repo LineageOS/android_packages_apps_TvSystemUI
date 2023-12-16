@@ -51,24 +51,25 @@
         android:paddingHorizontal="@dimen/media_dialog_item_padding"
         android:duplicateParentState="true"
         android:orientation="vertical">
-        <TextView
+        <com.android.systemui.tv.SmoothScalingTextView
             android:id="@+id/media_dialog_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/media_dialog_item_title"
             android:textSize="@dimen/media_dialog_item_title"
-            android:textFontWeight="500"
+            android:fontFamily="@string/font_label_medium"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:marqueeRepeatLimit="marquee_forever"
             android:scrollHorizontally="true"
             android:duplicateParentState="true" />
-        <TextView
+        <com.android.systemui.tv.SmoothScalingTextView
             android:id="@+id/media_dialog_item_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/media_dialog_item_subtitle"
             android:textSize="@dimen/media_dialog_item_subtitle"
+            android:fontFamily="@string/font_body_extra_small"
             android:ellipsize="marquee"
             android:singleLine="true"
             android:marqueeRepeatLimit="marquee_forever"

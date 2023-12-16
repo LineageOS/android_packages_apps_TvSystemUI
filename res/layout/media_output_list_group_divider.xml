@@ -38,6 +38,8 @@
         android:layout_marginTop="@dimen/media_output_text_divider_margin_top"
         android:layout_gravity="center_horizontal"
         android:textAllCaps="true"
+        android:letterSpacing="0.08"
+        android:fontFamily="@string/font_overline"
         android:textSize="@dimen/media_dialog_divider_text"
-        android:textColor="@color/media_dialog_text" />
+        android:textColor="@color/media_dialog_divider_text" />
 </FrameLayout>

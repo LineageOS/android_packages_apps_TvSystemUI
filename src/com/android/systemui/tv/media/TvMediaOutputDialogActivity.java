@@ -17,90 +17,122 @@
 package com.android.systemui.tv.media;
 
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
+import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.media.AudioManager;
 import android.media.MediaRouter2;
+import android.media.session.MediaSessionManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.PowerExemptionManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.android.internal.widget.LinearLayoutManager;
 import com.android.internal.widget.RecyclerView;
+import com.android.settingslib.bluetooth.LocalBluetoothManager;
 import com.android.settingslib.media.MediaDevice;
-import com.android.systemui.broadcast.BroadcastSender;
+import com.android.settingslib.media.flags.Flags;
+import com.android.systemui.animation.DialogLaunchAnimator;
+import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.media.dialog.MediaOutputController;
-import com.android.systemui.statusbar.phone.SystemUIDialog;
+import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
+import com.android.systemui.plugins.ActivityStarter;
+import com.android.systemui.settings.UserTracker;
+import com.android.systemui.statusbar.notification.collection.notifcollection.CommonNotifCollection;
 import com.android.systemui.tv.res.R;
 
 import java.util.Collections;
 
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
 /**
  * A TV specific variation of the {@link com.android.systemui.media.dialog.MediaOutputDialog}.
- * This dialog allows the user to select a default audio output, which is not based on the
+ * This activity allows the user to select a default audio output, which is not based on the
  * currently playing media.
  * There are two entry points for the dialog, either by sending a broadcast via the
  * {@link com.android.systemui.media.dialog.MediaOutputDialogReceiver} or by calling
  * {@link MediaRouter2#showSystemOutputSwitcher()}
  */
-public class TvMediaOutputDialog extends SystemUIDialog implements MediaOutputController.Callback {
-    private static final String TAG = TvMediaOutputDialog.class.getSimpleName();
+public class TvMediaOutputDialogActivity extends Activity
+        implements MediaOutputController.Callback {
+    private static final String TAG = TvMediaOutputDialogActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    private final Context mContext;
-    private final TvMediaOutputController mMediaOutputController;
-    private final BroadcastSender mBroadcastSender;
+    private TvMediaOutputController mMediaOutputController;
+    private TvMediaOutputAdapter mAdapter;
 
-    private View mDialogView;
-    private final TvMediaOutputAdapter mAdapter;
+    private final MediaSessionManager mMediaSessionManager;
+    private final LocalBluetoothManager mLocalBluetoothManager;
+    private final ActivityStarter mActivityStarter;
+    private final CommonNotifCollection mCommonNotifCollection;
+    private final DialogLaunchAnimator mDialogLaunchAnimator;
+    private final NearbyMediaDevicesManager mNearbyMediaDevicesManager;
+    private final AudioManager mAudioManager;
+    private final PowerExemptionManager mPowerExemptionManager;
+    private final KeyguardManager mKeyguardManager;
+    private final FeatureFlags mFeatureFlags;
+    private final UserTracker mUserTracker;
 
     protected final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
-
-    private boolean mDismissing;
-
     private String mActiveDeviceId;
 
-    TvMediaOutputDialog(Context context,
-            TvMediaOutputController mediaOutputController,
-            BroadcastSender broadcastSender) {
-        super(context);
-        mContext = context;
-        mMediaOutputController = mediaOutputController;
-        mBroadcastSender = broadcastSender;
-
-        mAdapter = new TvMediaOutputAdapter(mContext, mMediaOutputController, this);
-
-        final BroadcastReceiver closeSystemDialogsBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                // Close this dialog.
-                cancel();
-            }
-        };
-        mContext.registerReceiverForAllUsers(closeSystemDialogsBroadcastReceiver,
-                new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS),
-                null /* permission */, null /* scheduler */, Context.RECEIVER_EXPORTED);
+    @Inject
+    public TvMediaOutputDialogActivity(
+            MediaSessionManager mediaSessionManager,
+            @Nullable LocalBluetoothManager localBluetoothManager,
+            ActivityStarter activityStarter,
+            CommonNotifCollection commonNotifCollection,
+            DialogLaunchAnimator dialogLaunchAnimator,
+            NearbyMediaDevicesManager nearbyMediaDevicesManager,
+            AudioManager audioManager,
+            PowerExemptionManager powerExemptionManager,
+            KeyguardManager keyguardManager,
+            FeatureFlags featureFlags,
+            UserTracker userTracker) {
+        mMediaSessionManager = mediaSessionManager;
+        mLocalBluetoothManager = localBluetoothManager;
+        mActivityStarter = activityStarter;
+        mCommonNotifCollection = commonNotifCollection;
+        mDialogLaunchAnimator = dialogLaunchAnimator;
+        mNearbyMediaDevicesManager = nearbyMediaDevicesManager;
+        mAudioManager = audioManager;
+        mPowerExemptionManager = powerExemptionManager;
+        mKeyguardManager = keyguardManager;
+        mFeatureFlags = featureFlags;
+        mUserTracker = userTracker;
     }
 
     @SuppressLint("MissingPermission")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (DEBUG) Log.d(TAG, "package name: " + mContext.getPackageName());
+        if (DEBUG) Log.d(TAG, "package name: " + getPackageName());
 
-        mDialogView = LayoutInflater.from(mContext).inflate(R.layout.media_output_dialog, null);
+        if (!Flags.enableTvMediaOutputDialog()) {
+            finish();
+            return;
+        }
 
-        Resources res = mContext.getResources();
+        setContentView(R.layout.media_output_dialog);
+
+        mMediaOutputController = new TvMediaOutputController(this, getPackageName(),
+                mMediaSessionManager, mLocalBluetoothManager, mActivityStarter,
+                mCommonNotifCollection, mDialogLaunchAnimator, mNearbyMediaDevicesManager,
+                mAudioManager, mPowerExemptionManager, mKeyguardManager, mFeatureFlags,
+                mUserTracker);
+        mAdapter = new TvMediaOutputAdapter(this, mMediaOutputController, this);
+
+        Resources res = getResources();
         DisplayMetrics metrics = res.getDisplayMetrics();
         int screenWidth = metrics.widthPixels;
         int screenHeight = metrics.heightPixels;
@@ -115,51 +147,41 @@ public class TvMediaOutputDialog extends SystemUIDialog implements MediaOutputCo
         lp.height = screenHeight - 2 * marginVerticalPx;
         lp.horizontalMargin = ((float) marginEndPx) / screenWidth;
         lp.verticalMargin = ((float) marginVerticalPx) / screenHeight;
-        lp.type = WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG;
         window.setBackgroundDrawableResource(R.drawable.media_dialog_background);
         window.setAttributes(lp);
         window.setElevation(getWindow().getElevation() + 5);
-        window.setContentView(mDialogView);
-        window.setTitle(
-                mContext.getString(
-                        com.android.systemui.R.string.media_output_dialog_accessibility_title));
-        window.setWindowAnimations(R.style.TvMediaOutputDialog);
+        window.setTitle(getString(
+                com.android.systemui.R.string.media_output_dialog_accessibility_title));
 
         window.getDecorView().addOnLayoutChangeListener(
                 (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom)
-                        -> mDialogView.setUnrestrictedPreferKeepClearRects(
+                        -> findViewById(android.R.id.content).setUnrestrictedPreferKeepClearRects(
                         Collections.singletonList(new Rect(left, top, right, bottom))));
 
-        RecyclerView devicesRecyclerView = mDialogView.requireViewById(R.id.device_list);
-        devicesRecyclerView.setLayoutManager(new LayoutManagerWrapper(mContext));
+        RecyclerView devicesRecyclerView = requireViewById(R.id.device_list);
+        devicesRecyclerView.setLayoutManager(new LayoutManagerWrapper(this));
         devicesRecyclerView.setAdapter(mAdapter);
 
-        int itemSpacingPx = mContext.getResources()
-                .getDimensionPixelSize(R.dimen.media_dialog_item_spacing);
+        int itemSpacingPx = getResources().getDimensionPixelSize(R.dimen.media_dialog_item_spacing);
         devicesRecyclerView.addItemDecoration(new SpacingDecoration(itemSpacingPx));
     }
 
     @Override
-    public void dismiss() {
-        // Turning refresh() into a no-op.
-        mDismissing = true;
-        super.dismiss();
-    }
-
-    @Override
-    public void start() {
+    public void onStart() {
+        super.onStart();
         mMediaOutputController.start(this);
     }
 
     @Override
-    public void stop() {
+    public void onStop() {
         mMediaOutputController.stop();
+        super.onStop();
     }
 
     private void refresh(boolean deviceSetChanged) {
         if (DEBUG) Log.d(TAG, "refresh: deviceSetChanged " + deviceSetChanged);
         // If the dialog is going away or is already refreshing, do nothing.
-        if (mDismissing || mMediaOutputController.isRefreshing()) {
+        if (mMediaOutputController.isRefreshing()) {
             return;
         }
         mMediaOutputController.setRefreshing(true);
@@ -198,7 +220,7 @@ public class TvMediaOutputDialog extends SystemUIDialog implements MediaOutputCo
     @Override
     public void dismissDialog() {
         if (DEBUG) Log.d(TAG, "dismissDialog");
-        mBroadcastSender.closeSystemDialogs();
+        finish();
     }
 
     private class LayoutManagerWrapper extends LinearLayoutManager {

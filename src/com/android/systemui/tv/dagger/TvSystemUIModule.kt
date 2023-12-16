@@ -15,6 +15,7 @@
  */
 package com.android.systemui.tv.dagger
 
+import android.app.Activity
 import android.app.KeyguardManager
 import android.content.Context
 import android.hardware.SensorPrivacyManager
@@ -65,6 +66,7 @@ import com.android.systemui.statusbar.policy.IndividualSensorPrivacyControllerIm
 import com.android.systemui.statusbar.policy.SensorPrivacyController
 import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl
 import com.android.systemui.tv.hdmi.HdmiModule
+import com.android.systemui.tv.media.TvMediaOutputDialogActivity
 import com.android.systemui.tv.media.TvMediaOutputDialogFactory
 import com.android.systemui.tv.notifications.TvNotificationHandler
 import com.android.systemui.tv.notifications.TvNotificationsModule
@@ -74,6 +76,8 @@ import com.android.systemui.volume.dagger.VolumeModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.ClassKey
+import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
 import javax.inject.Named
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -137,6 +141,12 @@ abstract class TvSystemUIModule {
     abstract fun bindMediaProjectionPrivacyItemMonitor(
             mediaProjectionPrivacyItemMonitor: MediaProjectionPrivacyItemMonitor
     ): PrivacyItemMonitor
+
+    @Binds
+    @IntoMap
+    @ClassKey(TvMediaOutputDialogActivity::class)
+    abstract fun provideTvMediaOutputDialogActivity(
+            tvMediaOutputDialogActivity: TvMediaOutputDialogActivity): Activity
 
     companion object {
         @SysUISingleton

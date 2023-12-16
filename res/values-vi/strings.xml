@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"Máy ảnh và micrô đã dừng ghi"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"Đã bắt đầu ghi màn hình"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"Đã dừng ghi màn hình"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"Đầu ra âm thanh"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"Đầu ra âm thanh"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Thiết bị khác"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Kết nối thiết bị khác"</string>
 </resources>

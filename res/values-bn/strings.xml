@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"ক্যামেরা ও মাইক্রোফোনে রেকর্ড করা বন্ধ হয়ে গেছে"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"স্ক্রিন রেকর্ড করা শুরু হয়েছে"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"স্ক্রিন রেকর্ড করা বন্ধ হয়ে গেছে"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"অডিও আউটপুট"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"অডিও আউটপুট"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"অন্যান্য ডিভাইস"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"আরেকটি ডিভাইস কানেক্ট করুন"</string>
 </resources>

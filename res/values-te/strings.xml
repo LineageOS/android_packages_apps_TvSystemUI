@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"కెమెరా, మైక్రోఫోన్‌లు రికార్డింగ్ చేయడం ఆపివేశాయి"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"స్క్రీన్ రికార్డింగ్ ప్రారంభమైంది"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"స్క్రీన్ రికార్డింగ్ ఆపివేయబడింది"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"ఆడియో అవుట్‌పుట్"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"ఆడియో అవుట్‌పుట్"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"ఇతర పరికరాలు"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"మరొక పరికరాన్ని కనెక్ట్ చేయండి"</string>
 </resources>

@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"Camera en microfoon nemen niet meer op"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"Schermopname gestart"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"Schermopname gestopt"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"Audio-uitvoer"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"Audio-uitvoer"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Andere apparaten"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Nog een apparaat koppelen"</string>
 </resources>

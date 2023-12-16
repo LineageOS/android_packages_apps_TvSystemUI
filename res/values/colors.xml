@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 <resources>
-    <color name="volume_dialog_background_color">#E61F232B</color>
+    <color name="volume_dialog_background_color">#1E232C</color>
     <color name="volume_dialog_background_color_above_blur">#C71F232B</color>
 
     <color name="bottom_sheet_icon_color">#D2E3FC</color>
@@ -42,23 +42,25 @@
     <color name="notification_blur_background_color">#a0383838</color>
     <color name="notification_text_color">#FFFFFF</color>
 
-    <color name="media_dialog_bg">#282A2C</color>
+    <color name="media_dialog_bg">#1E232C</color>
     <color name="media_dialog_item_bg_focused">#E4F3FF</color>
     <color name="media_dialog_item_bg_unfocused">#0FDFF3FF</color>
     <color name="media_dialog_icon_bg_focused">#004A77</color>
     <color name="media_dialog_icon_bg_unfocused">#0ADFF3FF</color>
     <color name="media_dialog_icon_focused">#C2E7FF</color>
     <color name="media_dialog_icon_unfocused">#E4F3FF</color>
-    <color name="media_dialog_radio_button_focused">#0842A0</color>
+    <color name="media_dialog_radio_button_focused">#8E918F</color>
     <color name="media_dialog_radio_button_unfocused">#8E918F</color>
+    <color name="media_dialog_radio_button_checked">#0842A0</color>
 
-    <color name="media_dialog_text">#E8EAED</color>
+    <color name="media_dialog_title">#E8EAED</color>
     <color name="media_dialog_item_title_focused">#0E0E0F</color>
     <color name="media_dialog_item_title_unfocused">#E8EAED</color>
     <color name="media_dialog_item_subtitle_focused">#6B7887</color>
     <color name="media_dialog_item_subtitle_unfocused">#989CA3</color>
     <color name="media_dialog_low_battery_text">#EE675C</color>
     <color name="media_dialog_divider_line">#E4F3FF</color>
+    <color name="media_dialog_divider_text">#E4F3FF</color>
     <color name="media_dialog_low_battery_focused">#8C1D18</color>
     <color name="media_dialog_low_battery_unfocused">#C27D7A</color>
 

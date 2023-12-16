@@ -30,7 +30,7 @@
     <string name="mic_camera_stopped_recording_announcement" msgid="9131214850816355782">"Camera and Microphone stopped recording"</string>
     <string name="screen_recording_announcement" msgid="4920957684592383719">"Screen recording started"</string>
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"Screen recording stopped"</string>
-    <string name="media_output_dialog_title" msgid="1794214145443306819">"Audio Output"</string>
+    <string name="media_output_dialog_title" msgid="6307582009756803143">"Audio output"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Other devices"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Connect another device"</string>
 </resources>
