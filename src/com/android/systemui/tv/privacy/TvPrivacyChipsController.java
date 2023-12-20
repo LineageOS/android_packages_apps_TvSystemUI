@@ -55,6 +55,7 @@ import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.privacy.PrivacyItem;
 import com.android.systemui.privacy.PrivacyItemController;
 import com.android.systemui.privacy.PrivacyType;
+import com.android.systemui.statusbar.policy.ConfigurationController;
 import com.android.systemui.tv.res.R;
 
 import java.util.ArrayList;
@@ -66,12 +67,14 @@ import java.util.Set;
 import javax.inject.Inject;
 
 /**
- * A SystemUI component responsible for notifying the user whenever an application is
- * recording audio, camera, the screen, or accessing the location.
+ * A SystemUI component responsible for notifying the user whenever an application is recording
+ * audio, camera, the screen, or accessing the location.
  */
 @SysUISingleton
-public class TvPrivacyChipsController 
-        implements CoreStartable, PrivacyItemController.Callback {
+public class TvPrivacyChipsController
+        implements CoreStartable,
+                ConfigurationController.ConfigurationListener,
+                PrivacyItemController.Callback {
     private static final String TAG = "TvPrivacyChipsController";
     private static final boolean DEBUG = false;
 
@@ -228,7 +231,7 @@ public class TvPrivacyChipsController
     }
 
     @Override
-    public void onConfigurationChanged(Configuration config) {
+    public void onConfigChanged(Configuration config) {
         boolean updatedRtl = config.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         if (mIsRtl == updatedRtl) {
             return;
