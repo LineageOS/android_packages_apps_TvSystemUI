@@ -25,19 +25,16 @@ import com.android.systemui.keyboard.KeyboardUI
 import com.android.systemui.media.RingtonePlayer
 import com.android.systemui.media.dialog.MediaOutputSwitcherDialogUI
 import com.android.systemui.media.systemsounds.HomeSoundEffectController
-import com.android.systemui.power.PowerUI
 import com.android.systemui.shortcut.ShortcutKeyDispatcher
 import com.android.systemui.statusbar.notification.InstantAppNotifier
 import com.android.systemui.theme.ThemeOverlayController
 import com.android.systemui.toast.ToastUI
 import com.android.systemui.tv.notifications.TvNotificationHandler
 import com.android.systemui.tv.notifications.TvNotificationPanel
-import com.android.systemui.tv.privacy.TvPrivacyChipsController
 import com.android.systemui.tv.statusbar.TvStatusBar
 import com.android.systemui.tv.vpn.VpnStatusObserver
 import com.android.systemui.usb.StorageNotification
 import com.android.systemui.util.NotificationChannels
-import com.android.systemui.volume.VolumeUI
 import com.android.systemui.wmshell.WMShell
 import dagger.Binds
 import dagger.Module
@@ -45,7 +42,12 @@ import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 
 /**
- * Collection of [CoreStartable]s that should be run on TV.
+ * DEPRECATED: DO NOT ADD THINGS TO THIS FILE.
+ *
+ * Add a feature specific dagger module for what you are working on. Bind your CoreStartable there.
+ * Include that module where it is needed.
+ *
+ * @deprecated
  */
 @Module
 abstract class TVSystemUICoreStartableModule {
@@ -85,12 +87,6 @@ abstract class TVSystemUICoreStartableModule {
     @ClassKey(NotificationChannels::class)
     @PerUser
     abstract fun bindNotificationChannels(sysui: NotificationChannels): CoreStartable
-
-    /** Inject into PowerUI.  */
-    @Binds
-    @IntoMap
-    @ClassKey(PowerUI::class)
-    abstract fun bindPowerUI(sysui: PowerUI): CoreStartable
 
     /** Inject into RingtonePlayer.  */
     @Binds
@@ -140,23 +136,11 @@ abstract class TVSystemUICoreStartableModule {
     @ClassKey(TvNotificationPanel::class)
     abstract fun bindTvNotificationPanel(sysui: TvNotificationPanel): CoreStartable
 
-    /** Inject into TvPrivacyChipsController.  */
-    @Binds
-    @IntoMap
-    @ClassKey(TvPrivacyChipsController::class)
-    abstract fun bindTvPrivacyChipsController(sysui: TvPrivacyChipsController): CoreStartable
-
     /** Inject into TvStatusBar.  */
     @Binds
     @IntoMap
     @ClassKey(TvStatusBar::class)
     abstract fun bindTvStatusBar(sysui: TvStatusBar): CoreStartable
-
-    /** Inject into VolumeUI.  */
-    @Binds
-    @IntoMap
-    @ClassKey(VolumeUI::class)
-    abstract fun bindVolumeUI(sysui: VolumeUI): CoreStartable
 
     /** Inject into VpnStatusObserver.  */
     @Binds

@@ -70,6 +70,7 @@ import com.android.systemui.tv.media.TvMediaOutputDialogActivity
 import com.android.systemui.tv.media.TvMediaOutputDialogFactory
 import com.android.systemui.tv.notifications.TvNotificationHandler
 import com.android.systemui.tv.notifications.TvNotificationsModule
+import com.android.systemui.tv.privacy.PrivacyModule
 import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.tv.shade.TvNotificationShadeWindowController
 import com.android.systemui.volume.dagger.VolumeModule
@@ -94,8 +95,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     GestureModule::class,
     HdmiModule::class,
     HeadsUpEmptyImplModule::class,
+    KeyboardShortcutsModule::class,
     MultiUserUtilsModule::class,
     PowerModule::class,
+    PrivacyModule::class,
     QSModule::class,
     ReferenceScreenshotModule::class,
     ShadeEmptyImplModule::class,
@@ -103,7 +106,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     TvNotificationsModule::class,
     TvSensorPrivacyModule::class,
     VolumeModule::class,
-    KeyboardShortcutsModule::class,
 ]
 )
 abstract class TvSystemUIModule {
@@ -146,7 +148,8 @@ abstract class TvSystemUIModule {
     @IntoMap
     @ClassKey(TvMediaOutputDialogActivity::class)
     abstract fun provideTvMediaOutputDialogActivity(
-            tvMediaOutputDialogActivity: TvMediaOutputDialogActivity): Activity
+            tvMediaOutputDialogActivity: TvMediaOutputDialogActivity
+    ): Activity
 
     companion object {
         @SysUISingleton
