@@ -17,6 +17,23 @@ package {
     default_applicable_licenses: ["Android-Apache-2.0"],
 }
 
+prebuilt_etc {
+    name: "privapp_extension_com.android.systemui",
+    system_ext_specific: true,
+    sub_dir: "permissions",
+    src: "com.android.systemui_extension.xml",
+    filename_from_src: true,
+}
+
+android_library {
+    name: "TvSystemUI-res",
+    resource_dirs: [
+        "res",
+    ],
+    manifest: "AndroidManifest-res.xml",
+    use_resource_processor: true,
+}
+
 android_library {
     name: "TvSystemUI-core",
     srcs: [
@@ -24,12 +41,15 @@ android_library {
         "src/**/*.kt",
     ],
     resource_dirs: [],
+    use_resource_processor: true,
     static_libs: [
         "SystemUI-core",
         "SystemUIPluginLib",
         "SystemUISharedLib",
+        "TvSystemUI-res",
     ],
     manifest: "AndroidManifest.xml",
+    additional_manifests: ["AndroidManifest-exclude-overrides.xml"],
     plugins: ["dagger2-compiler"],
 }
 
@@ -46,6 +66,7 @@ android_app {
         "SystemUI",
     ],
     resource_dirs: [],
+    use_resource_processor: true,
 
     platform_apis: true,
     system_ext_specific: true,
@@ -60,5 +81,6 @@ android_app {
     },
     required: [
         "privapp_whitelist_com.android.systemui",
+        "privapp_extension_com.android.systemui"
     ],
 }
