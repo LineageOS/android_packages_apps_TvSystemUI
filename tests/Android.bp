@@ -37,6 +37,7 @@ android_test {
         "androidx.test.ext.truth",
         "SystemUI-tests-base",
         "TvSystemUI-core",
+        "SystemUICustomizationTestUtils",
     ],
 
     libs: [
