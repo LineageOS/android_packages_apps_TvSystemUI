@@ -30,11 +30,13 @@ import com.android.systemui.animation.DialogLaunchAnimator
 import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.dagger.ReferenceSystemUIModule
 import com.android.systemui.dagger.SysUISingleton
+import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
 import com.android.systemui.flags.FeatureFlags
 import com.android.systemui.media.dialog.MediaOutputDialogFactory
+import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager
 import com.android.systemui.navigationbar.gestural.GestureModule
 import com.android.systemui.plugins.ActivityStarter
@@ -73,6 +75,7 @@ import com.android.systemui.tv.notifications.TvNotificationsModule
 import com.android.systemui.tv.privacy.PrivacyModule
 import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.tv.shade.TvNotificationShadeWindowController
+import com.android.systemui.unfold.SysUIUnfoldStartableModule
 import com.android.systemui.volume.dagger.VolumeModule
 import dagger.Binds
 import dagger.Module
@@ -92,17 +95,21 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Module(
     includes = [
     AospPolicyModule::class,
+    ConnectingDisplayViewModel.StartableModule::class,
     GestureModule::class,
     HdmiModule::class,
     HeadsUpEmptyImplModule::class,
     KeyboardShortcutsModule::class,
+    MediaMuteAwaitConnectionCli.StartableModule::class,
     MultiUserUtilsModule::class,
+    NearbyMediaDevicesManager.StartableModule::class,
     PowerModule::class,
     PrivacyModule::class,
     QSModule::class,
     ReferenceScreenshotModule::class,
     ShadeEmptyImplModule::class,
     StatusBarEventsModule::class,
+    SysUIUnfoldStartableModule::class,
     TvNotificationsModule::class,
     TvSensorPrivacyModule::class,
     VolumeModule::class,
