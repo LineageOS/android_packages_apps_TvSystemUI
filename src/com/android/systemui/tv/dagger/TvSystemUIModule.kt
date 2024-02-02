@@ -45,8 +45,8 @@ import com.android.systemui.privacy.PrivacyItemMonitor
 import com.android.systemui.qs.dagger.QSModule
 import com.android.systemui.qs.tileimpl.QSFactoryImpl
 import com.android.systemui.screenshot.ReferenceScreenshotModule
+import com.android.systemui.settings.MultiUserUtilsModule
 import com.android.systemui.settings.UserTracker
-import com.android.systemui.settings.dagger.MultiUserUtilsModule
 import com.android.systemui.shade.ShadeEmptyImplModule
 import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
