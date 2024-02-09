@@ -27,7 +27,7 @@ import android.view.View
 import com.android.internal.logging.UiEventLogger
 import com.android.settingslib.bluetooth.LocalBluetoothManager
 import com.android.settingslib.media.flags.Flags
-import com.android.systemui.animation.DialogLaunchAnimator
+import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.flags.FeatureFlags
 import com.android.systemui.media.dialog.MediaOutputDialogFactory
@@ -48,7 +48,7 @@ class TvMediaOutputDialogFactory @Inject constructor(
         broadcastSender: BroadcastSender,
         notifCollection: CommonNotifCollection,
         uiEventLogger: UiEventLogger,
-        dialogLaunchAnimator: DialogLaunchAnimator,
+        dialogTransitionAnimator: DialogTransitionAnimator,
         nearbyMediaDevicesManager: NearbyMediaDevicesManager,
         audioManager: AudioManager,
         powerExemptionManager: PowerExemptionManager,
@@ -56,8 +56,9 @@ class TvMediaOutputDialogFactory @Inject constructor(
         featureFlags: FeatureFlags,
         userTracker: UserTracker
 ) : MediaOutputDialogFactory(context, mediaSessionManager, lbm, starter, broadcastSender,
-        notifCollection, uiEventLogger, dialogLaunchAnimator, nearbyMediaDevicesManager,
-        audioManager, powerExemptionManager, keyGuardManager, featureFlags, userTracker) {
+        notifCollection, uiEventLogger, dialogTransitionAnimator,
+        nearbyMediaDevicesManager, audioManager, powerExemptionManager, keyGuardManager,
+        featureFlags, userTracker) {
     companion object {
         private const val TAG = "TvMediaOutputDialogFactory"
     }

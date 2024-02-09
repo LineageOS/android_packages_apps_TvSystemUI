@@ -26,7 +26,7 @@ import com.android.internal.logging.UiEventLogger
 import com.android.keyguard.KeyguardViewController
 import com.android.settingslib.bluetooth.LocalBluetoothManager
 import com.android.systemui.Dependency
-import com.android.systemui.animation.DialogLaunchAnimator
+import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.dagger.ReferenceSystemUIModule
 import com.android.systemui.dagger.SysUISingleton
@@ -207,7 +207,7 @@ abstract class TvSystemUIModule {
             broadcastSender: BroadcastSender,
             notifCollection: CommonNotifCollection,
             uiEventLogger: UiEventLogger,
-            dialogLaunchAnimator: DialogLaunchAnimator,
+            dialogTransitionAnimator: DialogTransitionAnimator,
             nearbyMediaDevicesManager: NearbyMediaDevicesManager,
             audioManager: AudioManager,
             powerExemptionManager: PowerExemptionManager,
@@ -217,7 +217,7 @@ abstract class TvSystemUIModule {
             ): MediaOutputDialogFactory =
                 TvMediaOutputDialogFactory(context, mediaSessionManager, localBluetoothManager,
                         activityStarter, broadcastSender, notifCollection, uiEventLogger,
-                        dialogLaunchAnimator, nearbyMediaDevicesManager, audioManager,
+                        dialogTransitionAnimator, nearbyMediaDevicesManager, audioManager,
                         powerExemptionManager, keyguardManager, featureFlags, userTracker)
     }
 }

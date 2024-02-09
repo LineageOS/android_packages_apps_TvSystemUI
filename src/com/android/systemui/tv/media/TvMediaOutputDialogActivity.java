@@ -41,7 +41,7 @@ import com.android.internal.widget.RecyclerView;
 import com.android.settingslib.bluetooth.LocalBluetoothManager;
 import com.android.settingslib.media.MediaDevice;
 import com.android.settingslib.media.flags.Flags;
-import com.android.systemui.animation.DialogLaunchAnimator;
+import com.android.systemui.animation.DialogTransitionAnimator;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.media.dialog.MediaOutputController;
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
@@ -75,7 +75,7 @@ public class TvMediaOutputDialogActivity extends Activity
     private final LocalBluetoothManager mLocalBluetoothManager;
     private final ActivityStarter mActivityStarter;
     private final CommonNotifCollection mCommonNotifCollection;
-    private final DialogLaunchAnimator mDialogLaunchAnimator;
+    private final DialogTransitionAnimator mDialogTransitionAnimator;
     private final NearbyMediaDevicesManager mNearbyMediaDevicesManager;
     private final AudioManager mAudioManager;
     private final PowerExemptionManager mPowerExemptionManager;
@@ -92,7 +92,7 @@ public class TvMediaOutputDialogActivity extends Activity
             @Nullable LocalBluetoothManager localBluetoothManager,
             ActivityStarter activityStarter,
             CommonNotifCollection commonNotifCollection,
-            DialogLaunchAnimator dialogLaunchAnimator,
+            DialogTransitionAnimator dialogTransitionAnimator,
             NearbyMediaDevicesManager nearbyMediaDevicesManager,
             AudioManager audioManager,
             PowerExemptionManager powerExemptionManager,
@@ -103,7 +103,7 @@ public class TvMediaOutputDialogActivity extends Activity
         mLocalBluetoothManager = localBluetoothManager;
         mActivityStarter = activityStarter;
         mCommonNotifCollection = commonNotifCollection;
-        mDialogLaunchAnimator = dialogLaunchAnimator;
+        mDialogTransitionAnimator = dialogTransitionAnimator;
         mNearbyMediaDevicesManager = nearbyMediaDevicesManager;
         mAudioManager = audioManager;
         mPowerExemptionManager = powerExemptionManager;
@@ -127,7 +127,7 @@ public class TvMediaOutputDialogActivity extends Activity
 
         mMediaOutputController = new TvMediaOutputController(this, getPackageName(),
                 mMediaSessionManager, mLocalBluetoothManager, mActivityStarter,
-                mCommonNotifCollection, mDialogLaunchAnimator, mNearbyMediaDevicesManager,
+                mCommonNotifCollection, mDialogTransitionAnimator, mNearbyMediaDevicesManager,
                 mAudioManager, mPowerExemptionManager, mKeyguardManager, mFeatureFlags,
                 mUserTracker);
         mAdapter = new TvMediaOutputAdapter(this, mMediaOutputController, this);
