@@ -33,7 +33,7 @@ import android.text.TextUtils;
 
 import com.android.settingslib.bluetooth.LocalBluetoothManager;
 import com.android.settingslib.media.MediaDevice;
-import com.android.systemui.animation.DialogLaunchAnimator;
+import com.android.systemui.animation.DialogTransitionAnimator;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.media.dialog.MediaItem;
 import com.android.systemui.media.dialog.MediaOutputController;
@@ -64,7 +64,7 @@ public class TvMediaOutputController extends MediaOutputController {
             LocalBluetoothManager lbm,
             ActivityStarter starter,
             CommonNotifCollection notifCollection,
-            DialogLaunchAnimator dialogLaunchAnimator,
+            DialogTransitionAnimator dialogTransitionAnimator,
             NearbyMediaDevicesManager nearbyMediaDevicesManager,
             AudioManager audioManager,
             PowerExemptionManager powerExemptionManager,
@@ -72,7 +72,7 @@ public class TvMediaOutputController extends MediaOutputController {
             FeatureFlags featureFlags,
             UserTracker userTracker) {
         super(context, packageName, mediaSessionManager, lbm, starter, notifCollection,
-                dialogLaunchAnimator, nearbyMediaDevicesManager, audioManager,
+                dialogTransitionAnimator, nearbyMediaDevicesManager, audioManager,
                 powerExemptionManager, keyGuardManager, featureFlags, userTracker);
         mContext = context;
         mAudioManager = audioManager;
