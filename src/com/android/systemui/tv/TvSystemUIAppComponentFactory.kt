@@ -18,6 +18,7 @@ package com.android.systemui.tv
 
 import android.content.Context
 import com.android.systemui.SystemUIAppComponentFactoryBase
+import com.android.systemui.tv.dagger.TvSystemUIInitializer
 
 /**
  * Starts up SystemUI using [TvSystemUIInitializer].
