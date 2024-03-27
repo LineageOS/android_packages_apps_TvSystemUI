@@ -71,9 +71,21 @@ public class TvMediaOutputController extends MediaOutputController {
             KeyguardManager keyGuardManager,
             FeatureFlags featureFlags,
             UserTracker userTracker) {
-        super(context, packageName, mediaSessionManager, lbm, starter, notifCollection,
-                dialogTransitionAnimator, nearbyMediaDevicesManager, audioManager,
-                powerExemptionManager, keyGuardManager, featureFlags, userTracker);
+        super(
+                context,
+                packageName,
+                /* userHandle= */ null,
+                mediaSessionManager,
+                lbm,
+                starter,
+                notifCollection,
+                dialogTransitionAnimator,
+                nearbyMediaDevicesManager,
+                audioManager,
+                powerExemptionManager,
+                keyGuardManager,
+                featureFlags,
+                userTracker);
         mContext = context;
         mAudioManager = audioManager;
     }
