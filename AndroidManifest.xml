@@ -46,6 +46,16 @@
             android:permission="android.permission.CHANGE_CONFIGURATION"
             android:theme="@style/BottomSheet" />
 
+        <!-- started from HdmiCecLocalDevicePlayback -->
+        <activity android:name=".tv.hdmi.HdmiCecActiveSourceLostActivity"
+                  android:exported="true"
+                  android:launchMode="singleTop"
+                  android:permission="android.permission.HDMI_CEC"
+                  android:theme="@style/BottomSheet"
+                  android:finishOnCloseSystemDialogs="true"
+                  android:showForAllUsers="true">
+        </activity>
+
         <!-- started from TvNotificationPanel -->
         <activity
             android:name=".tv.notifications.TvNotificationPanelActivity"
