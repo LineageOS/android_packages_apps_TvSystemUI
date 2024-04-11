@@ -33,4 +33,8 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"Ieșire audio"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Alte dispozitive"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Conectează alt dispozitiv"</string>
+    <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Încă vizionezi?"</string>
+    <string name="hdmi_cec_on_active_source_lost_description" msgid="3360234213187507600">"Televizorul a anunțat că va afișa altă intrare. Selectează o opțiune pentru a menține dispozitivul activ."</string>
+    <string name="hdmi_cec_on_active_source_lost_ok" msgid="2979087317246080268">"Da"</string>
+    <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"Nu mai întreba"</string>
 </resources>

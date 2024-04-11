@@ -33,4 +33,8 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"오디오 출력"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"다른 기기"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"다른 기기 연결"</string>
+    <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"아직 시청하고 계신가요?"</string>
+    <string name="hdmi_cec_on_active_source_lost_description" msgid="3360234213187507600">"TV에서 다른 입력을 표시하려고 합니다. 하나를 선택하여 이 기기를 켜진 상태로 유지하세요."</string>
+    <string name="hdmi_cec_on_active_source_lost_ok" msgid="2979087317246080268">"예"</string>
+    <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"다시 묻지 않음"</string>
 </resources>
