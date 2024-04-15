@@ -18,6 +18,7 @@ package com.android.systemui.tv.media
 
 import android.content.Context
 import android.content.Intent
+import android.os.UserHandle
 import android.util.Log
 import android.view.View
 import com.android.internal.logging.UiEventLogger
@@ -48,8 +49,18 @@ class TvMediaOutputDialogManager @Inject constructor(
         private const val TAG = "TvMediaOutputDialogFactory"
     }
 
-    /** Creates a [TvMediaOutputDialog]. */
-    override fun createAndShow(packageName: String, aboveStatusBar: Boolean, view: View?) {
+    /**
+     * Creates a [TvMediaOutputDialog].
+     *
+     * <p>Note that neither the package name nor the user handle are used. The reason is that the TV
+     * output dialog does not control a specific app, but rather the system's media output.
+     */
+    override fun createAndShow(
+        unusedPackageName: String,
+        aboveStatusBar: Boolean,
+        view: View?,
+        unusedUserHandle: UserHandle?,
+    ) {
         if (!Flags.enableTvMediaOutputDialog()) {
             // Not showing any media output dialog since the mobile version is not navigable on TV.
             Log.w(TAG, "enable_tv_media_output_dialog flag is disabled")
