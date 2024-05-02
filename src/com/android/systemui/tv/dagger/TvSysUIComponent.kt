@@ -19,6 +19,7 @@ import com.android.systemui.dagger.DependencyProvider
 import com.android.systemui.dagger.SysUIComponent
 import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.dagger.SystemUIModule
+import com.android.systemui.globalactions.ShutdownUiModule
 import com.android.systemui.keyguard.dagger.KeyguardModule
 import com.android.systemui.navigationbar.NoopNavigationBarControllerModule
 import com.android.systemui.scene.ShadelessSceneContainerFrameworkModule
@@ -46,6 +47,7 @@ import dagger.Subcomponent
     NotificationsModule::class,
     TvRecentsModule::class,
     ShadelessSceneContainerFrameworkModule::class,
+    ShutdownUiModule::class,
     SystemUIModule::class,
     TvSystemUIBinder::class,
     TVSystemUICoreStartableModule::class,
