@@ -26,15 +26,17 @@ import com.android.internal.logging.UiEventLogger
 import com.android.keyguard.KeyguardViewController
 import com.android.settingslib.bluetooth.LocalBluetoothManager
 import com.android.systemui.Dependency
-import com.android.systemui.animation.DialogLaunchAnimator
+import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.dagger.ReferenceSystemUIModule
 import com.android.systemui.dagger.SysUISingleton
+import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
 import com.android.systemui.flags.FeatureFlags
 import com.android.systemui.media.dialog.MediaOutputDialogFactory
+import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager
 import com.android.systemui.navigationbar.gestural.GestureModule
 import com.android.systemui.plugins.ActivityStarter
@@ -45,8 +47,8 @@ import com.android.systemui.privacy.PrivacyItemMonitor
 import com.android.systemui.qs.dagger.QSModule
 import com.android.systemui.qs.tileimpl.QSFactoryImpl
 import com.android.systemui.screenshot.ReferenceScreenshotModule
+import com.android.systemui.settings.MultiUserUtilsModule
 import com.android.systemui.settings.UserTracker
-import com.android.systemui.settings.dagger.MultiUserUtilsModule
 import com.android.systemui.shade.ShadeEmptyImplModule
 import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
@@ -70,8 +72,10 @@ import com.android.systemui.tv.media.TvMediaOutputDialogActivity
 import com.android.systemui.tv.media.TvMediaOutputDialogFactory
 import com.android.systemui.tv.notifications.TvNotificationHandler
 import com.android.systemui.tv.notifications.TvNotificationsModule
+import com.android.systemui.tv.privacy.PrivacyModule
 import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.tv.shade.TvNotificationShadeWindowController
+import com.android.systemui.unfold.SysUIUnfoldStartableModule
 import com.android.systemui.volume.dagger.VolumeModule
 import dagger.Binds
 import dagger.Module
@@ -91,19 +95,24 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 @Module(
     includes = [
     AospPolicyModule::class,
+    ConnectingDisplayViewModel.StartableModule::class,
     GestureModule::class,
     HdmiModule::class,
     HeadsUpEmptyImplModule::class,
+    KeyboardShortcutsModule::class,
+    MediaMuteAwaitConnectionCli.StartableModule::class,
     MultiUserUtilsModule::class,
+    NearbyMediaDevicesManager.StartableModule::class,
     PowerModule::class,
+    PrivacyModule::class,
     QSModule::class,
     ReferenceScreenshotModule::class,
     ShadeEmptyImplModule::class,
     StatusBarEventsModule::class,
+    SysUIUnfoldStartableModule::class,
     TvNotificationsModule::class,
     TvSensorPrivacyModule::class,
     VolumeModule::class,
-    KeyboardShortcutsModule::class,
 ]
 )
 abstract class TvSystemUIModule {
@@ -146,7 +155,8 @@ abstract class TvSystemUIModule {
     @IntoMap
     @ClassKey(TvMediaOutputDialogActivity::class)
     abstract fun provideTvMediaOutputDialogActivity(
-            tvMediaOutputDialogActivity: TvMediaOutputDialogActivity): Activity
+            tvMediaOutputDialogActivity: TvMediaOutputDialogActivity
+    ): Activity
 
     companion object {
         @SysUISingleton
@@ -197,7 +207,7 @@ abstract class TvSystemUIModule {
             broadcastSender: BroadcastSender,
             notifCollection: CommonNotifCollection,
             uiEventLogger: UiEventLogger,
-            dialogLaunchAnimator: DialogLaunchAnimator,
+            dialogTransitionAnimator: DialogTransitionAnimator,
             nearbyMediaDevicesManager: NearbyMediaDevicesManager,
             audioManager: AudioManager,
             powerExemptionManager: PowerExemptionManager,
@@ -207,7 +217,7 @@ abstract class TvSystemUIModule {
             ): MediaOutputDialogFactory =
                 TvMediaOutputDialogFactory(context, mediaSessionManager, localBluetoothManager,
                         activityStarter, broadcastSender, notifCollection, uiEventLogger,
-                        dialogLaunchAnimator, nearbyMediaDevicesManager, audioManager,
+                        dialogTransitionAnimator, nearbyMediaDevicesManager, audioManager,
                         powerExemptionManager, keyguardManager, featureFlags, userTracker)
     }
 }
