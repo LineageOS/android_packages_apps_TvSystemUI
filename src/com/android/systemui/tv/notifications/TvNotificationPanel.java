@@ -55,7 +55,7 @@ public class TvNotificationPanel implements CoreStartable, CommandQueue.Callback
     }
 
     @Override
-    public void togglePanel() {
+    public void toggleNotificationsPanel() {
         if (!mNotificationHandlerPackage.isEmpty()) {
             startNotificationHandlerActivity(
                     new Intent(NotificationManager.ACTION_TOGGLE_NOTIFICATION_HANDLER_PANEL));
