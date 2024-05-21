@@ -18,6 +18,7 @@ package com.android.systemui.tv.media
 
 import android.content.Context
 import android.content.Intent
+import android.media.session.MediaSession
 import android.os.UserHandle
 import android.util.Log
 import android.view.View
@@ -60,6 +61,7 @@ class TvMediaOutputDialogManager @Inject constructor(
         aboveStatusBar: Boolean,
         view: View?,
         unusedUserHandle: UserHandle?,
+        token: MediaSession.Token?,
     ) {
         if (!Flags.enableTvMediaOutputDialog()) {
             // Not showing any media output dialog since the mobile version is not navigable on TV.

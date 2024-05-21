@@ -75,6 +75,7 @@ public class TvMediaOutputController extends MediaOutputController {
                 context,
                 packageName,
                 /* userHandle= */ null,
+                /* token= */ null,
                 mediaSessionManager,
                 lbm,
                 starter,
