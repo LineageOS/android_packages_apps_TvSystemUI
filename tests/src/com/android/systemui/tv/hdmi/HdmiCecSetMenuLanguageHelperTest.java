@@ -24,8 +24,9 @@ import static org.mockito.Mockito.when;
 
 import android.os.UserHandle;
 import android.provider.Settings;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.testing.AndroidTestingRunner;
+
+import androidx.test.filters.SmallTest;
 
 import com.android.systemui.SysuiTestCase;
 import com.android.systemui.util.settings.SecureSettings;

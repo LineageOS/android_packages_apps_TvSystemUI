@@ -30,12 +30,14 @@ android_test {
     manifest: "AndroidManifest.xml",
 
     static_libs: [
-        "mockito-target-extended-minus-junit4",
         "androidx.test.uiautomator_uiautomator",
         "androidx.test.core",
         "androidx.test.ext.junit",
         "androidx.test.ext.truth",
+        "androidx.test.rules",
+        "mockito-target-extended-minus-junit4",
         "SystemUI-tests-base",
+        "SystemUICustomizationTestUtils",
         "TvSystemUI-core",
     ],
 

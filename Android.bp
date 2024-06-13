@@ -48,6 +48,7 @@ android_library {
         "SystemUISharedLib",
         "TvSystemUI-res",
     ],
+    javacflags: ["-Adagger.fastInit=enabled"],
     manifest: "AndroidManifest.xml",
     additional_manifests: ["AndroidManifest-exclude-overrides.xml"],
     plugins: ["dagger2-compiler"],

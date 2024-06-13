@@ -16,6 +16,7 @@
 
 package com.android.systemui.tv.notifications;
 
+import android.app.ActivityOptions;
 import android.app.BroadcastOptions;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -104,7 +105,7 @@ public class TvNotificationAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     BroadcastOptions options = BroadcastOptions.makeBasic();
                     options.setInteractive(true);
                     options.setPendingIntentBackgroundActivityStartMode(
-                            BroadcastOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
+                            ActivityOptions.MODE_BACKGROUND_ACTIVITY_START_ALLOWED);
                     mPendingIntent.send(options.toBundle());
                 }
             } catch (PendingIntent.CanceledException e) {
