@@ -33,4 +33,8 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"Dalja e audios"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Pajisjet e tjera"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Lidh një pajisje tjetër"</string>
+    <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Po vazhdon të shikosh?"</string>
+    <string name="hdmi_cec_on_active_source_lost_description" msgid="3360234213187507600">"Televizori na ka treguar se do të shfaqë një hyrje tjetër. Zgjidh një opsion për ta mbajtur zgjuar këtë pajisje."</string>
+    <string name="hdmi_cec_on_active_source_lost_ok" msgid="2979087317246080268">"Po"</string>
+    <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"Mos pyet më"</string>
 </resources>

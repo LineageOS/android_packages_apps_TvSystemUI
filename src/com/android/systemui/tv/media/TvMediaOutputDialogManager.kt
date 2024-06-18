@@ -16,55 +16,53 @@
 
 package com.android.systemui.tv.media
 
-import android.app.KeyguardManager
 import android.content.Context
 import android.content.Intent
-import android.media.AudioManager
-import android.media.session.MediaSessionManager
-import android.os.PowerExemptionManager
+import android.media.session.MediaSession
+import android.os.UserHandle
 import android.util.Log
 import android.view.View
 import com.android.internal.logging.UiEventLogger
-import com.android.settingslib.bluetooth.LocalBluetoothManager
 import com.android.settingslib.media.flags.Flags
 import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
-import com.android.systemui.flags.FeatureFlags
-import com.android.systemui.media.dialog.MediaOutputDialogFactory
-import com.android.systemui.media.nearby.NearbyMediaDevicesManager
-import com.android.systemui.plugins.ActivityStarter
-import com.android.systemui.settings.UserTracker
-import com.android.systemui.statusbar.notification.collection.notifcollection.CommonNotifCollection
+import com.android.systemui.media.dialog.MediaOutputController
+import com.android.systemui.media.dialog.MediaOutputDialogManager
 import javax.inject.Inject
 
 /**
- * Factory to create [TvMediaOutputDialogActivity] objects.
+ * Manager to create and show [TvMediaOutputDialogActivity].
  */
-class TvMediaOutputDialogFactory @Inject constructor(
+class TvMediaOutputDialogManager @Inject constructor(
         private val context: Context,
-        mediaSessionManager: MediaSessionManager,
-        lbm: LocalBluetoothManager?,
-        starter: ActivityStarter,
         broadcastSender: BroadcastSender,
-        notifCollection: CommonNotifCollection,
         uiEventLogger: UiEventLogger,
         dialogTransitionAnimator: DialogTransitionAnimator,
-        nearbyMediaDevicesManager: NearbyMediaDevicesManager,
-        audioManager: AudioManager,
-        powerExemptionManager: PowerExemptionManager,
-        keyGuardManager: KeyguardManager,
-        featureFlags: FeatureFlags,
-        userTracker: UserTracker
-) : MediaOutputDialogFactory(context, mediaSessionManager, lbm, starter, broadcastSender,
-        notifCollection, uiEventLogger, dialogTransitionAnimator,
-        nearbyMediaDevicesManager, audioManager, powerExemptionManager, keyGuardManager,
-        featureFlags, userTracker) {
+        mediaOutputControllerFactory: MediaOutputController.Factory,
+) : MediaOutputDialogManager(
+        context,
+        broadcastSender,
+        uiEventLogger,
+        dialogTransitionAnimator,
+        mediaOutputControllerFactory
+) {
     companion object {
         private const val TAG = "TvMediaOutputDialogFactory"
     }
 
-    /** Creates a [TvMediaOutputDialog]. */
-    override fun create(packageName: String, aboveStatusBar: Boolean, view: View?) {
+    /**
+     * Creates a [TvMediaOutputDialog].
+     *
+     * <p>Note that neither the package name nor the user handle are used. The reason is that the TV
+     * output dialog does not control a specific app, but rather the system's media output.
+     */
+    override fun createAndShow(
+        unusedPackageName: String,
+        aboveStatusBar: Boolean,
+        view: View?,
+        unusedUserHandle: UserHandle?,
+        token: MediaSession.Token?,
+    ) {
         if (!Flags.enableTvMediaOutputDialog()) {
             // Not showing any media output dialog since the mobile version is not navigable on TV.
             Log.w(TAG, "enable_tv_media_output_dialog flag is disabled")
