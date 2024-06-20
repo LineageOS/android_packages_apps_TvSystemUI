@@ -68,6 +68,10 @@ import com.android.systemui.tv.privacy.PrivacyModule
 import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.tv.shade.TvNotificationShadeWindowController
 import com.android.systemui.unfold.SysUIUnfoldStartableModule
+import com.android.systemui.usb.UsbAccessoryUriActivity
+import com.android.systemui.usb.UsbDebuggingActivity
+import com.android.systemui.usb.UsbDebuggingSecondaryUserActivity
+import com.android.systemui.user.CreateUserActivity
 import com.android.systemui.volume.dagger.VolumeModule
 import dagger.Binds
 import dagger.Module
@@ -149,6 +153,32 @@ abstract class TvSystemUIModule {
     abstract fun provideTvMediaOutputDialogActivity(
             tvMediaOutputDialogActivity: TvMediaOutputDialogActivity
     ): Activity
+
+    /** Inject into UsbDebuggingActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(UsbDebuggingActivity::class)
+    abstract fun bindUsbDebuggingActivity(activity: UsbDebuggingActivity): Activity
+
+    /** Inject into UsbDebuggingSecondaryUserActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(UsbDebuggingSecondaryUserActivity::class)
+    abstract fun bindUsbDebuggingSecondaryUserActivity(
+        activity: UsbDebuggingSecondaryUserActivity,
+    ): Activity
+
+    /** Inject into UsbAccessoryUriActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(UsbAccessoryUriActivity::class)
+    abstract fun bindUsbAccessoryUriActivity(activity: UsbAccessoryUriActivity): Activity
+
+    /** Inject into CreateUserActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(CreateUserActivity::class)
+    abstract fun bindCreateUserActivity(activity: CreateUserActivity): Activity
 
     companion object {
         @SysUISingleton
