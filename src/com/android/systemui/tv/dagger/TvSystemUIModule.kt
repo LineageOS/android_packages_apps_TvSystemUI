@@ -21,6 +21,8 @@ import android.hardware.SensorPrivacyManager
 import com.android.internal.logging.UiEventLogger
 import com.android.keyguard.KeyguardViewController
 import com.android.systemui.Dependency
+import com.android.systemui.accessibility.AccessibilityModule
+import com.android.systemui.accessibility.data.repository.AccessibilityRepositoryModule
 import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.dagger.ReferenceSystemUIModule
@@ -90,6 +92,8 @@ import javax.inject.Named
  */
 @Module(
     includes = [
+    AccessibilityModule::class,
+    AccessibilityRepositoryModule::class,
     AospPolicyModule::class,
     ConnectingDisplayViewModel.StartableModule::class,
     GestureModule::class,
