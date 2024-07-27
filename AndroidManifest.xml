@@ -104,6 +104,16 @@
             android:permission="android.permission.MANAGE_USB"
             android:theme="@style/BottomSheet" />
 
+        <!-- started from AdbDebuggingManager -->
+        <activity
+            android:name=".tv.usb.TvUsbDebuggingActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:finishOnCloseSystemDialogs="true"
+            android:launchMode="singleTop"
+            android:permission="android.permission.MANAGE_DEBUGGING"
+            android:theme="@style/BottomSheet" />
+
         <!-- started from TvMediaOutputDialogFactory -->
         <activity android:name=".tv.media.TvMediaOutputDialogActivity"
                   android:excludeFromRecents="true"

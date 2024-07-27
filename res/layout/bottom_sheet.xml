@@ -71,8 +71,11 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="@dimen/bottom_sheet_actions_width"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center">
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bottom_sheet_actions_spacing" />
         <Button
             android:id="@+id/bottom_sheet_positive_button"
             style="@style/BottomSheet.ActionItem" />
@@ -80,8 +83,21 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/bottom_sheet_actions_spacing" />
         <Button
+            android:visibility="gone"
+            android:id="@+id/bottom_sheet_always_button"
+            style="@style/BottomSheet.ActionItem" />
+        <Space
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:id="@+id/bottom_sheet_always_space"
+            android:layout_height="@dimen/bottom_sheet_actions_spacing" />
+        <Button
             android:id="@+id/bottom_sheet_negative_button"
             style="@style/BottomSheet.ActionItem" />
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bottom_sheet_actions_spacing" />
+
     </LinearLayout>
 
 </LinearLayout>
