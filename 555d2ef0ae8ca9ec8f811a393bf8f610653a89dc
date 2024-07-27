@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58f1f381_554427e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14048
+      },
+      "writtenOn": "2024-07-27T02:56:23Z",
+      "side": 1,
+      "message": "\"Caused by: java.lang.NoSuchMethodException: com.android.systemui.tv.usb.TvUsbDebuggingActivity.\u003cinit\u003e []\"",
+      "revId": "555d2ef0ae8ca9ec8f811a393bf8f610653a89dc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
