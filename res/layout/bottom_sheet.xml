@@ -79,6 +79,17 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="@dimen/bottom_sheet_actions_spacing" />
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/bottom_sheet_always_button"
+            style="@style/BottomSheet.ActionItem" />
+        <Space
+            android:visibility="gone"
+            android:layout_width="0dp"
+            android:id="@+id/bottom_sheet_always_space"
+            android:layout_height="@dimen/bottom_sheet_actions_spacing" />
+
         <Button
             android:id="@+id/bottom_sheet_negative_button"
             style="@style/BottomSheet.ActionItem" />
