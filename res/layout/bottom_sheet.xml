@@ -69,6 +69,24 @@
     </LinearLayout>
 
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/always_allow_layout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="14dip"
+        android:paddingEnd="15dip"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/always_allow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:clickable="true" />
+    </LinearLayout>
+
+    <LinearLayout
         android:orientation="vertical"
         android:layout_width="@dimen/bottom_sheet_actions_width"
         android:layout_height="match_parent"
