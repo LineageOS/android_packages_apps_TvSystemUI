@@ -49,6 +49,7 @@ import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.settings.UserTracker;
 import com.android.systemui.statusbar.notification.collection.notifcollection.CommonNotifCollection;
 import com.android.systemui.tv.res.R;
+import com.android.systemui.volume.panel.domain.interactor.VolumePanelGlobalStateInteractor;
 
 import java.util.Collections;
 
@@ -81,6 +82,7 @@ public class TvMediaOutputDialogActivity extends Activity
     private final PowerExemptionManager mPowerExemptionManager;
     private final KeyguardManager mKeyguardManager;
     private final FeatureFlags mFeatureFlags;
+    private final VolumePanelGlobalStateInteractor mVolumePanelGlobalStateInteractor;
     private final UserTracker mUserTracker;
 
     protected final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
@@ -98,6 +100,7 @@ public class TvMediaOutputDialogActivity extends Activity
             PowerExemptionManager powerExemptionManager,
             KeyguardManager keyguardManager,
             FeatureFlags featureFlags,
+            VolumePanelGlobalStateInteractor volumePanelGlobalStateInteractor,
             UserTracker userTracker) {
         mMediaSessionManager = mediaSessionManager;
         mLocalBluetoothManager = localBluetoothManager;
@@ -109,6 +112,7 @@ public class TvMediaOutputDialogActivity extends Activity
         mPowerExemptionManager = powerExemptionManager;
         mKeyguardManager = keyguardManager;
         mFeatureFlags = featureFlags;
+        mVolumePanelGlobalStateInteractor = volumePanelGlobalStateInteractor;
         mUserTracker = userTracker;
     }
 
@@ -125,11 +129,22 @@ public class TvMediaOutputDialogActivity extends Activity
 
         setContentView(R.layout.media_output_dialog);
 
-        mMediaOutputController = new TvMediaOutputController(this, getPackageName(),
-                mMediaSessionManager, mLocalBluetoothManager, mActivityStarter,
-                mCommonNotifCollection, mDialogTransitionAnimator, mNearbyMediaDevicesManager,
-                mAudioManager, mPowerExemptionManager, mKeyguardManager, mFeatureFlags,
-                mUserTracker);
+        mMediaOutputController =
+                new TvMediaOutputController(
+                        this,
+                        getPackageName(),
+                        mMediaSessionManager,
+                        mLocalBluetoothManager,
+                        mActivityStarter,
+                        mCommonNotifCollection,
+                        mDialogTransitionAnimator,
+                        mNearbyMediaDevicesManager,
+                        mAudioManager,
+                        mPowerExemptionManager,
+                        mKeyguardManager,
+                        mFeatureFlags,
+                        mVolumePanelGlobalStateInteractor,
+                        mUserTracker);
         mAdapter = new TvMediaOutputAdapter(this, mMediaOutputController, this);
 
         Resources res = getResources();
