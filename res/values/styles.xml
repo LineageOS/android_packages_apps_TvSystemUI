@@ -179,6 +179,11 @@
         <item name="android:paddingVertical">12dp</item>
     </style>
 
+    <style name="OutputDeviceWidgetStyle" parent="RadioWidgetStyle">
+        <!--    Handled through RecyclerView.ItemDecoration    -->
+        <item name="android:layout_marginVertical">0dp</item>
+    </style>
+
     <style name="SeekbarWidgetStyle" parent="ControlWidgetStyle">
         <item name="android:paddingHorizontal">12dp</item>
         <item name="android:paddingVertical">12dp</item>
@@ -212,6 +217,13 @@
         <item name="android:singleLine">false</item>
         <item name="android:textColor">@color/media_dialog_item_subtitle</item>
         <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="SingleLineMarquee">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:scrollHorizontally">true</item>
     </style>
 
 </resources>

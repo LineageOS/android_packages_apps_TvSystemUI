@@ -23,6 +23,10 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaRoute2Info;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Annotation;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannedString;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -41,8 +45,12 @@ import com.android.settingslib.media.LocalMediaManager;
 import com.android.settingslib.media.MediaDevice;
 import com.android.settingslib.media.MediaDevice.MediaDeviceType;
 import com.android.systemui.media.dialog.MediaItem;
+import com.android.systemui.tv.media.settings.CenteredImageSpan;
+import com.android.systemui.tv.media.settings.ControlWidget;
+
 import com.android.systemui.tv.res.R;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -63,7 +71,10 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
     private final int mUnfocusedRadioTint;
     private final int mCheckedRadioTint;
 
+    private final CharSequence mTooltipText;
     private String mSavedDeviceId;
+
+    private final boolean mIsRtl;
 
     TvMediaOutputAdapter(Context context, TvMediaOutputController mediaOutputController,
             PanelCallback callback) {
@@ -75,6 +86,9 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
         mFocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_focused);
         mUnfocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_unfocused);
         mCheckedRadioTint = res.getColor(R.color.media_dialog_radio_button_checked);
+
+        mIsRtl = res.getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
+        mTooltipText = createTooltipText();
 
         setHasStableIds(true);
     }
@@ -132,7 +146,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
      * Returns position of the MediaDevice with the saved device id.
      */
     protected int getFocusPosition() {
-        Log.d(TAG, "getFocusPosition, deviceId: " + mSavedDeviceId);
+        if (DEBUG) Log.d(TAG, "getFocusPosition, deviceId: " + mSavedDeviceId);
         if (mSavedDeviceId == null) {
             return 0;
         }
@@ -146,6 +160,31 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             }
         }
         return 0;
+    }
+
+    /**
+     * Replaces the dpad action with an icon.
+     */
+    private CharSequence createTooltipText() {
+        Resources res = mContext.getResources();
+        final SpannedString tooltipText = (SpannedString) res.getText(mIsRtl
+                ? R.string.audio_device_tooltip_right : R.string.audio_device_tooltip_left);
+        final SpannableString spannableString = new SpannableString(tooltipText);
+        Arrays.stream(tooltipText.getSpans(0, tooltipText.length(), Annotation.class)).findFirst()
+                .ifPresent(annotation -> {
+                    final Drawable icon =
+                            res.getDrawable(R.drawable.dpad_right, mContext.getTheme());
+                    icon.setLayoutDirection(
+                            mContext.getResources().getConfiguration().getLayoutDirection());
+                    icon.mutate();
+                    icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
+                    spannableString.setSpan(new CenteredImageSpan(icon),
+                            tooltipText.getSpanStart(annotation),
+                            tooltipText.getSpanEnd(annotation),
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                });
+
+        return spannableString;
     }
 
     @Override
@@ -193,10 +232,12 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
                         if (event.getAction() != KeyEvent.ACTION_UP) {
                             return false;
                         }
-                        if (mMediaDevice != null && (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT
-                                || keyCode == KeyEvent.KEYCODE_DPAD_CENTER
-                                && event.isLongPress())) {
-
+                        int dpadArrow = mIsRtl ?
+                                KeyEvent.KEYCODE_DPAD_LEFT : KeyEvent.KEYCODE_DPAD_RIGHT;
+                        if (mMediaDevice != null
+                                && (keyCode == dpadArrow
+                                || (keyCode == KeyEvent.KEYCODE_DPAD_CENTER
+                                && event.isLongPress()))) {
 
                             String baseUri = getBaseUriForDevice(mContext, mMediaDevice);
                             if (baseUri == null || baseUri.isEmpty()) {
@@ -263,6 +304,15 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             });
 
             itemView.setOnClickListener(v -> transferOutput(mediaDevice));
+
+            OutputDeviceControlWidget widget = (OutputDeviceControlWidget) itemView;
+            String baseUri = getBaseUriForDevice(mContext, mMediaDevice);
+            if (baseUri != null && !baseUri.isEmpty()) {
+                ControlWidget.TooltipConfig toolTipConfig = new ControlWidget.TooltipConfig();
+                toolTipConfig.setShouldShowTooltip(true);
+                toolTipConfig.setTooltipText(mTooltipText);
+                widget.setTooltipConfig(toolTipConfig);
+            }
         }
 
         private void setRadioButtonColor() {
