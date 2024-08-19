@@ -16,10 +16,10 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/switch_icon_title_container"
-    style="@style/SwitchWidgetStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
+    android:duplicateParentState="true"
     android:orientation="horizontal">
 
     <include layout="@layout/core_slice_preference" />

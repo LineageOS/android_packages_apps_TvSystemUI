@@ -15,19 +15,10 @@
   ~ limitations under the License.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/checkbox_widget_container"
-    style="@style/CheckboxWidgetStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-
-    <include layout="@layout/core_slice_preference" />
-
-    <CheckBox
-        android:id="@android:id/checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:focusable="false" />
-</LinearLayout>
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <alpha
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="200"
+        android:interpolator="@interpolator/easing_standard" />
+</set>

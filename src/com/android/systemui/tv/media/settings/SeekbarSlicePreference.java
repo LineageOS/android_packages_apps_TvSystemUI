@@ -31,6 +31,7 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.PreferenceViewHolder;
 
 import com.android.systemui.tv.res.R;
@@ -41,7 +42,8 @@ import com.android.tv.twopanelsettings.slices.compat.core.SliceActionImpl;
  * Slice preference for one panel settings a small icon, title, seekbar and the current seekbar
  * value. Large non-themed icons/images are not supported.
  */
-public class SeekbarSlicePreference extends SliceSeekbarPreference {
+public class SeekbarSlicePreference extends SliceSeekbarPreference implements TooltipPreference {
+    private ControlWidget.TooltipConfig mTooltipConfig = new ControlWidget.TooltipConfig();
     private SeekBar mSeekbar;
 
     private SeekBar.OnSeekBarChangeListener mChangeListener;
@@ -54,13 +56,18 @@ public class SeekbarSlicePreference extends SliceSeekbarPreference {
     public SeekbarSlicePreference(Context context, AttributeSet attrs, SliceActionImpl action,
             int min, int max, int value) {
         super(context, attrs, action, min, max, value);
-        setLayoutResource(R.layout.seekbar_slice_preference);
+        setLayoutResource(R.layout.seekbar_slice_pref);
         setShowSeekBarValue(true);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
+
+        SeekbarControlWidget seekbarControlWidget = (SeekbarControlWidget) holder.itemView;
+        seekbarControlWidget.setEnabled(this.isEnabled());
+        seekbarControlWidget.setTooltipConfig(mTooltipConfig);
+
         mSeekbar = holder.itemView.requireViewById(R.id.seekbar);
 
         // Set outline of the seekbar to clip the thumb when getting closer to 0.
@@ -136,5 +143,31 @@ public class SeekbarSlicePreference extends SliceSeekbarPreference {
             return true;
         }
         return false;
+    }
+
+    /** Set tool tip related attributes. */
+    @Override
+    public void setTooltipConfig(ControlWidget.TooltipConfig tooltipConfig) {
+        if (!this.mTooltipConfig.equals(tooltipConfig)) {
+            this.mTooltipConfig = tooltipConfig;
+            notifyChanged();
+        }
+    }
+
+    static class SeekbarControlWidget extends ControlWidget {
+        public SeekbarControlWidget(Context context) {
+            this(context, /* attrs= */ null);
+        }
+
+        public SeekbarControlWidget(Context context, @Nullable AttributeSet attrs) {
+            this(context, attrs, /* defStyleAttr= */ 0);
+        }
+
+        @SuppressWarnings("nullness")
+        public SeekbarControlWidget(Context context, @Nullable AttributeSet attrs,
+                int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+            View.inflate(context, R.layout.seekbar_control_widget, /* root= */ this);
+        }
     }
 }
