@@ -54,6 +54,7 @@
     <color name="media_dialog_radio_button_checked">#0842A0</color>
 
     <color name="media_dialog_title">#E8EAED</color>
+    <color name="media_dialog_subtitle">#B8E8EAED</color>
     <color name="media_dialog_item_title_focused">#0E0E0F</color>
     <color name="media_dialog_item_title_unfocused">#E8EAED</color>
     <color name="media_dialog_item_subtitle_focused">#6B7887</color>
@@ -63,5 +64,29 @@
     <color name="media_dialog_divider_text">#E4F3FF</color>
     <color name="media_dialog_low_battery_focused">#8C1D18</color>
     <color name="media_dialog_low_battery_unfocused">#C27D7A</color>
+
+    <!-- Tv panel -->
+    <color name="tv_panel_window_background">@color/media_dialog_bg</color>
+
+    <!-- Switch control widget -->
+    <color name="switch_track_unfocused_color">#FFC2E7FF</color>
+    <color name="switch_track_focused_color">#FF004A77</color>
+    <color name="switch_track_unchecked_color">#FF282A2C</color>
+
+    <color name="switch_track_border_unfocused_unchecked">#33DFF3FF</color>
+    <color name="switch_track_border_unfocused_disabled">#33DFF3FF</color>
+
+    <color name="switch_thumb_unfocused_color">#FF004A77</color>
+    <color name="switch_thumb_focused_color">#FFC2E7FF</color>
+    <color name="switch_thumb_unchecked_color">#FF8E918F</color>
+
+    <color name="switch_info_on">#FF5BB974</color>
+    <color name="switch_info_off">#FFEE675C</color>
+
+    <!-- Seekbar control widget -->
+    <color name="seekbar_progress_focused_color">#FF004A77</color>
+    <color name="seekbar_progress_unfocused_color">#FFE4F3FF</color>
+    <color name="seekbar_progress_background_focused_color">#FFA8C7FA</color>
+    <color name="seekbar_progress_background_unfocused_color">#FF3D4043</color>
 
 </resources>

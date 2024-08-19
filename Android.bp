@@ -47,6 +47,7 @@ android_library {
         "SystemUIPluginLib",
         "SystemUISharedLib",
         "TvSystemUI-res",
+        "TwoPanelSettingsLib"
     ],
     javacflags: ["-Adagger.fastInit=enabled"],
     manifest: "AndroidManifest.xml",
