@@ -33,4 +33,8 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"ಆಡಿಯೋ ಔಟ್‌ಪುಟ್"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"ಇತರ ಸಾಧನಗಳು"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"ಮತ್ತೊಂದು ಸಾಧನವನ್ನು ಕನೆಕ್ಟ್ ಮಾಡಿ"</string>
+    <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"ನೀವು ಇನ್ನೂ ವೀಕ್ಷಿಸುತ್ತಿದ್ದೀರಾ?"</string>
+    <string name="hdmi_cec_on_active_source_lost_description" msgid="3360234213187507600">"ಮತ್ತೊಂದು ಇನ್‌ಪುಟ್ ಅನ್ನು ಪ್ರದರ್ಶಿಸುತ್ತದೆ ಎಂದು ಟಿವಿ ನಮಗೆ ಹೇಳಿದೆ. ಈ ಸಾಧನವನ್ನು ಎಚ್ಚರವಾಗಿರಿಸಲು ಒಂದು ಆಯ್ಕೆಯನ್ನು ಆರಿಸಿ."</string>
+    <string name="hdmi_cec_on_active_source_lost_ok" msgid="2979087317246080268">"ಹೌದು"</string>
+    <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"ಪುನಃ ಕೇಳಬೇಡ"</string>
 </resources>

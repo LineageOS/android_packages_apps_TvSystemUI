@@ -18,7 +18,6 @@ package com.android.systemui.tv.dagger
 import android.content.BroadcastReceiver
 import com.android.systemui.GuestResetOrExitSessionReceiver
 import com.android.systemui.media.dialog.MediaOutputDialogReceiver
-import com.android.systemui.volume.VolumePanelDialogReceiver
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.ClassKey
@@ -32,13 +31,6 @@ abstract class TvBroadcastReceiverBinder {
   @ClassKey(MediaOutputDialogReceiver::class)
   abstract fun bindMediaOutputDialogReceiver(
       broadcastReceiver: MediaOutputDialogReceiver
-  ): BroadcastReceiver
-
-  @Binds
-  @IntoMap
-  @ClassKey(VolumePanelDialogReceiver::class)
-  abstract fun bindVolumePanelDialogReceiver(
-      broadcastReceiver: VolumePanelDialogReceiver
   ): BroadcastReceiver
 
   @Binds

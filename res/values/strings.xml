@@ -38,6 +38,12 @@
     <string name="media_output_dialog_other_devices">Other devices</string>
     <string name="media_output_dialog_pairing_new">Connect another device</string>
 
+
+    <string name="hdmi_cec_on_active_source_lost_title">Are you still watching?</string>
+    <string name="hdmi_cec_on_active_source_lost_description">The TV told us it will display another input. Select one option to keep this device awake.</string>
+    <string name="hdmi_cec_on_active_source_lost_ok">Yes</string>
+    <string name="hdmi_cec_on_active_source_lost_do_not_show">Don\u2019t ask again</string>
+
     <string name="font_display_large" translatable="false">sans-serif</string>
     <string name="font_display_medium" translatable="false">sans-serif</string>
     <string name="font_display_small" translatable="false">sans-serif</string>

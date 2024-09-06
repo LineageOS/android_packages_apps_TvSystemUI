@@ -24,7 +24,6 @@ android_test {
         "src/**/*.kt",
         "src/**/*.java",
         ":SystemUI-tests-utils",
-        ":ReleaseJavaFiles",
     ],
 
     manifest: "AndroidManifest.xml",

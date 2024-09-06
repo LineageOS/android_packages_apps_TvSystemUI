@@ -33,4 +33,8 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"Sortida d\'àudio"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Altres dispositius"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Connecta un altre dispositiu"</string>
+    <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Encara mires el contingut?"</string>
+    <string name="hdmi_cec_on_active_source_lost_description" msgid="3360234213187507600">"El televisor indica que es mostrarà una altra entrada. Selecciona una opció per mantenir aquest dispositiu activat."</string>
+    <string name="hdmi_cec_on_active_source_lost_ok" msgid="2979087317246080268">"Sí"</string>
+    <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"No m\'ho tornis a preguntar"</string>
 </resources>
