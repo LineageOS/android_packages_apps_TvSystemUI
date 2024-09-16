@@ -43,7 +43,7 @@ import com.android.settingslib.media.MediaDevice;
 import com.android.settingslib.media.flags.Flags;
 import com.android.systemui.animation.DialogTransitionAnimator;
 import com.android.systemui.flags.FeatureFlags;
-import com.android.systemui.media.dialog.MediaOutputController;
+import com.android.systemui.media.dialog.MediaSwitchingController;
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.settings.UserTracker;
@@ -57,15 +57,14 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 /**
- * A TV specific variation of the {@link com.android.systemui.media.dialog.MediaOutputDialog}.
- * This activity allows the user to select a default audio output, which is not based on the
- * currently playing media.
- * There are two entry points for the dialog, either by sending a broadcast via the
- * {@link com.android.systemui.media.dialog.MediaOutputDialogReceiver} or by calling
- * {@link MediaRouter2#showSystemOutputSwitcher()}
+ * A TV specific variation of the {@link com.android.systemui.media.dialog.MediaOutputDialog}. This
+ * activity allows the user to select a default audio output, which is not based on the currently
+ * playing media. There are two entry points for the dialog, either by sending a broadcast via the
+ * {@link com.android.systemui.media.dialog.MediaOutputDialogReceiver} or by calling {@link
+ * MediaRouter2#showSystemOutputSwitcher()}
  */
 public class TvMediaOutputDialogActivity extends Activity
-        implements MediaOutputController.Callback {
+        implements MediaSwitchingController.Callback {
     private static final String TAG = TvMediaOutputDialogActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
 

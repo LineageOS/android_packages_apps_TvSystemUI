@@ -26,7 +26,7 @@ import com.android.internal.logging.UiEventLogger
 import com.android.settingslib.media.flags.Flags
 import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
-import com.android.systemui.media.dialog.MediaOutputController
+import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import javax.inject.Inject
 
@@ -38,13 +38,13 @@ class TvMediaOutputDialogManager @Inject constructor(
         broadcastSender: BroadcastSender,
         uiEventLogger: UiEventLogger,
         dialogTransitionAnimator: DialogTransitionAnimator,
-        mediaOutputControllerFactory: MediaOutputController.Factory,
+        mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
 ) : MediaOutputDialogManager(
         context,
         broadcastSender,
         uiEventLogger,
         dialogTransitionAnimator,
-        mediaOutputControllerFactory
+        mediaSwitchingControllerFactory
 ) {
     companion object {
         private const val TAG = "TvMediaOutputDialogFactory"
