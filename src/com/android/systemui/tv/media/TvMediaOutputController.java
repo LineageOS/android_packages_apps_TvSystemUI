@@ -36,7 +36,7 @@ import com.android.settingslib.media.MediaDevice;
 import com.android.systemui.animation.DialogTransitionAnimator;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.media.dialog.MediaItem;
-import com.android.systemui.media.dialog.MediaOutputController;
+import com.android.systemui.media.dialog.MediaSwitchingController;
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.settings.UserTracker;
@@ -50,10 +50,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Extends {@link MediaOutputController} to create a TV specific ordering and grouping of devices
+ * Extends {@link MediaSwitchingController} to create a TV specific ordering and grouping of devices
  * which are shown in the {@link TvMediaOutputDialogActivity}.
  */
-public class TvMediaOutputController extends MediaOutputController {
+public class TvMediaOutputController extends MediaSwitchingController {
 
     private final Context mContext;
     private final AudioManager mAudioManager;

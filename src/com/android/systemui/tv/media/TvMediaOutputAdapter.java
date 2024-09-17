@@ -36,7 +36,7 @@ import com.android.internal.widget.RecyclerView;
 import com.android.settingslib.media.LocalMediaManager;
 import com.android.settingslib.media.MediaDevice;
 import com.android.systemui.media.dialog.MediaItem;
-import com.android.systemui.media.dialog.MediaOutputController;
+import com.android.systemui.media.dialog.MediaSwitchingController;
 import com.android.systemui.tv.res.R;
 
 import java.util.List;
@@ -51,7 +51,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
     private static final boolean DEBUG = false;
 
     private final TvMediaOutputController mMediaOutputController;
-    private final MediaOutputController.Callback mCallback;
+    private final MediaSwitchingController.Callback mCallback;
     private final Context mContext;
     protected List<MediaItem> mMediaItemList = new CopyOnWriteArrayList<>();
 
@@ -59,8 +59,10 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
     private final int mUnfocusedRadioTint;
     private final int mCheckedRadioTint;
 
-    TvMediaOutputAdapter(Context context, TvMediaOutputController mediaOutputController,
-            MediaOutputController.Callback callback) {
+    TvMediaOutputAdapter(
+            Context context,
+            TvMediaOutputController mediaOutputController,
+            MediaSwitchingController.Callback callback) {
         mContext = context;
         mMediaOutputController = mediaOutputController;
         mCallback = callback;
