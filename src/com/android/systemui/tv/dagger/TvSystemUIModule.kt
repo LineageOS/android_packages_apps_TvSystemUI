@@ -31,7 +31,7 @@ import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
-import com.android.systemui.media.dialog.MediaOutputController
+import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager
@@ -230,9 +230,9 @@ abstract class TvSystemUIModule {
                 broadcastSender: BroadcastSender,
                 uiEventLogger: UiEventLogger,
                 dialogTransitionAnimator: DialogTransitionAnimator,
-                mediaOutputControllerFactory: MediaOutputController.Factory,
+                mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
             ): MediaOutputDialogManager =
                 TvMediaOutputDialogManager(context, broadcastSender, uiEventLogger,
-                        dialogTransitionAnimator, mediaOutputControllerFactory)
+                        dialogTransitionAnimator, mediaSwitchingControllerFactory)
     }
 }
