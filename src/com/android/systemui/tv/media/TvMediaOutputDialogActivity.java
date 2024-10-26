@@ -165,7 +165,7 @@ public class TvMediaOutputDialogActivity extends Activity
         window.setAttributes(lp);
         window.setElevation(getWindow().getElevation() + 5);
         window.setTitle(getString(
-                com.android.systemui.R.string.media_output_dialog_accessibility_title));
+                com.android.systemui.res.R.string.media_output_dialog_accessibility_title));
 
         window.getDecorView().addOnLayoutChangeListener(
                 (v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom)
