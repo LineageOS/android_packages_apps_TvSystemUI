@@ -150,22 +150,22 @@ public class TvSensorPrivacyChangedActivity extends TvBottomSheetActivity {
     private void updateUiForMicUpdate(boolean blocked) {
         if (blocked) {
             mTitle.setText(
-                    com.android.systemui.R.string.sensor_privacy_mic_turned_off_dialog_title);
+                    com.android.systemui.res.R.string.sensor_privacy_mic_turned_off_dialog_title);
             if (isExplicitUserInteractionAudioBypassAllowed()) {
                 mContent.setText(
-                        com.android.systemui.R.string
+                        com.android.systemui.res.R.string
                                 .sensor_privacy_mic_blocked_with_exception_dialog_content);
             } else {
                 mContent.setText(
-                        com.android.systemui.R.string
+                        com.android.systemui.res.R.string
                                 .sensor_privacy_mic_blocked_no_exception_dialog_content);
             }
-            mIcon.setImageResource(com.android.systemui.R.drawable.unblock_hw_sensor_microphone);
+            mIcon.setImageResource(com.android.systemui.res.R.drawable.unblock_hw_sensor_microphone);
             mSecondIcon.setVisibility(View.GONE);
         } else {
-            mTitle.setText(com.android.systemui.R.string.sensor_privacy_mic_turned_on_dialog_title);
+            mTitle.setText(com.android.systemui.res.R.string.sensor_privacy_mic_turned_on_dialog_title);
             mContent.setText(
-                    com.android.systemui.R.string.sensor_privacy_mic_unblocked_dialog_content);
+                    com.android.systemui.res.R.string.sensor_privacy_mic_unblocked_dialog_content);
             mIcon.setImageResource(com.android.internal.R.drawable.ic_mic_allowed);
             mSecondIcon.setVisibility(View.GONE);
         }
@@ -174,16 +174,16 @@ public class TvSensorPrivacyChangedActivity extends TvBottomSheetActivity {
     private void updateUiForCameraUpdate(boolean blocked) {
         if (blocked) {
             mTitle.setText(
-                    com.android.systemui.R.string.sensor_privacy_camera_turned_off_dialog_title);
+                    com.android.systemui.res.R.string.sensor_privacy_camera_turned_off_dialog_title);
             mContent.setText(
-                    com.android.systemui.R.string.sensor_privacy_camera_blocked_dialog_content);
-            mIcon.setImageResource(com.android.systemui.R.drawable.unblock_hw_sensor_camera);
+                    com.android.systemui.res.R.string.sensor_privacy_camera_blocked_dialog_content);
+            mIcon.setImageResource(com.android.systemui.res.R.drawable.unblock_hw_sensor_camera);
             mSecondIcon.setVisibility(View.GONE);
         } else {
             mTitle.setText(
-                    com.android.systemui.R.string.sensor_privacy_camera_turned_on_dialog_title);
+                    com.android.systemui.res.R.string.sensor_privacy_camera_turned_on_dialog_title);
             mContent.setText(
-                    com.android.systemui.R.string.sensor_privacy_camera_unblocked_dialog_content);
+                    com.android.systemui.res.R.string.sensor_privacy_camera_unblocked_dialog_content);
             mIcon.setImageResource(com.android.internal.R.drawable.ic_camera_allowed);
             mSecondIcon.setVisibility(View.GONE);
         }

@@ -39,7 +39,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.systemui.R;
+import com.android.systemui.res.R;
 import com.android.systemui.statusbar.policy.IndividualSensorPrivacyController;
 import com.android.systemui.tv.TvBottomSheetActivity;
 
