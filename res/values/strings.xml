@@ -40,8 +40,8 @@
 
 
     <string name="hdmi_cec_on_active_source_lost_title">Are you still watching?</string>
-    <string name="hdmi_cec_on_active_source_lost_description">The TV told us it will display another input. Select one option to keep this device awake.</string>
-    <string name="hdmi_cec_on_active_source_lost_ok">Yes</string>
+    <string name="hdmi_cec_on_active_source_lost_description">Your TV indicated that you switched to a different input and this device will go to sleep soon. Select an option to keep this device awake.</string>
+    <string name="hdmi_cec_on_active_source_lost_ok">Yes (<xliff:g id="seconds" example="10">%1$d</xliff:g>s)</string>
     <string name="hdmi_cec_on_active_source_lost_do_not_show">Don\u2019t ask again</string>
 
     <string name="font_display_large" translatable="false">sans-serif</string>
