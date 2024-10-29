@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "748f531f_6a728061",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 14048
+      },
+      "writtenOn": "2024-10-29T19:37:17Z",
+      "side": 1,
+      "message": "Verified on foster booting on jetson_cv. Popup works as expected.",
+      "revId": "dd314e3c3970467f669a6459aea687daf9172c28",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71"
+    }
+  ]
+}
