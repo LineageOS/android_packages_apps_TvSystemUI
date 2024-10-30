@@ -21,8 +21,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.hdmi.HdmiControlManager;
+import android.hardware.hdmi.HdmiPlaybackClient;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Slog;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -39,6 +41,7 @@ import com.android.systemui.tv.res.R;
  */
 public class HdmiCecActiveSourceLostActivity extends TvBottomSheetActivity
         implements View.OnClickListener {
+    private static final String TAG = "HdmiCecActiveSourceLostActivity";
     private HdmiControlManager mHdmiControlManager;
     private static final int COUNTDOWN_GO_TO_SLEEP_MS = 30_000; // 30 seconds
 
@@ -70,6 +73,18 @@ public class HdmiCecActiveSourceLostActivity extends TvBottomSheetActivity
             mHdmiControlManager.setPowerStateChangeOnActiveSourceLost(
                     HdmiControlManager.POWER_STATE_CHANGE_ON_ACTIVE_SOURCE_LOST_NONE);
         }
+        HdmiPlaybackClient playbackClient = mHdmiControlManager.getPlaybackClient();
+        if (playbackClient != null) {
+            playbackClient.oneTouchPlay(new HdmiPlaybackClient.OneTouchPlayCallback() {
+                @Override
+                public void onComplete(int result) {
+                    if (result != HdmiControlManager.RESULT_SUCCESS) {
+                        Slog.w(TAG, "One touch play failed: " + result);
+                    }
+                }
+            });
+        }
+
         finish();
     }
 
