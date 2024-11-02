@@ -51,6 +51,7 @@ import com.android.systemui.statusbar.NotificationListener
 import com.android.systemui.statusbar.NotificationLockscreenUserManager
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl
 import com.android.systemui.statusbar.NotificationShadeWindowController
+import com.android.systemui.statusbar.notification.dagger.ReferenceNotificationsModule;
 import com.android.systemui.statusbar.events.StatusBarEventsModule
 import com.android.systemui.statusbar.phone.DozeServiceHost
 import com.android.systemui.statusbar.phone.StatusBarKeyguardViewManager
@@ -107,6 +108,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     PowerModule::class,
     PrivacyModule::class,
     QSModule::class,
+    ReferenceNotificationsModule::class,
     ReferenceScreenshotModule::class,
     ShadeEmptyImplModule::class,
     StatusBarEventsModule::class,
