@@ -1,0 +1,65 @@
+{
+  "tv-postsubmit": [
+    {
+      "name": "SystemUITests",
+      "options": [
+        {"include-filter": "com.android.systemui.screenrecord.ScreenRecordPermissionDialogDelegateTest"},
+        {"include-filter": "com.android.systemui.mediaprojection.permission"},
+        {"include-filter": "com.android.systemui.sensorprivacy"},
+        {"include-filter": "com.android.systemui.toast"},
+        {"include-filter": "com.android.systemui.usb"},
+        {"include-filter": "com.android.systemui.volume"},
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    },
+    {
+      "name": "TvSystemUITests",
+      "options": [
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    },
+    {
+      "name": "WMShellUnitTests",
+      "options": [
+        {"include-filter": "com.android.wm.shell.pip.tv"},
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    },
+    {
+      "name": "VpnDialogsTests",
+      "options": [
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    },
+    {
+      "name": "CtsSystemUiTestCases",
+      "options": [
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    },
+    {
+      "name": "CtsWindowManagerDeviceOther",
+      "options": [
+        {"include-filter": "android.server.wm.other.PinnedStackTests"},
+        {"include-filter": "android.server.wm.other.TvMaxWindowSizeTests"},
+        {"include-filter": "android.server.wm.other.PictureInPictureParamsBuilderTest"},
+        {"include-filter": "android.server.wm.other.PrivacyIndicatorBoundsTests"},
+        {"include-filter": "android.server.wm.other.KeepClearRectsTests"},
+        {"include-filter": "android.server.wm.other.DreamManagerServiceTests"},
+
+        {"exclude-filter": "android.server.wm.other.PinnedStackTests#testPreventSetAspectRatioWhileExpanding"},
+        {"exclude-filter": "android.server.wm.other.PinnedStackTests#testConfigurationChangeOrderDuringTransition"},
+        {"exclude-filter": "android.server.wm.other.PinnedStackTests#testLaunchTaskByAffinityMatchSingleTask"},
+        {"exclude-filter": "android.server.wm.other.PinnedStackTests#testPipFromTaskWithMultipleActivitiesAndExpandPip"},
+
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    }
+  ]
+}

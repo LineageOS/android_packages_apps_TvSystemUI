@@ -54,35 +54,7 @@
             tools:node="remove" />
         <receiver android:name=".screenshot.SmartActionsReceiver"
             tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".usb.UsbAccessoryUriActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".usb.UsbContaminantActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".usb.UsbDebuggingActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".usb.UsbDebuggingSecondaryUserActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".wifi.WifiDebuggingActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity-alias android:name=".WifiDebuggingActivityAlias"
-            android:targetActivity=".wifi.WifiDebuggingActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".wifi.WifiDebuggingSecondaryUserActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".net.NetworkOverLimitActivity"
-            tools:node="remove" />
         <activity android:name=".media.MediaProjectionAppSelectorActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".SlicePermissionActivity"
             tools:node="remove" />
         <activity android:name=".telephony.ui.activity.SwitchToManagedProfileForCallActivity"
             tools:node="remove" />
@@ -106,9 +78,6 @@
         <service android:name=".dreams.DreamOverlayService"
             tools:node="remove" />
         <activity android:name=".keyguard.WorkLockActivity"
-            tools:node="remove" />
-        <!-- TODO(b/295161958) check if this can be removed safely -->
-        <activity android:name=".user.CreateUserActivity"
             tools:node="remove" />
         <activity android:name=".Somnambulator"
             tools:node="remove" />
