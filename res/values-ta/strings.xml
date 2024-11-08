@@ -34,7 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"பிற சாதனங்கள்"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"வேறொரு சாதனத்தை இணையுங்கள்"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"இன்னும் பார்க்கிறீர்களா?"</string>
-    <string name="hdmi_cec_on_active_source_lost_description" msgid="3360234213187507600">"டிவி வேறொரு இன்புட்டைக் காட்டும் என இதில் தெரிவிக்கப்பட்டுள்ளது. இந்தச் சாதனத்தை இயக்கத்தில் வைத்திருக்க ஒரு விருப்பத்தைத் தேர்வுசெய்யுங்கள்."</string>
-    <string name="hdmi_cec_on_active_source_lost_ok" msgid="2979087317246080268">"ஆம்"</string>
+    <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"நீங்கள் வேறொரு உள்ளீட்டிற்கு மாறிவிட்டீர்கள் என்றும் இந்தச் சாதனம் விரைவில் உறக்கப் பயன்முறைக்குச் செல்லும் என்றும் உங்கள் டிவி குறிப்பிட்டுள்ளது. இந்தச் சாதனத்தை இயக்கத்தில் வைத்திருக்க ஒரு விருப்பத்தைத் தேர்வுசெய்யவும்."</string>
+    <string name="hdmi_cec_on_active_source_lost_ok" msgid="7905385172151500115">"ஆம் (<xliff:g id="SECONDS">%1$d</xliff:g>வி)"</string>
     <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"மீண்டும் கேட்காதே"</string>
 </resources>

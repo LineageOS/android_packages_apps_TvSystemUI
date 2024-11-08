@@ -34,7 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Andere Geräte"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Anderes Gerät verbinden"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Bist du noch da?"</string>
-    <string name="hdmi_cec_on_active_source_lost_description" msgid="3360234213187507600">"Der Fernseher ist dabei, einen anderen Eingang anzuzeigen. Wähle eine Option aus, damit dieses Gerät aktiviert bleibt."</string>
-    <string name="hdmi_cec_on_active_source_lost_ok" msgid="2979087317246080268">"Ja"</string>
+    <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"Dein Fernseher hat signalisiert, dass du einen anderen Eingang ausgewählt hast. Daher wechselt dieses Gerät bald in den Ruhemodus. Wähle eine Option aus, damit dieses Gerät aktiv bleibt."</string>
+    <string name="hdmi_cec_on_active_source_lost_ok" msgid="7905385172151500115">"Ja (<xliff:g id="SECONDS">%1$d</xliff:g> Sek.)"</string>
     <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"Nicht mehr fragen"</string>
 </resources>
