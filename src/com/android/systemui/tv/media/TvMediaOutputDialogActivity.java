@@ -17,43 +17,25 @@
 package com.android.systemui.tv.media;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.KeyguardManager;
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.media.AudioManager;
 import android.media.MediaRouter2;
-import android.media.session.MediaSessionManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.PowerExemptionManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.android.internal.widget.LinearLayoutManager;
-import com.android.internal.widget.RecyclerView;
-import com.android.settingslib.bluetooth.LocalBluetoothManager;
-import com.android.settingslib.media.MediaDevice;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.android.settingslib.media.flags.Flags;
-import com.android.systemui.animation.DialogTransitionAnimator;
-import com.android.systemui.flags.FeatureFlags;
-import com.android.systemui.media.dialog.MediaSwitchingController;
-import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
-import com.android.systemui.plugins.ActivityStarter;
-import com.android.systemui.settings.UserTracker;
-import com.android.systemui.statusbar.notification.collection.notifcollection.CommonNotifCollection;
 import com.android.systemui.tv.res.R;
-import com.android.systemui.volume.panel.domain.interactor.VolumePanelGlobalStateInteractor;
 
 import java.util.Collections;
 
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 /**
@@ -63,56 +45,16 @@ import javax.inject.Inject;
  * {@link com.android.systemui.media.dialog.MediaOutputDialogReceiver} or by calling {@link
  * MediaRouter2#showSystemOutputSwitcher()}
  */
-public class TvMediaOutputDialogActivity extends Activity
-        implements MediaSwitchingController.Callback {
+public class TvMediaOutputDialogActivity extends FragmentActivity {
     private static final String TAG = TvMediaOutputDialogActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    private TvMediaOutputController mMediaOutputController;
-    private TvMediaOutputAdapter mAdapter;
-
-    private final MediaSessionManager mMediaSessionManager;
-    private final LocalBluetoothManager mLocalBluetoothManager;
-    private final ActivityStarter mActivityStarter;
-    private final CommonNotifCollection mCommonNotifCollection;
-    private final DialogTransitionAnimator mDialogTransitionAnimator;
-    private final NearbyMediaDevicesManager mNearbyMediaDevicesManager;
-    private final AudioManager mAudioManager;
-    private final PowerExemptionManager mPowerExemptionManager;
-    private final KeyguardManager mKeyguardManager;
-    private final FeatureFlags mFeatureFlags;
-    private final VolumePanelGlobalStateInteractor mVolumePanelGlobalStateInteractor;
-    private final UserTracker mUserTracker;
-
-    protected final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
-    private String mActiveDeviceId;
+    private FragmentManager mFragmentManager;
+    private final OutputDevicesFragment mOutputDevicesFragment;
 
     @Inject
-    public TvMediaOutputDialogActivity(
-            MediaSessionManager mediaSessionManager,
-            @Nullable LocalBluetoothManager localBluetoothManager,
-            ActivityStarter activityStarter,
-            CommonNotifCollection commonNotifCollection,
-            DialogTransitionAnimator dialogTransitionAnimator,
-            NearbyMediaDevicesManager nearbyMediaDevicesManager,
-            AudioManager audioManager,
-            PowerExemptionManager powerExemptionManager,
-            KeyguardManager keyguardManager,
-            FeatureFlags featureFlags,
-            VolumePanelGlobalStateInteractor volumePanelGlobalStateInteractor,
-            UserTracker userTracker) {
-        mMediaSessionManager = mediaSessionManager;
-        mLocalBluetoothManager = localBluetoothManager;
-        mActivityStarter = activityStarter;
-        mCommonNotifCollection = commonNotifCollection;
-        mDialogTransitionAnimator = dialogTransitionAnimator;
-        mNearbyMediaDevicesManager = nearbyMediaDevicesManager;
-        mAudioManager = audioManager;
-        mPowerExemptionManager = powerExemptionManager;
-        mKeyguardManager = keyguardManager;
-        mFeatureFlags = featureFlags;
-        mVolumePanelGlobalStateInteractor = volumePanelGlobalStateInteractor;
-        mUserTracker = userTracker;
+    public TvMediaOutputDialogActivity(OutputDevicesFragment outputDevicesFragment) {
+        mOutputDevicesFragment = outputDevicesFragment;
     }
 
     @SuppressLint("MissingPermission")
@@ -128,23 +70,6 @@ public class TvMediaOutputDialogActivity extends Activity
 
         setContentView(R.layout.media_output_dialog);
 
-        mMediaOutputController =
-                new TvMediaOutputController(
-                        this,
-                        getPackageName(),
-                        mMediaSessionManager,
-                        mLocalBluetoothManager,
-                        mActivityStarter,
-                        mCommonNotifCollection,
-                        mDialogTransitionAnimator,
-                        mNearbyMediaDevicesManager,
-                        mAudioManager,
-                        mPowerExemptionManager,
-                        mKeyguardManager,
-                        mFeatureFlags,
-                        mVolumePanelGlobalStateInteractor,
-                        mUserTracker);
-        mAdapter = new TvMediaOutputAdapter(this, mMediaOutputController, this);
 
         Resources res = getResources();
         DisplayMetrics metrics = res.getDisplayMetrics();
@@ -172,98 +97,14 @@ public class TvMediaOutputDialogActivity extends Activity
                         -> findViewById(android.R.id.content).setUnrestrictedPreferKeepClearRects(
                         Collections.singletonList(new Rect(left, top, right, bottom))));
 
-        RecyclerView devicesRecyclerView = requireViewById(R.id.device_list);
-        devicesRecyclerView.setLayoutManager(new LayoutManagerWrapper(this));
-        devicesRecyclerView.setAdapter(mAdapter);
-
-        int itemSpacingPx = getResources().getDimensionPixelSize(R.dimen.media_dialog_item_spacing);
-        devicesRecyclerView.addItemDecoration(new SpacingDecoration(itemSpacingPx));
+        mFragmentManager = getSupportFragmentManager();
+        showMainFragment();
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        mMediaOutputController.start(this);
+    private void showMainFragment() {
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.media_output_fragment, mOutputDevicesFragment);
+        transaction.commit();
     }
 
-    @Override
-    public void onStop() {
-        mMediaOutputController.stop();
-        super.onStop();
-    }
-
-    private void refresh(boolean deviceSetChanged) {
-        if (DEBUG) Log.d(TAG, "refresh: deviceSetChanged " + deviceSetChanged);
-        // If the dialog is going away or is already refreshing, do nothing.
-        if (mMediaOutputController.isRefreshing()) {
-            return;
-        }
-        mMediaOutputController.setRefreshing(true);
-        mAdapter.updateItems();
-    }
-
-    @Override
-    public void onMediaChanged() {
-        // NOOP
-    }
-
-    @Override
-    public void onMediaStoppedOrPaused() {
-        // NOOP
-    }
-
-    @Override
-    public void onRouteChanged() {
-        mMainThreadHandler.post(() -> refresh(/* deviceSetChanged= */ false));
-        MediaDevice activeDevice = mMediaOutputController.getCurrentConnectedMediaDevice();
-        if (mActiveDeviceId != null && !mActiveDeviceId.equals(activeDevice.getId())) {
-            mMediaOutputController.showVolumeDialog();
-        }
-        mActiveDeviceId = activeDevice.getId();
-    }
-
-    @Override
-    public void onDeviceListChanged() {
-        mMainThreadHandler.post(() -> refresh(/* deviceSetChanged= */ true));
-        if (mActiveDeviceId == null
-                && mMediaOutputController.getCurrentConnectedMediaDevice() != null) {
-            mActiveDeviceId = mMediaOutputController.getCurrentConnectedMediaDevice().getId();
-        }
-    }
-
-    @Override
-    public void dismissDialog() {
-        if (DEBUG) Log.d(TAG, "dismissDialog");
-        finish();
-    }
-
-    private class LayoutManagerWrapper extends LinearLayoutManager {
-        LayoutManagerWrapper(Context context) {
-            super(context);
-        }
-
-        @Override
-        public void onLayoutCompleted(RecyclerView.State state) {
-            super.onLayoutCompleted(state);
-            mMediaOutputController.setRefreshing(false);
-            mMediaOutputController.refreshDataSetIfNeeded();
-        }
-    }
-
-    private static class SpacingDecoration extends RecyclerView.ItemDecoration {
-        private final int mMarginPx;
-
-        SpacingDecoration(int marginPx) {
-            mMarginPx = marginPx;
-        }
-
-        @Override
-        public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
-                RecyclerView.State state) {
-            if (parent.getChildAdapterPosition(view) == 0) {
-                outRect.top = mMarginPx;
-            }
-            outRect.bottom = mMarginPx;
-        }
-    }
 }
