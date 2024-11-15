@@ -45,6 +45,7 @@ import com.android.systemui.qs.tileimpl.QSFactoryImpl
 import com.android.systemui.screenshot.ReferenceScreenshotModule
 import com.android.systemui.settings.MultiUserUtilsModule
 import com.android.systemui.settings.UserTracker
+import com.android.systemui.settings.brightness.dagger.BrightnessSliderModule
 import com.android.systemui.shade.ShadeEmptyImplModule
 import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
@@ -97,6 +98,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     AccessibilityModule::class,
     AccessibilityRepositoryModule::class,
     AospPolicyModule::class,
+    BrightnessSliderModule::class,
     ConnectingDisplayViewModel.StartableModule::class,
     GestureModule::class,
     HdmiModule::class,
