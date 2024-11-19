@@ -326,7 +326,15 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         private void setSummary(MediaDevice mediaDevice) {
             CharSequence summary = getSummary(mediaDevice, itemView.hasFocus());
-            mSubtitle.setText(summary);
+            if (mediaDevice.getDeviceType() == MediaDeviceType.TYPE_PHONE_DEVICE
+                    && mContext.getResources().getBoolean(
+                    com.android.systemui.tv.res.R.bool.
+                            config_audioOutputInternalSpeakerGroupedWithSpdif)) {
+                mSubtitle.setText(mContext.getResources().getString(
+                        R.string.media_output_internal_speaker_spdif_subtitle));
+            } else {
+                mSubtitle.setText(summary);
+            }
             mSubtitle.setVisibility(summary == null || summary.isEmpty()
                     ? View.GONE : View.VISIBLE);
         }
