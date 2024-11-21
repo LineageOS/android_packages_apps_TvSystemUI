@@ -67,4 +67,15 @@
     <string name="font_body_extra_small" translatable="false">roboto</string>
 
     <string name="font_overline" translatable="false">sans-serif</string>
+
+    <string name="audio_output_builtin_speaker_slice_uri" translatable="false"/>
+    <string name="audio_output_wired_headphone_slice_uri" translatable="false" />
+    <string name="audio_output_bluetooth_slice_uri" translatable="false"/>
+    <string name="audio_output_hdmi_slice_uri" translatable="false"/>
+    <string name="audio_output_hdmi_e_arc_slice_uri" translatable="false"/>
+    <string name="audio_output_usb_slice_uri" translatable="false"/>
+    <string name="audio_output_remote_avr_slice_uri" translatable="false" />
+    <string name="audio_output_cast_device_slice_uri" translatable="false" />
+    <string name="audio_output_cast_group_slice_uri" translatable="false" />
+
 </resources>
