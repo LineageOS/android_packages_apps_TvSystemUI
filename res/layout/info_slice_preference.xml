@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2024 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/media_output_divider_line"
+        android:layout_width="@dimen/media_output_divider_width"
+        android:layout_height="@dimen/media_output_divider_height"
+        android:layout_gravity="center"
+        android:background="@color/media_dialog_divider_line"
+        android:layout_marginVertical="@dimen/media_output_divider_margin_vertical" />
+
+    <LinearLayout
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:importantForAccessibility="no"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:importantForAccessibility="no"
+            android:layout_gravity="center_horizontal|top">
+
+            <ImageView
+                android:id="@android:id/icon"
+                android:duplicateParentState="true"
+                android:layout_marginHorizontal="@dimen/media_dialog_item_margin_horizontal"
+                style="@style/ControlWidgetIconStyle" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/item_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:orientation="vertical" />
+    </LinearLayout>
+</LinearLayout>

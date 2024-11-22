@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--  Avoid empty space between progress and background when value reaches 0 -->
+    <item android:start="-1dp">
+        <shape>
+            <corners android:radius="@dimen/seekbar_widget_track_corner_radius" />
+            <size android:height="@dimen/seekbar_height"/>
+            <solid android:color="@color/seekbar_progress_background_color"/>
+            <stroke android:color="@android:color/transparent" android:width="@dimen/seekbar_background_stroke_width"/>
+        </shape>
+    </item>
+</layer-list>

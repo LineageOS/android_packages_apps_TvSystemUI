@@ -32,7 +32,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.android.settingslib.media.flags.Flags;
+import com.android.systemui.tv.media.settings.SliceFragment;
 import com.android.systemui.tv.res.R;
+import com.android.tv.twopanelsettings.slices.SlicesConstants;
 
 import java.util.Collections;
 
@@ -98,6 +100,30 @@ public class TvMediaOutputDialogActivity extends FragmentActivity {
                         Collections.singletonList(new Rect(left, top, right, bottom))));
 
         mFragmentManager = getSupportFragmentManager();
+        mFragmentManager.setFragmentResultListener(
+                "deviceSettings",
+                this,
+                (key, bundle) -> {
+                    if (key.equals("deviceSettings")) {
+                        CharSequence title = bundle.getString("title");
+                        CharSequence subtitle = bundle.getCharSequence("subtitle");
+                        String uri = bundle.getString("uri");
+
+                        SliceFragment sliceFragment = new SliceFragment();
+                        Bundle args = new Bundle();
+                        args.putString(SlicesConstants.TAG_TARGET_URI, uri);
+                        args.putCharSequence(SlicesConstants.TAG_SCREEN_TITLE, title);
+                        args.putCharSequence(SliceFragment.TAG_SCREEN_SUBTITLE, subtitle);
+                        sliceFragment.setArguments(args);
+
+                        mFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.media_output_fragment, sliceFragment)
+                                .addToBackStack("device")
+                                .commit();
+                    }
+                });
+
         showMainFragment();
     }
 
