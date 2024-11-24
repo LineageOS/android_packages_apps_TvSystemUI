@@ -32,6 +32,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.internal.widget.LinearLayoutManager;
 import com.android.internal.widget.RecyclerView;
@@ -58,6 +59,7 @@ public class OutputDevicesFragment extends Fragment
 
     private TvMediaOutputController mMediaOutputController;
     private TvMediaOutputAdapter mAdapter;
+    private RecyclerView mDevicesRecyclerView;
 
     private final MediaSessionManager mMediaSessionManager;
     private final LocalBluetoothManager mLocalBluetoothManager;
@@ -133,12 +135,12 @@ public class OutputDevicesFragment extends Fragment
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.media_output_main_fragment, null);
 
-        RecyclerView devicesRecyclerView = view.findViewById(R.id.device_list);
-        devicesRecyclerView.setLayoutManager(new LayoutManagerWrapper(view.getContext()));
-        devicesRecyclerView.setAdapter(mAdapter);
+        mDevicesRecyclerView = view.requireViewById(R.id.device_list);
+        mDevicesRecyclerView.setLayoutManager(new LayoutManagerWrapper(view.getContext()));
+        mDevicesRecyclerView.setAdapter(mAdapter);
 
         int itemSpacingPx = getResources().getDimensionPixelSize(R.dimen.media_dialog_item_spacing);
-        devicesRecyclerView.addItemDecoration(new SpacingDecoration(itemSpacingPx));
+        mDevicesRecyclerView.addItemDecoration(new SpacingDecoration(itemSpacingPx));
 
         return view;
     }
@@ -153,6 +155,21 @@ public class OutputDevicesFragment extends Fragment
     public void onStop() {
         mMediaOutputController.stop();
         super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (DEBUG) Log.d(TAG, "resuming OutputDevicesFragment");
+        int position = mAdapter.getFocusPosition();
+        mDevicesRecyclerView.getLayoutManager().scrollToPosition(position);
+        // Ensure layout is complete before requesting focus.
+        mDevicesRecyclerView.post(() -> {
+            View itemToFocus = mDevicesRecyclerView.getLayoutManager().findViewByPosition(position);
+            if (itemToFocus != null) {
+                itemToFocus.requestFocus();
+            }
+        });
     }
 
     private void refresh(boolean deviceSetChanged) {
@@ -200,6 +217,18 @@ public class OutputDevicesFragment extends Fragment
         if (getActivity() != null) {
             getActivity().finish();
         }
+    }
+
+    @Override
+    public void openDeviceSettings(
+            String uri, CharSequence title, CharSequence subtitle, String id) {
+        FragmentManager fragmentManager = getParentFragmentManager();
+        Bundle deviceInfo = new Bundle();
+        deviceInfo.putString("uri", uri);
+        deviceInfo.putCharSequence("title", title);
+        deviceInfo.putCharSequence("subtitle", subtitle);
+        deviceInfo.putString("deviceId", id);
+        fragmentManager.setFragmentResult("deviceSettings", deviceInfo);
     }
 
     private class LayoutManagerWrapper extends LinearLayoutManager {
