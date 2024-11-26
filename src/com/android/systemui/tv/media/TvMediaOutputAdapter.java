@@ -355,7 +355,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             int deviceType = device.getDeviceType();
 
             if (deviceType == MediaDeviceType.TYPE_USB_C_AUDIO_DEVICE) {
-                int routeType = device.getDeviceType();
+                int routeType = device.getRouteType();
                 switch (routeType) {
                     case MediaRoute2Info.TYPE_HDMI:
                         resourceId = R.string.audio_output_hdmi_slice_uri;
