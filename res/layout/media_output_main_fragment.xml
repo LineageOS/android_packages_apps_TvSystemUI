@@ -33,7 +33,7 @@
         android:fontFamily="@string/font_label_large"
         android:textSize="@dimen/media_dialog_title" />
 
-    <com.android.internal.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/device_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
