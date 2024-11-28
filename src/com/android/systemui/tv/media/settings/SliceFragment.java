@@ -31,6 +31,7 @@ import android.content.ContentProviderClient;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.database.ContentObserver;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,7 +60,9 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.TwoStatePreference;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.systemui.tv.media.FadingEdgeUtil;
 import com.android.systemui.tv.res.R;
 
 import com.android.tv.twopanelsettings.TwoPanelSettingsFragment.SliceFragmentCallback;
@@ -689,6 +692,22 @@ public class SliceFragment extends SettingsPreferenceFragment implements Observe
                 view.findViewById(androidx.leanback.preference.R.id.decor_title_container));
         view.addView(newTitleContainer, 0);
         view.setBackgroundResource(android.R.color.transparent);
+
+        RecyclerView recyclerView = view.findViewById(androidx.leanback.preference.R.id.list);
+        if (recyclerView != null) {
+            recyclerView.addOnScrollListener(
+                    new RecyclerView.OnScrollListener() {
+                        @Override
+                        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                            super.onScrolled(recyclerView, dx, dy);
+                            Drawable foreground = FadingEdgeUtil.getForegroundDrawable(
+                                    recyclerView, requireContext());
+                            if (foreground != recyclerView.getForeground()) {
+                                recyclerView.setForeground(foreground);
+                            }
+                        }
+                    });
+        }
 
         final View newContainer =
                 themedInflater.inflate(R.layout.media_output_settings_progress, null);
