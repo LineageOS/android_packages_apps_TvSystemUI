@@ -19,6 +19,7 @@ package com.android.systemui.tv.media;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.session.MediaSessionManager;
 import android.os.Bundle;
@@ -33,9 +34,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.internal.widget.LinearLayoutManager;
-import com.android.internal.widget.RecyclerView;
 import com.android.settingslib.bluetooth.LocalBluetoothManager;
 import com.android.settingslib.media.MediaDevice;
 import com.android.systemui.animation.DialogTransitionAnimator;
@@ -138,6 +139,19 @@ public class OutputDevicesFragment extends Fragment
         mDevicesRecyclerView = view.requireViewById(R.id.device_list);
         mDevicesRecyclerView.setLayoutManager(new LayoutManagerWrapper(view.getContext()));
         mDevicesRecyclerView.setAdapter(mAdapter);
+
+        mDevicesRecyclerView.addOnScrollListener(
+                new RecyclerView.OnScrollListener() {
+                    @Override
+                    public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                        super.onScrolled(recyclerView, dx, dy);
+                        Drawable foreground = FadingEdgeUtil.getForegroundDrawable(
+                                recyclerView, requireContext());
+                        if (foreground != recyclerView.getForeground()) {
+                            recyclerView.setForeground(foreground);
+                        }
+                    }
+                });
 
         int itemSpacingPx = getResources().getDimensionPixelSize(R.dimen.media_dialog_item_spacing);
         mDevicesRecyclerView.addItemDecoration(new SpacingDecoration(itemSpacingPx));
