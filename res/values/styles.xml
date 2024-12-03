@@ -179,6 +179,11 @@
         <item name="android:paddingVertical">12dp</item>
     </style>
 
+    <style name="OutputDeviceWidgetStyle" parent="RadioWidgetStyle">
+        <!--    Handled through RecyclerView.ItemDecoration    -->
+        <item name="android:layout_marginVertical">0dp</item>
+    </style>
+
     <style name="SeekbarWidgetStyle" parent="ControlWidgetStyle">
         <item name="android:paddingHorizontal">12dp</item>
         <item name="android:paddingVertical">12dp</item>
@@ -191,6 +196,34 @@
 
     <style name="BasicCenteredIconTextWidgetStyle" parent="BasicIconTextWidgetStyle">
         <item name="android:background">@drawable/media_dialog_item_bg_rounded</item>
+    </style>
+
+    <style name="ControlWidgetTooltipWindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/tooltip_window_enter</item>
+        <item name="android:windowExitAnimation">@anim/tooltip_window_exit</item>
+    </style>
+
+    <style name="ControlWidgetTooltipTextStyle">
+        <item name="android:fontFamily">@string/font_label_medium</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/media_dialog_item_title</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="ControlWidgetTooltipTextSummaryStyle">
+        <item name="android:fontFamily">@string/font_body_extra_small</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:textColor">@color/media_dialog_item_subtitle</item>
+        <item name="android:textAlignment">viewStart</item>
+    </style>
+
+    <style name="SingleLineMarquee">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:marqueeRepeatLimit">marquee_forever</item>
+        <item name="android:scrollHorizontally">true</item>
     </style>
 
 </resources>

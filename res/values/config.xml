@@ -42,4 +42,8 @@
 
     <!-- Configuration to set Learn more in device logs as URL link -->
     <bool name="log_access_confirmation_learn_more_as_link">false</bool>
+
+    <!-- Configuration to set whether the builtin speaker audio route also outputs to S/PDIF output,
+    often times optical output -->
+    <bool name="config_audioOutputInternalSpeakerGroupedWithSpdif">false</bool>
 </resources>

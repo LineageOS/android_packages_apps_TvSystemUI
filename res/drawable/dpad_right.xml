@@ -1,0 +1,39 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="20dp"
+    android:height="20dp"
+    android:autoMirrored="true"
+    android:viewportHeight="20"
+    android:viewportWidth="20">
+
+    <group>
+
+        <clip-path android:pathData="M10,0L10,0A10,10 0,0 1,20 10L20,10A10,10 0,0 1,10 20L10,20A10,10 0,0 1,0 10L0,10A10,10 0,0 1,10 0z" />
+        <!-- DPAD_RIGHT -->
+        <path
+            android:fillColor="@color/media_dialog_item_title_unfocused"
+            android:fillType="evenOdd"
+            android:pathData="M14.32,6.769C15,7.691 15.374,8.813 15.374,9.974C15.374,11.147 14.992,12.281 14.297,13.209L17.568,16.48C19.115,14.674 19.974,12.368 19.974,9.974C19.974,7.592 19.124,5.297 17.592,3.496L14.32,6.769Z" />
+        <!-- DPAD_LEFT -->
+        <path
+            android:fillColor="#445664"
+            android:fillType="evenOdd"
+            android:pathData="M5.654,13.208C4.974,12.285 4.6,11.163 4.6,10.002C4.6,8.829 4.982,7.695 5.677,6.767L2.406,3.496C0.859,5.302 0,7.608 0,10.002C0,12.384 0.85,14.679 2.382,16.48L5.654,13.208Z" />
+        <!-- DPAD_UP -->
+        <path
+            android:fillColor="#445664"
+            android:fillType="evenOdd"
+            android:pathData="M13.207,14.32C12.284,15.001 11.162,15.375 10.001,15.375C8.828,15.375 7.694,14.993 6.766,14.298L3.495,17.569C5.301,19.116 7.607,19.975 10.001,19.975C12.383,19.974 14.678,19.125 16.479,17.593L13.207,14.32Z" />
+        <!-- DPAD_DOWN -->
+        <path
+            android:fillColor="#445664"
+            android:fillType="evenOdd"
+            android:pathData="M6.768,5.655C7.69,4.975 8.812,4.601 9.973,4.601C11.146,4.601 12.28,4.983 13.208,5.678L16.479,2.407C14.673,0.86 12.367,0.001 9.973,0.001C7.591,0.001 5.296,0.851 3.495,2.383L6.768,5.655Z" />
+        <!-- DPAD_CENTER -->
+        <path
+            android:fillColor="#445664"
+            android:fillType="evenOdd"
+            android:pathData="M10,13.75C12.071,13.75 13.75,12.071 13.75,10C13.75,7.929 12.071,6.25 10,6.25C7.929,6.25 6.25,7.929 6.25,10C6.25,12.071 7.929,13.75 10,13.75Z" />
+
+    </group>
+
+</vector>

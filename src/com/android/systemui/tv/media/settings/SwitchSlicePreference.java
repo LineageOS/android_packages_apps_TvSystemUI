@@ -18,8 +18,11 @@ package com.android.systemui.tv.media.settings;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.preference.PreferenceViewHolder;
 
 import com.android.systemui.tv.res.R;
 import com.android.tv.twopanelsettings.slices.SliceSwitchPreference;
@@ -29,7 +32,8 @@ import com.android.tv.twopanelsettings.slices.compat.core.SliceActionImpl;
  * Slice preference for one panel settings which shows a switch/toggle in addition to the
  * capabilities of the {@link BasicSlicePreference}.
  */
-public class SwitchSlicePreference extends SliceSwitchPreference {
+public class SwitchSlicePreference extends SliceSwitchPreference implements TooltipPreference {
+    private ControlWidget.TooltipConfig mTooltipConfig = new ControlWidget.TooltipConfig();
 
     public SwitchSlicePreference(Context context, SliceActionImpl action) {
         this(context, null, action);
@@ -38,7 +42,41 @@ public class SwitchSlicePreference extends SliceSwitchPreference {
     public SwitchSlicePreference(Context context, @Nullable AttributeSet attrs,
             SliceActionImpl action) {
         super(context, attrs, action);
-        setLayoutResource(R.layout.switch_slice_preference);
+        setLayoutResource(R.layout.switch_slice_pref);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
+        SwitchControlWidget widget = (SwitchControlWidget) holder.itemView;
+        widget.setEnabled(this.isEnabled());
+        widget.setTooltipConfig(mTooltipConfig);
+    }
+
+    /** Set tool tip related attributes. */
+    @Override
+    public void setTooltipConfig(ControlWidget.TooltipConfig tooltipConfig) {
+        if (!this.mTooltipConfig.equals(tooltipConfig)) {
+            this.mTooltipConfig = tooltipConfig;
+            notifyChanged();
+        }
+    }
+
+    static class SwitchControlWidget extends ControlWidget {
+
+        public SwitchControlWidget(Context context) {
+            this(context, /* attrs= */ null);
+        }
+
+        public SwitchControlWidget(Context context, @Nullable AttributeSet attrs) {
+            this(context, attrs, /* defStyleAttr= */ 0);
+        }
+
+        public SwitchControlWidget(Context context, @Nullable AttributeSet attrs,
+                int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+            View.inflate(context, R.layout.switch_control_widget, /* root= */ this);
+        }
     }
 
 }
