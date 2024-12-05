@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class InfoSlicePreference extends Preference implements HasCustomContentDescription {
     private String mContentDescription;
-    private List<Pair<CharSequence, CharSequence>> mInfoList;
+    private final List<Pair<CharSequence, CharSequence>> mInfoList;
 
     public InfoSlicePreference(Context context, List<Pair<CharSequence, CharSequence>> infoList) {
         super(context);

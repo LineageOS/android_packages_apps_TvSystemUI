@@ -38,6 +38,17 @@
     <string name="media_output_dialog_other_devices">Other devices</string>
     <string name="media_output_dialog_pairing_new">Connect another device</string>
 
+    <!-- TV media output switcher. Subtitle for internal speaker audio output when grouped with
+    S/PDIF [CHAR LIMIT=NONE] -->
+    <string name="media_output_internal_speaker_spdif_subtitle">Built-in speaker + S/PDIF</string>
+
+    <!-- Tooltip text instructing the user to press the DPAD right button (for LTR layout direction)
+    to access the audio device settings [CHAR LIMIT=50] -->
+    <string name="audio_device_tooltip_right">Press <annotation icon="dpad_icon">DPAD_RIGHT</annotation> for audio device settings</string>
+
+    <!-- Tooltip text instructing the user to press the DPAD left button (for RTL layout direction)
+    to access the audio device settings [CHAR LIMIT=50] -->
+    <string name="audio_device_tooltip_left">Press <annotation icon="dpad_icon">DPAD_LEFT</annotation> for audio device settings</string>
 
     <string name="hdmi_cec_on_active_source_lost_title">Are you still watching?</string>
     <string name="hdmi_cec_on_active_source_lost_description">Your TV indicated that you switched to a different input and this device will go to sleep soon. Select an option to keep this device awake.</string>

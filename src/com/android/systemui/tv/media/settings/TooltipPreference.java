@@ -16,20 +16,8 @@
 
 package com.android.systemui.tv.media.settings;
 
-import android.content.Context;
+public interface TooltipPreference {
 
-import com.android.systemui.tv.res.R;
-import com.android.tv.twopanelsettings.slices.EmbeddedSlicePreference;
-
-/**
- * Slice preference for one panel settings which shows a setting like the
- * @link BasicSlicePreference}, but takes its content from another slice.
- */
-public class EmbeddedPreference extends EmbeddedSlicePreference {
-
-    public EmbeddedPreference(Context context, String uri) {
-        super(context, uri);
-        setLayoutResource(R.layout.basic_slice_pref);
-    }
+    void setTooltipConfig(ControlWidget.TooltipConfig tooltipConfig);
 
 }

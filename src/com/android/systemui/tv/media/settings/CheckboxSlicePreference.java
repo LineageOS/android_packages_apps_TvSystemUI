@@ -35,7 +35,8 @@ import com.android.tv.twopanelsettings.slices.compat.core.SliceActionImpl;
  * Slice preference for one panel settings which shows a checkbox in addition to the capabilities of
  * {@link BasicSlicePreference}.
  */
-public class CheckboxSlicePreference extends SliceCheckboxPreference {
+public class CheckboxSlicePreference extends SliceCheckboxPreference implements TooltipPreference {
+    private ControlWidget.TooltipConfig mTooltipConfig = new ControlWidget.TooltipConfig();
     private View mItemView;
     private CheckBox mCheckBox;
 
@@ -50,7 +51,7 @@ public class CheckboxSlicePreference extends SliceCheckboxPreference {
     public CheckboxSlicePreference(Context context, @Nullable AttributeSet attrs,
             SliceActionImpl action) {
         super(context, attrs, action);
-        setLayoutResource(R.layout.checkbox_slice_preference);
+        setLayoutResource(R.layout.checkbox_slice_pref);
 
         Resources res = context.getResources();
         mFocusedCheckboxTint = res.getColor(R.color.media_dialog_radio_button_focused);
@@ -64,6 +65,10 @@ public class CheckboxSlicePreference extends SliceCheckboxPreference {
         mItemView = holder.itemView;
         mItemView.setOnFocusChangeListener((v, hasFocus) -> updateColors());
 
+        CheckboxControlWidget widget = (CheckboxControlWidget) mItemView;
+        widget.setEnabled(this.isEnabled());
+        widget.setTooltipConfig(mTooltipConfig);
+
         mCheckBox = mItemView.findViewById(android.R.id.checkbox);
         mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> updateColors());
         updateColors();
@@ -75,6 +80,32 @@ public class CheckboxSlicePreference extends SliceCheckboxPreference {
             drawable.setTint(mCheckBox.isChecked() ? mCheckedCheckboxTint : mFocusedCheckboxTint);
         } else {
             drawable.setTint(mUnfocusedCheckboxTint);
+        }
+    }
+
+    /** Set tool tip related attributes. */
+    @Override
+    public void setTooltipConfig(ControlWidget.TooltipConfig tooltipConfig) {
+        if (!this.mTooltipConfig.equals(tooltipConfig)) {
+            this.mTooltipConfig = tooltipConfig;
+            notifyChanged();
+        }
+    }
+
+    static class CheckboxControlWidget extends ControlWidget {
+
+        public CheckboxControlWidget(Context context) {
+            this(context, /* attrs= */ null);
+        }
+
+        public CheckboxControlWidget(Context context, @Nullable AttributeSet attrs) {
+            this(context, attrs, /* defStyleAttr= */ 0);
+        }
+
+        public CheckboxControlWidget(Context context, @Nullable AttributeSet attrs,
+                int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+            View.inflate(context, R.layout.checkbox_control_widget, /* root= */ this);
         }
     }
 

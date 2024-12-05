@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright (C) 2024 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,18 +16,23 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/radio_widget_container"
-    style="@style/RadioWidgetStyle"
+    android:id="@+id/basic_icon_title_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:gravity="center"
+    android:duplicateParentState="true"
+    android:orientation="horizontal">
 
-    <include layout="@layout/core_slice_preference" />
+    <ImageView
+        android:id="@android:id/icon"
+        style="@style/ControlWidgetIconStyle"
+        android:layout_marginEnd="@dimen/control_widget_icon_margin_end"
+        android:duplicateParentState="true" />
 
-    <RadioButton
-        android:id="@android:id/checkbox"
-        android:layout_height="wrap_content"
+    <com.android.systemui.tv.SmoothScalingTextView
+        android:id="@android:id/title"
+        style="@style/TextAppearance.Panel.ListItem"
         android:layout_width="wrap_content"
-        android:focusable="false" />
+        android:layout_height="wrap_content"
+        android:duplicateParentState="true" />
 </LinearLayout>

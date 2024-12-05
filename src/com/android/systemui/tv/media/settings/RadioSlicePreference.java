@@ -19,10 +19,12 @@ package com.android.systemui.tv.media.settings;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.preference.PreferenceViewHolder;
 
 import com.android.systemui.tv.res.R;
@@ -33,7 +35,8 @@ import com.android.tv.twopanelsettings.slices.compat.core.SliceActionImpl;
  * Slice preference for one panel settings which shows a radio button in addition to the
  * capabilities of the {@link BasicSlicePreference}.
  */
-public class RadioSlicePreference extends SliceRadioPreference {
+public class RadioSlicePreference extends SliceRadioPreference implements TooltipPreference {
+    private ControlWidget.TooltipConfig mTooltipConfig = new ControlWidget.TooltipConfig();
     private View mItemView;
     private RadioButton mRadioButton;
 
@@ -43,7 +46,7 @@ public class RadioSlicePreference extends SliceRadioPreference {
 
     public RadioSlicePreference(Context context, SliceActionImpl action) {
         super(context,  action);
-        setLayoutResource(R.layout.radio_slice_preference);
+        setLayoutResource(R.layout.radio_slice_pref);
 
         Resources res = context.getResources();
         mFocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_focused);
@@ -55,8 +58,11 @@ public class RadioSlicePreference extends SliceRadioPreference {
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
         mItemView = holder.itemView;
-
         mItemView.setOnFocusChangeListener((v, hasFocus) -> updateColors());
+
+        RadioControlWidget widget = (RadioControlWidget) mItemView;
+        widget.setEnabled(this.isEnabled());
+        widget.setTooltipConfig(mTooltipConfig);
 
         mRadioButton = mItemView.findViewById(android.R.id.checkbox);
         mRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> updateColors());
@@ -69,6 +75,31 @@ public class RadioSlicePreference extends SliceRadioPreference {
             drawable.setTint(mRadioButton.isChecked() ? mCheckedRadioTint : mFocusedRadioTint);
         } else {
             drawable.setTint(mUnfocusedRadioTint);
+        }
+    }
+
+    /** Set tool tip related attributes. */
+    @Override
+    public void setTooltipConfig(ControlWidget.TooltipConfig tooltipConfig) {
+        if (!this.mTooltipConfig.equals(tooltipConfig)) {
+            this.mTooltipConfig = tooltipConfig;
+            notifyChanged();
+        }
+    }
+
+    static class RadioControlWidget extends ControlWidget {
+
+        public RadioControlWidget(Context context) {
+            this(context, /* attrs= */ null);
+        }
+
+        public RadioControlWidget(Context context, @Nullable AttributeSet attrs) {
+            this(context, attrs, /* defStyleAttr= */ 0);
+        }
+
+        public RadioControlWidget(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+            View.inflate(context, R.layout.radio_control_widget, /* root= */ this);
         }
     }
 
