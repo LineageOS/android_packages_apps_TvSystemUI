@@ -50,6 +50,8 @@
     to access the audio device settings [CHAR LIMIT=50] -->
     <string name="audio_device_tooltip_left">Press <annotation icon="dpad_icon">DPAD_LEFT</annotation> for audio device settings</string>
 
+    <string name="audio_device_settings_content_description"><xliff:g id="audio_device_name" example="Foo Soundbar">%1$s</xliff:g> settings.</string>
+
     <string name="hdmi_cec_on_active_source_lost_title">Are you still watching?</string>
     <string name="hdmi_cec_on_active_source_lost_description">Your TV indicated that you switched to a different input and this device will go to sleep soon. Select an option to keep this device awake.</string>
     <string name="hdmi_cec_on_active_source_lost_ok">Yes (<xliff:g id="seconds" example="10">%1$d</xliff:g>s)</string>

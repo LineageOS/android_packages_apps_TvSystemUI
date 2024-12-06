@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<view class="com.android.systemui.tv.media.OutputDeviceControlWidget"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/output_device_widget_view"
-    style="@style/OutputDeviceWidgetStyle"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"/>
+    android:layout_height="wrap_content"
+    android:focusable="false"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingVertical="1dp"
+    android:paddingHorizontal="@dimen/media_dialog_item_padding"
+    android:orientation="horizontal">
+
+    <view
+        class="com.android.systemui.tv.media.OutputDeviceControlWidget"
+        android:id="@+id/media_dialog_device_widget"
+        style="@style/OutputDeviceWidgetStyle"
+        android:focusable="true"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <ImageButton
+        android:id="@+id/media_dialog_item_a11y_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/media_dialog_item_bg"
+        android:stateListAnimator="@anim/media_dialog_item_state_list_animator"
+        android:src="@drawable/ic_media_device_settings"
+        android:tint="@color/media_dialog_settings_icon"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="@dimen/media_dialog_item_padding"
+        android:layout_marginStart="8dp" />
+
+</LinearLayout>
