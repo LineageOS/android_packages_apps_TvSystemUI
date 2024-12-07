@@ -20,7 +20,7 @@
     <string name="notification_vpn_connected" msgid="3759650739592615548">"VPN कनेक्ट गरिएको छ"</string>
     <string name="notification_vpn_disconnected" msgid="4645099900080931794">"VPN डिस्कनेक्ट गरिएको छ"</string>
     <string name="notification_disclosure_vpn_text" msgid="5776051625744545968">"<xliff:g id="VPN_APP">%1$s</xliff:g> मार्फत"</string>
-    <string name="notification_panel_title" msgid="4172378174173345988">"सूचनाहरू"</string>
+    <string name="notification_panel_title" msgid="4172378174173345988">"नोटिफिकेसनहरू"</string>
     <string name="notification_panel_no_notifications" msgid="7573560690974118175">"कुनै पनि सूचना प्राप्त भएको छैन"</string>
     <string name="mic_recording_announcement" msgid="9199688557748836482">"माइक्रोफोनले रेकर्ड गरिरहेको छ"</string>
     <string name="camera_recording_announcement" msgid="4749050102986152529">"क्यामेराले रेकर्ड गरिरहेको छ"</string>
@@ -33,6 +33,12 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"अडियो आउटपुट"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"अन्य डिभाइसहरू"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"अर्को डिभाइस कनेक्ट गर्नुहोस्"</string>
+    <!-- no translation found for media_output_internal_speaker_spdif_subtitle (98802379666893998) -->
+    <skip />
+    <!-- no translation found for audio_device_tooltip_right (8410621031774996322) -->
+    <skip />
+    <!-- no translation found for audio_device_tooltip_left (9062689648623861935) -->
+    <skip />
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"तपाईं अझै पनि हेरिरहनुभएको छ?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"तपाईंको टिभीले तपाईंले अर्को इन्पुट बदल्नुभएको छ र यो डिभाइस चाँडै नै स्लिप मोडमा जाने छ भन्ने कुरा जनाएको छ। यो डिभाइसको स्क्रिन अन राख्न एउटा विकल्प चयन गर्नुहोस्।"</string>
     <string name="hdmi_cec_on_active_source_lost_ok" msgid="7905385172151500115">"अँ (<xliff:g id="SECONDS">%1$d</xliff:g> सेकेन्ड)"</string>
