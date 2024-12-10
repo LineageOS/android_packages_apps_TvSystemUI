@@ -33,11 +33,10 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"ഓഡിയോ ഔട്ട്‌പുട്ട്"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"മറ്റ് ഉപകരണങ്ങൾ"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"മറ്റൊരു ഉപകരണം കണക്റ്റ് ചെയ്യുക"</string>
-    <!-- no translation found for media_output_internal_speaker_spdif_subtitle (98802379666893998) -->
-    <skip />
-    <!-- no translation found for audio_device_tooltip_right (8410621031774996322) -->
-    <skip />
-    <!-- no translation found for audio_device_tooltip_left (9062689648623861935) -->
+    <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"ബിൽറ്റ്-ഇൻ സ്‌പീക്കർ + S/PDIF"</string>
+    <string name="audio_device_tooltip_right" msgid="8410621031774996322">"ഓഡിയോ ഉപകരണ ക്രമീകരണത്തിനായി "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" അമർത്തുക"</string>
+    <string name="audio_device_tooltip_left" msgid="9062689648623861935">"ഓഡിയോ ഉപകരണ ക്രമീകരണത്തിനായി "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" അമർത്തുക"</string>
+    <!-- no translation found for audio_device_settings_content_description (5204846097117099044) -->
     <skip />
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"ഇപ്പോഴും കാണുന്നുണ്ടോ?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"നിങ്ങൾ മറ്റൊരു ഇൻപുട്ടിലേക്ക് മാറിയെന്നും ഉപകരണം ഉടൻ പ്രവർത്തനരഹിതമാക്കുമെന്നും ടിവി സൂചിപ്പിച്ചിരിക്കുന്നു. ഈ ഉപകരണം സജീവമാക്കി നിലനിർത്താൻ ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക."</string>
