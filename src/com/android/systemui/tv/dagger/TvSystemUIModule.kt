@@ -21,6 +21,8 @@ import android.hardware.SensorPrivacyManager
 import com.android.internal.logging.UiEventLogger
 import com.android.keyguard.KeyguardViewController
 import com.android.systemui.Dependency
+import com.android.systemui.accessibility.AccessibilityModule
+import com.android.systemui.accessibility.data.repository.AccessibilityRepositoryModule
 import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.dagger.ReferenceSystemUIModule
@@ -29,8 +31,8 @@ import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
-import com.android.systemui.media.dialog.MediaOutputController
 import com.android.systemui.media.dialog.MediaOutputDialogManager
+import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager
 import com.android.systemui.navigationbar.gestural.GestureModule
@@ -42,6 +44,7 @@ import com.android.systemui.qs.dagger.QSModule
 import com.android.systemui.qs.tileimpl.QSFactoryImpl
 import com.android.systemui.screenshot.ReferenceScreenshotModule
 import com.android.systemui.settings.MultiUserUtilsModule
+import com.android.systemui.settings.UserTracker
 import com.android.systemui.shade.ShadeEmptyImplModule
 import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
@@ -69,6 +72,10 @@ import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.tv.shade.TvNotificationShadeWindowController
 import com.android.systemui.tv.usb.TvUsbDebuggingModule
 import com.android.systemui.unfold.SysUIUnfoldStartableModule
+import com.android.systemui.usb.UsbAccessoryUriActivity
+import com.android.systemui.usb.UsbDebuggingActivity
+import com.android.systemui.usb.UsbDebuggingSecondaryUserActivity
+import com.android.systemui.user.CreateUserActivity
 import com.android.systemui.volume.dagger.VolumeModule
 import dagger.Binds
 import dagger.Module
@@ -76,8 +83,8 @@ import dagger.Provides
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Named
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
  * A TV specific version of [ReferenceSystemUIModule].
@@ -87,6 +94,8 @@ import javax.inject.Named
  */
 @Module(
     includes = [
+    AccessibilityModule::class,
+    AccessibilityRepositoryModule::class,
     AospPolicyModule::class,
     ConnectingDisplayViewModel.StartableModule::class,
     GestureModule::class,
@@ -152,6 +161,32 @@ abstract class TvSystemUIModule {
             tvMediaOutputDialogActivity: TvMediaOutputDialogActivity
     ): Activity
 
+    /** Inject into UsbDebuggingActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(UsbDebuggingActivity::class)
+    abstract fun bindUsbDebuggingActivity(activity: UsbDebuggingActivity): Activity
+
+    /** Inject into UsbDebuggingSecondaryUserActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(UsbDebuggingSecondaryUserActivity::class)
+    abstract fun bindUsbDebuggingSecondaryUserActivity(
+        activity: UsbDebuggingSecondaryUserActivity,
+    ): Activity
+
+    /** Inject into UsbAccessoryUriActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(UsbAccessoryUriActivity::class)
+    abstract fun bindUsbAccessoryUriActivity(activity: UsbAccessoryUriActivity): Activity
+
+    /** Inject into CreateUserActivity.  */
+    @Binds
+    @IntoMap
+    @ClassKey(CreateUserActivity::class)
+    abstract fun bindCreateUserActivity(activity: CreateUserActivity): Activity
+
     companion object {
         @SysUISingleton
         @Provides
@@ -168,9 +203,13 @@ abstract class TvSystemUIModule {
         @Provides
         @SysUISingleton
         fun provideIndividualSensorPrivacyController(
-                sensorPrivacyManager: SensorPrivacyManager
+                sensorPrivacyManager: SensorPrivacyManager,
+            userTracker: UserTracker
         ): IndividualSensorPrivacyController =
-                IndividualSensorPrivacyControllerImpl(sensorPrivacyManager).apply { init() }
+                IndividualSensorPrivacyControllerImpl(
+                    sensorPrivacyManager,
+                    userTracker
+                ).apply { init() }
 
         @SysUISingleton
         @Provides
@@ -198,9 +237,14 @@ abstract class TvSystemUIModule {
                 broadcastSender: BroadcastSender,
                 uiEventLogger: UiEventLogger,
                 dialogTransitionAnimator: DialogTransitionAnimator,
-                mediaOutputControllerFactory: MediaOutputController.Factory,
+                mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
             ): MediaOutputDialogManager =
-                TvMediaOutputDialogManager(context, broadcastSender, uiEventLogger,
-                        dialogTransitionAnimator, mediaOutputControllerFactory)
+                TvMediaOutputDialogManager(
+                    context,
+                    broadcastSender,
+                    uiEventLogger,
+                    dialogTransitionAnimator,
+                    mediaSwitchingControllerFactory
+                )
     }
 }

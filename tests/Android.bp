@@ -34,6 +34,7 @@ android_test {
         "androidx.test.ext.junit",
         "androidx.test.ext.truth",
         "androidx.test.rules",
+        "mockito-kotlin-nodeps",
         "mockito-target-extended-minus-junit4",
         "SystemUI-tests-base",
         "SystemUICustomizationTestUtils",
@@ -41,9 +42,9 @@ android_test {
     ],
 
     libs: [
-        "android.test.runner",
-        "android.test.base",
-        "android.test.mock",
+        "android.test.runner.stubs.system",
+        "android.test.base.stubs.system",
+        "android.test.mock.stubs.system",
     ],
 
     jni_libs: [
