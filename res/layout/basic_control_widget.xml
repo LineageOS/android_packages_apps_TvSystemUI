@@ -17,22 +17,11 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/basic_icon_title_container"
-    style="@style/BasicCenteredIconTextWidgetStyle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
+    android:gravity="center_vertical"
+    android:duplicateParentState="true"
     android:orientation="horizontal">
 
-    <ImageView
-        android:id="@android:id/icon"
-        style="@style/ControlWidgetIconStyle"
-        android:layout_marginEnd="@dimen/control_widget_icon_margin_end"
-        android:duplicateParentState="true" />
-
-    <com.android.systemui.tv.SmoothScalingTextView
-        android:id="@android:id/title"
-        style="@style/TextAppearance.Panel.ListItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:duplicateParentState="true" />
+    <include layout="@layout/core_slice_preference" />
 </LinearLayout>

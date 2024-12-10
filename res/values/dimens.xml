@@ -75,10 +75,11 @@
     <dimen name="media_dialog_title_margin">16dp</dimen>
     <dimen name="media_dialog_subtitle_margin">4dp</dimen>
 
-    <dimen name="media_dialog_item_spacing">8dp</dimen>
+    <dimen name="media_dialog_item_spacing">6dp</dimen>
     <dimen name="media_dialog_item_padding">12dp</dimen>
     <dimen name="media_dialog_icon_size">16dp</dimen>
     <dimen name="media_dialog_icon_bg_size">32dp</dimen>
+    <dimen name="media_dialog_settings_icon_size">24dp</dimen>
     <dimen name="media_dialog_radio_size">24dp</dimen>
 
     <dimen name="media_dialog_title">14sp</dimen>
@@ -110,5 +111,14 @@
     <dimen name="seekbar_widget_title_margin_bottom">6dp</dimen>
     <dimen name="seekbar_height">10dp</dimen>
     <dimen name="seekbar_background_stroke_width">5dp</dimen>
+
+    <!-- Tooltip window -->
+    <dimen name="tooltip_window_width">234dp</dimen>
+    <dimen name="tooltip_window_padding">12dp</dimen>
+    <dimen name="tooltip_bg_radius">12dp</dimen>
+    <dimen name="tooltip_image_width">204dp</dimen>
+    <dimen name="tooltip_image_height">115dp</dimen>
+    <dimen name="tooltip_window_vertical_margin">6dp</dimen>
+    <dimen name="tooltip_window_horizontal_margin">4dp</dimen>
 
 </resources>

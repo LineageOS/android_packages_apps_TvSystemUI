@@ -44,7 +44,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -52,7 +51,6 @@ import android.util.Pair;
 import androidx.core.graphics.drawable.IconCompat;
 import androidx.preference.Preference;
 
-import com.android.systemui.tv.res.R;
 import com.android.tv.twopanelsettings.slices.CustomContentDescriptionPreference;
 import com.android.tv.twopanelsettings.slices.HasCustomContentDescription;
 import com.android.tv.twopanelsettings.slices.HasSliceAction;
@@ -250,24 +248,21 @@ public final class SlicePreferencesUtil {
                 }
             }
 
+            ControlWidget.TooltipConfig tooltipConfig = new ControlWidget.TooltipConfig();
+
             // Set preview info image and text
             CharSequence infoText = getInfoText(item);
             CharSequence infoSummary = getInfoSummary(item);
             IconCompat infoImage = getInfoImage(item);
-            IconCompat infoTitleIcon = getInfoTitleIcon(item);
-            Bundle b = preference.getExtras();
             String fallbackInfoContentDescription = "";
             if (preference.getTitle() != null) {
                 fallbackInfoContentDescription += preference.getTitle().toString();
             }
             if (infoImage != null) {
-                b.putParcelable(EXTRA_PREFERENCE_INFO_IMAGE, infoImage.toIcon());
+                tooltipConfig.setImageDrawable(infoImage.loadDrawable(context));
             }
-            if (infoTitleIcon != null) {
-                b.putParcelable(EXTRA_PREFERENCE_INFO_TITLE_ICON, infoTitleIcon.toIcon());
-            }
-            if (infoText != null) {
-                b.putCharSequence(EXTRA_PREFERENCE_INFO_TEXT, infoText);
+            if (infoText != null && !infoText.isEmpty()) {
+                tooltipConfig.setTooltipText(infoText);
                 if (preference.getTitle() != null
                         && !preference.getTitle().equals(infoText.toString())) {
                     fallbackInfoContentDescription +=
@@ -275,8 +270,8 @@ public final class SlicePreferencesUtil {
                 }
 
             }
-            if (infoSummary != null) {
-                b.putCharSequence(EXTRA_PREFERENCE_INFO_SUMMARY, infoSummary);
+            if (infoSummary != null && !infoSummary.isEmpty()) {
+                tooltipConfig.setTooltipSummary(infoSummary);
                 fallbackInfoContentDescription +=
                         CONTENT_DESCRIPTION_SEPARATOR + infoSummary;
             }
@@ -299,8 +294,15 @@ public final class SlicePreferencesUtil {
                             fallbackInfoContentDescription);
                 }
             }
-            if (infoImage != null || infoText != null || infoSummary != null) {
-                // TODO(b/360215561) show the additional information in a tooltip
+            if ((infoText == null || infoText.isEmpty() )
+                    && (infoSummary == null || infoSummary.isEmpty())) {
+                tooltipConfig.setShouldShowTooltip(false);
+            } else {
+                tooltipConfig.setShouldShowTooltip(true);
+            }
+
+            if (preference instanceof TooltipPreference) {
+                ((TooltipPreference) preference).setTooltipConfig(tooltipConfig);
             }
         }
 

@@ -29,7 +29,7 @@ public class EmbeddedPreference extends EmbeddedSlicePreference {
 
     public EmbeddedPreference(Context context, String uri) {
         super(context, uri);
-        setLayoutResource(R.layout.basic_slice_preference);
+        setLayoutResource(R.layout.basic_slice_pref);
     }
 
 }

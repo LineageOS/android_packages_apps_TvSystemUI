@@ -52,6 +52,8 @@
     <color name="media_dialog_radio_button_focused">#8E918F</color>
     <color name="media_dialog_radio_button_unfocused">#8E918F</color>
     <color name="media_dialog_radio_button_checked">#0842A0</color>
+    <color name="media_dialog_settings_icon_focused">#0842A0</color>
+    <color name="media_dialog_settings_icon_unfocused">#8E918F</color>
 
     <color name="media_dialog_title">#E8EAED</color>
     <color name="media_dialog_subtitle">#B8E8EAED</color>

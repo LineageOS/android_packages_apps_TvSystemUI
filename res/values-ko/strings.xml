@@ -33,6 +33,12 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"오디오 출력"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"다른 기기"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"다른 기기 연결"</string>
+    <!-- no translation found for media_output_internal_speaker_spdif_subtitle (98802379666893998) -->
+    <skip />
+    <!-- no translation found for audio_device_tooltip_right (8410621031774996322) -->
+    <skip />
+    <!-- no translation found for audio_device_tooltip_left (9062689648623861935) -->
+    <skip />
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"아직 시청하고 계신가요?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"TV에서 다른 입력으로 전환되었다고 표시되었으며 이 기기는 곧 절전 모드로 전환될 예정입니다. 옵션을 선택하여 이 기기를 켜진 상태로 유지하세요."</string>
     <string name="hdmi_cec_on_active_source_lost_ok" msgid="7905385172151500115">"예(<xliff:g id="SECONDS">%1$d</xliff:g>초)"</string>
