@@ -33,11 +33,10 @@
     <string name="media_output_dialog_title" msgid="6307582009756803143">"آڈیو کا آؤٹ پُٹ"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"دیگر آلات"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"کسی اور آلے کو منسلک کریں"</string>
-    <!-- no translation found for media_output_internal_speaker_spdif_subtitle (98802379666893998) -->
-    <skip />
-    <!-- no translation found for audio_device_tooltip_right (8410621031774996322) -->
-    <skip />
-    <!-- no translation found for audio_device_tooltip_left (9062689648623861935) -->
+    <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"پہلے سے شامل اسپیکر ‎+ S/PDIF"</string>
+    <string name="audio_device_tooltip_right" msgid="8410621031774996322">"آڈیو آلے کی ترتیبات کے لیے "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" دبائیں"</string>
+    <string name="audio_device_tooltip_left" msgid="9062689648623861935">"آڈیو آلے کی ترتیبات کے لیے "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" دبائیں"</string>
+    <!-- no translation found for audio_device_settings_content_description (5204846097117099044) -->
     <skip />
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"کیا آپ اب تک دیکھ رہے ہیں؟"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"آپ کے TV نے نشاندہی کی ہے کہ آپ نے ایک مختلف ان پٹ پر سوئچ کیا ہے اور یہ آلہ جلد ہی سلیپ موڈ میں چلا جائے گا۔ اس آلے کو بیدار رکھنے کے لیے ایک اختیار منتخب کریں۔"</string>
