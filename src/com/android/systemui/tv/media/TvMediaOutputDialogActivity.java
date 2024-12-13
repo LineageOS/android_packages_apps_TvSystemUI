@@ -43,12 +43,13 @@ import com.android.settingslib.media.MediaDevice;
 import com.android.settingslib.media.flags.Flags;
 import com.android.systemui.animation.DialogTransitionAnimator;
 import com.android.systemui.flags.FeatureFlags;
-import com.android.systemui.media.dialog.MediaOutputController;
+import com.android.systemui.media.dialog.MediaSwitchingController;
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.settings.UserTracker;
 import com.android.systemui.statusbar.notification.collection.notifcollection.CommonNotifCollection;
 import com.android.systemui.tv.res.R;
+import com.android.systemui.volume.panel.domain.interactor.VolumePanelGlobalStateInteractor;
 
 import java.util.Collections;
 
@@ -56,15 +57,14 @@ import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 /**
- * A TV specific variation of the {@link com.android.systemui.media.dialog.MediaOutputDialog}.
- * This activity allows the user to select a default audio output, which is not based on the
- * currently playing media.
- * There are two entry points for the dialog, either by sending a broadcast via the
- * {@link com.android.systemui.media.dialog.MediaOutputDialogReceiver} or by calling
- * {@link MediaRouter2#showSystemOutputSwitcher()}
+ * A TV specific variation of the {@link com.android.systemui.media.dialog.MediaOutputDialog}. This
+ * activity allows the user to select a default audio output, which is not based on the currently
+ * playing media. There are two entry points for the dialog, either by sending a broadcast via the
+ * {@link com.android.systemui.media.dialog.MediaOutputDialogReceiver} or by calling {@link
+ * MediaRouter2#showSystemOutputSwitcher()}
  */
 public class TvMediaOutputDialogActivity extends Activity
-        implements MediaOutputController.Callback {
+        implements MediaSwitchingController.Callback {
     private static final String TAG = TvMediaOutputDialogActivity.class.getSimpleName();
     private static final boolean DEBUG = false;
 
@@ -81,6 +81,7 @@ public class TvMediaOutputDialogActivity extends Activity
     private final PowerExemptionManager mPowerExemptionManager;
     private final KeyguardManager mKeyguardManager;
     private final FeatureFlags mFeatureFlags;
+    private final VolumePanelGlobalStateInteractor mVolumePanelGlobalStateInteractor;
     private final UserTracker mUserTracker;
 
     protected final Handler mMainThreadHandler = new Handler(Looper.getMainLooper());
@@ -98,6 +99,7 @@ public class TvMediaOutputDialogActivity extends Activity
             PowerExemptionManager powerExemptionManager,
             KeyguardManager keyguardManager,
             FeatureFlags featureFlags,
+            VolumePanelGlobalStateInteractor volumePanelGlobalStateInteractor,
             UserTracker userTracker) {
         mMediaSessionManager = mediaSessionManager;
         mLocalBluetoothManager = localBluetoothManager;
@@ -109,6 +111,7 @@ public class TvMediaOutputDialogActivity extends Activity
         mPowerExemptionManager = powerExemptionManager;
         mKeyguardManager = keyguardManager;
         mFeatureFlags = featureFlags;
+        mVolumePanelGlobalStateInteractor = volumePanelGlobalStateInteractor;
         mUserTracker = userTracker;
     }
 
@@ -125,11 +128,22 @@ public class TvMediaOutputDialogActivity extends Activity
 
         setContentView(R.layout.media_output_dialog);
 
-        mMediaOutputController = new TvMediaOutputController(this, getPackageName(),
-                mMediaSessionManager, mLocalBluetoothManager, mActivityStarter,
-                mCommonNotifCollection, mDialogTransitionAnimator, mNearbyMediaDevicesManager,
-                mAudioManager, mPowerExemptionManager, mKeyguardManager, mFeatureFlags,
-                mUserTracker);
+        mMediaOutputController =
+                new TvMediaOutputController(
+                        this,
+                        getPackageName(),
+                        mMediaSessionManager,
+                        mLocalBluetoothManager,
+                        mActivityStarter,
+                        mCommonNotifCollection,
+                        mDialogTransitionAnimator,
+                        mNearbyMediaDevicesManager,
+                        mAudioManager,
+                        mPowerExemptionManager,
+                        mKeyguardManager,
+                        mFeatureFlags,
+                        mVolumePanelGlobalStateInteractor,
+                        mUserTracker);
         mAdapter = new TvMediaOutputAdapter(this, mMediaOutputController, this);
 
         Resources res = getResources();

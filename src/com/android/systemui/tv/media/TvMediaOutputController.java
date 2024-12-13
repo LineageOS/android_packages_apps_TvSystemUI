@@ -36,12 +36,13 @@ import com.android.settingslib.media.MediaDevice;
 import com.android.systemui.animation.DialogTransitionAnimator;
 import com.android.systemui.flags.FeatureFlags;
 import com.android.systemui.media.dialog.MediaItem;
-import com.android.systemui.media.dialog.MediaOutputController;
+import com.android.systemui.media.dialog.MediaSwitchingController;
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.settings.UserTracker;
 import com.android.systemui.statusbar.notification.collection.notifcollection.CommonNotifCollection;
 import com.android.systemui.tv.res.R;
+import com.android.systemui.volume.panel.domain.interactor.VolumePanelGlobalStateInteractor;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -49,10 +50,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Extends {@link MediaOutputController} to create a TV specific ordering and grouping of devices
+ * Extends {@link MediaSwitchingController} to create a TV specific ordering and grouping of devices
  * which are shown in the {@link TvMediaOutputDialogActivity}.
  */
-public class TvMediaOutputController extends MediaOutputController {
+public class TvMediaOutputController extends MediaSwitchingController {
 
     private final Context mContext;
     private final AudioManager mAudioManager;
@@ -70,6 +71,7 @@ public class TvMediaOutputController extends MediaOutputController {
             PowerExemptionManager powerExemptionManager,
             KeyguardManager keyGuardManager,
             FeatureFlags featureFlags,
+            VolumePanelGlobalStateInteractor volumePanelGlobalStateInteractor,
             UserTracker userTracker) {
         super(
                 context,
@@ -86,6 +88,7 @@ public class TvMediaOutputController extends MediaOutputController {
                 powerExemptionManager,
                 keyGuardManager,
                 featureFlags,
+                volumePanelGlobalStateInteractor,
                 userTracker);
         mContext = context;
         mAudioManager = audioManager;
