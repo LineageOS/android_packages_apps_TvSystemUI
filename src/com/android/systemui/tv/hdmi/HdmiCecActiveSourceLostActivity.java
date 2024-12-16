@@ -111,6 +111,7 @@ public class HdmiCecActiveSourceLostActivity extends TvBottomSheetActivity
             public void onFinish() {
                 okButton.setText(String.format(getResources()
                                 .getString(R.string.hdmi_cec_on_active_source_lost_ok), 0));
+                finish();
             }
         }.start();
 
