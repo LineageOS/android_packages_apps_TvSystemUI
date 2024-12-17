@@ -36,8 +36,7 @@
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"එකට තැනූ ස්පීකරය + S/PDIF"</string>
     <string name="audio_device_tooltip_right" msgid="8410621031774996322">"ශ්‍රව්‍ය උපාංග සැකසීම් සඳහා "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" ඔබන්න"</string>
     <string name="audio_device_tooltip_left" msgid="9062689648623861935">"ශ්‍රව්‍ය උපාංග සැකසීම් සඳහා "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" ඔබන්න"</string>
-    <!-- no translation found for audio_device_settings_content_description (5204846097117099044) -->
-    <skip />
+    <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> සැකසීම්."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"ඔබ තවමත් නරඹනවා ද?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"ඔබ වෙනත් ආදානයකට මාරු වූ බව ඔබේ රූපවාහිනිය පෙන්වා දුන් අතර මෙම උපාංගය ඉක්මනින් නින්දට යනු ඇත. මෙම උපාංගය අවදියෙන් තබා ගැනීමට විකල්පයක් තෝරන්න."</string>
     <string name="hdmi_cec_on_active_source_lost_ok" msgid="7905385172151500115">"ඔව් (ත<xliff:g id="SECONDS">%1$d</xliff:g>)"</string>
