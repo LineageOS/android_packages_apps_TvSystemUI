@@ -36,8 +36,7 @@
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"બિલ્ટ-ઇન સ્પીકર + S/PDIF"</string>
     <string name="audio_device_tooltip_right" msgid="8410621031774996322">"ઑડિયો ડિવાઇસના સેટિંગ માટે "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" દબાવો"</string>
     <string name="audio_device_tooltip_left" msgid="9062689648623861935">"ઑડિયો ડિવાઇસના સેટિંગ માટે "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" દબાવો"</string>
-    <!-- no translation found for audio_device_settings_content_description (5204846097117099044) -->
-    <skip />
+    <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> સેટિંગ."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"શું તમે હજી પણ જોઈ રહ્યાં છો?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"તમે કોઈ અલગ ઇનપુટ પર સ્વિચ થયા હોવાનું તમારા ટીવી દ્વારા સૂચવવામાં આવ્યું છે અને ટૂંક સમયમાં આ ડિવાઇસ નિષ્ક્રિય થઈ જશે. આ ડિવાઇસ સક્રિય રાખવા માટે, કોઈ વિકલ્પ પસંદ કરો."</string>
     <string name="hdmi_cec_on_active_source_lost_ok" msgid="7905385172151500115">"હા (<xliff:g id="SECONDS">%1$d</xliff:g> સેકન્ડ)"</string>
