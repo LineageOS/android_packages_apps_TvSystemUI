@@ -72,12 +72,12 @@ import com.android.systemui.tv.notifications.TvNotificationsModule
 import com.android.systemui.tv.privacy.PrivacyModule
 import com.android.systemui.tv.sensorprivacy.TvSensorPrivacyModule
 import com.android.systemui.tv.shade.TvNotificationShadeWindowController
+import com.android.systemui.tv.volume.dagger.TvVolumeModule
 import com.android.systemui.unfold.SysUIUnfoldStartableModule
 import com.android.systemui.usb.UsbAccessoryUriActivity
 import com.android.systemui.usb.UsbDebuggingActivity
 import com.android.systemui.usb.UsbDebuggingSecondaryUserActivity
 import com.android.systemui.user.CreateUserActivity
-import com.android.systemui.volume.dagger.VolumeModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -117,7 +117,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     SysUIUnfoldStartableModule::class,
     TvNotificationsModule::class,
     TvSensorPrivacyModule::class,
-    VolumeModule::class,
+    TvVolumeModule::class,
 ]
 )
 abstract class TvSystemUIModule {
