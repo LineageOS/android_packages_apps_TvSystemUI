@@ -279,6 +279,7 @@ public class TvUnblockSensorActivity extends TvBottomSheetActivity {
         mPositiveButton.setText(R.string.sensor_privacy_dialog_open_settings);
         mPositiveButton.setOnClickListener(v -> {
             Intent openPrivacySettings = new Intent(ACTION_MANAGE_MICROPHONE_PRIVACY);
+            openPrivacySettings.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ActivityInfo activityInfo = openPrivacySettings.resolveActivityInfo(getPackageManager(),
                     PackageManager.MATCH_SYSTEM_ONLY);
             if (activityInfo == null) {
