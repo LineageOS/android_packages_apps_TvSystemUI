@@ -25,6 +25,7 @@ import com.android.systemui.accessibility.AccessibilityModule
 import com.android.systemui.accessibility.data.repository.AccessibilityRepositoryModule
 import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
+import com.android.systemui.communal.posturing.dagger.NoopPosturingModule
 import com.android.systemui.dagger.ReferenceSystemUIModule
 import com.android.systemui.dagger.SysUISingleton
 import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
@@ -107,6 +108,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     MediaMuteAwaitConnectionCli.StartableModule::class,
     MultiUserUtilsModule::class,
     NearbyMediaDevicesManager.StartableModule::class,
+    NoopPosturingModule::class,
     PowerModule::class,
     PrivacyModule::class,
     QSModule::class,
