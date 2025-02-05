@@ -48,6 +48,7 @@ import com.android.systemui.volume.dagger.MediaDevicesModule
 import com.android.systemui.volume.dagger.SpatializerModule
 import com.android.systemui.volume.dialog.VolumeDialogPlugin
 import com.android.systemui.volume.dialog.dagger.VolumeDialogPluginComponent
+import com.android.systemui.volume.dialog.dagger.factory.VolumeDialogPluginComponentFactory
 import com.android.systemui.volume.domain.interactor.VolumeDialogInteractor
 import com.android.systemui.volume.domain.interactor.VolumePanelNavigationInteractor
 import com.android.systemui.volume.panel.dagger.VolumePanelComponent
@@ -65,14 +66,14 @@ import dagger.multibindings.IntoSet
 
 @Module(
     includes =
-        [
-            AudioModule::class,
-            AudioSharingModule::class,
-            AncModule::class,
-            CaptioningModule::class,
-            MediaDevicesModule::class,
-            SpatializerModule::class,
-        ],
+    [
+        AudioModule::class,
+        AudioSharingModule::class,
+        AncModule::class,
+        CaptioningModule::class,
+        MediaDevicesModule::class,
+        SpatializerModule::class,
+    ],
     subcomponents = [VolumePanelComponent::class, VolumeDialogPluginComponent::class],
 )
 interface TvVolumeModule {
@@ -91,12 +92,18 @@ interface TvVolumeModule {
     @IntoSet
     fun bindVolumeUIConfigChanges(impl: VolumeUI): ConfigurationController.ConfigurationListener
 
-    @Binds fun provideVolumeComponent(volumeDialogComponent: VolumeDialogComponent): VolumeComponent
+    @Binds
+    fun provideVolumeComponent(volumeDialogComponent: VolumeDialogComponent): VolumeComponent
 
     @Binds
     fun bindVolumePanelComponentFactory(
         impl: VolumePanelComponent.Factory
     ): VolumePanelComponentFactory
+
+    @Binds
+    fun bindVolumeDialogPluginComponentFactory(
+        impl: VolumeDialogPluginComponent.Factory
+    ): VolumeDialogPluginComponentFactory
 
     companion object {
         @Provides
