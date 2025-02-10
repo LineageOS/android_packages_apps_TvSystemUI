@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/top_fading_edge"
+        android:drawable="@drawable/top_fading_edge"/>
+    <item
+        android:id="@+id/bottom_fading_edge"
+        android:drawable="@drawable/bottom_fading_edge"/>
+</layer-list>
