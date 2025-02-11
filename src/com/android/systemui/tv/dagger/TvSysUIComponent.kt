@@ -25,6 +25,7 @@ import com.android.systemui.scene.ShadelessSceneContainerFrameworkModule
 import com.android.systemui.statusbar.dagger.CentralSurfacesDependenciesModule
 import com.android.systemui.tv.recents.TvRecentsModule
 import com.android.systemui.wallpapers.dagger.NoopWallpaperModule
+import com.android.systemui.window.dagger.WindowRootViewBlurNotSupportedModule;
 import dagger.Subcomponent
 
 /**
@@ -46,6 +47,7 @@ import dagger.Subcomponent
     TvSystemUIBinder::class,
     TVSystemUICoreStartableModule::class,
     TvSystemUIModule::class,
+    WindowRootViewBlurNotSupportedModule::class,
 ]
 )
 interface TvSysUIComponent : SysUIComponent {
