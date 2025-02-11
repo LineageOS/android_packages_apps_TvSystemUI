@@ -26,10 +26,13 @@ import static com.android.settingslib.media.MediaDevice.MediaDeviceType.TYPE_USB
 
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.session.MediaSessionManager;
 import android.os.PowerExemptionManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.android.settingslib.bluetooth.LocalBluetoothManager;
 import com.android.settingslib.media.MediaDevice;
@@ -54,6 +57,9 @@ import java.util.List;
  * which are shown in the {@link TvMediaOutputDialogActivity}.
  */
 public class TvMediaOutputController extends MediaSwitchingController {
+
+    private static final String TAG = TvMediaOutputController.class.getSimpleName();
+    private static final String SETTINGS_PACKAGE = "com.android.tv.settings";
 
     private final Context mContext;
     private final AudioManager mAudioManager;
@@ -229,8 +235,29 @@ public class TvMediaOutputController extends MediaSwitchingController {
     }
 
     private void addConnectAnotherDeviceItem(List<MediaItem> mediaItems) {
+        if (getBluetoothSettingsSliceUri() == null) {
+            Log.d(TAG, "No bluetooth slice set.");
+            return;
+        }
         mediaItems.add(MediaItem.createGroupDividerMediaItem(/* title */ null));
         mediaItems.add(MediaItem.createPairNewDeviceMediaItem());
+    }
+
+    String getBluetoothSettingsSliceUri() {
+        String uri = null;
+        Resources res;
+
+        try {
+            res = mContext.getPackageManager().getResourcesForApplication(SETTINGS_PACKAGE);
+            int resourceId = res.getIdentifier(
+                    SETTINGS_PACKAGE + ":string/connected_devices_slice_uri", null, null);
+            if (resourceId != 0) {
+                uri = res.getString(resourceId);
+            }
+        } catch (NameNotFoundException exception) {
+            Log.e(TAG, "Could not find TvSettings package: " + exception);
+        }
+        return uri;
     }
 
     @Override

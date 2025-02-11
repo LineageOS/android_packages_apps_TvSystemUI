@@ -415,10 +415,14 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
         private void launchBluetoothSettings() {
             mCallback.dismissDialog();
 
+            String uri = mMediaOutputController.getBluetoothSettingsSliceUri();
+            if (uri == null) {
+                return;
+            }
+
             Intent bluetoothIntent = new Intent("android.settings.SLICE_SETTINGS");
             Bundle extra = new Bundle();
-            extra.putString("slice_uri",
-                    "content://com.google.android.tv.btservices.settings.sliceprovider/general");
+            extra.putString("slice_uri", uri);
             bluetoothIntent.putExtras(extra);
             bluetoothIntent.addFlags(
                     Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
