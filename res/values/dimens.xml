@@ -121,4 +121,14 @@
     <dimen name="tooltip_window_vertical_margin">6dp</dimen>
     <dimen name="tooltip_window_horizontal_margin">4dp</dimen>
 
+    <!-- Volume -->
+    <dimen name="volume_dialog_width">48dp</dimen>
+    <dimen name="volume_dialog_background_corner_radius">24dp</dimen>
+    <dimen name="volume_dialog_background_vertical_margin">-6dp</dimen>
+    <dimen name="volume_dialog_components_spacing">0dp</dimen>
+    <dimen name="volume_dialog_button_size">36dp</dimen>
+    <dimen name="volume_dialog_window_margin">30dp</dimen>
+    <dimen name="volume_dialog_slider_height">190dp</dimen>
+    <dimen name="volume_dialog_slider_width">24dp</dimen>
+    <dimen name="volume_dialog_slider_track_width">4dp</dimen>
 </resources>
