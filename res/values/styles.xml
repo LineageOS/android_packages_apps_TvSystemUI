@@ -208,7 +208,6 @@
     <style name="ControlWidgetTooltipTextStyle">
         <item name="android:fontFamily">@string/font_label_medium</item>
         <item name="android:textSize">10sp</item>
-        <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/media_dialog_item_title</item>
         <item name="android:textAlignment">viewStart</item>
     </style>
