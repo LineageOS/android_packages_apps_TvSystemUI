@@ -34,8 +34,8 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"ឧបករណ៍ផ្សេងទៀត"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"ភ្ជាប់ឧបករណ៍ផ្សេងទៀត"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"ឧបករណ៍សំឡេងដែលភ្ជាប់មកជាមួយស្រាប់ + S/PDIF"</string>
-    <string name="audio_device_tooltip_right" msgid="8410621031774996322">"ចុច "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" សម្រាប់ការ​កំណត់ឧបករណ៍សំឡេង"</string>
-    <string name="audio_device_tooltip_left" msgid="9062689648623861935">"ចុច "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" សម្រាប់ការ​កំណត់ឧបករណ៍សំឡេង"</string>
+    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
+    <skip />
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"ការកំណត់ <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>។"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"តើអ្នកកំពុងនៅមើលដែរឬទេ?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"ទូរទស្សន៍របស់អ្នកបានបង្ហាញថាអ្នកបានប្ដូរទៅឧបករណ៍​បញ្ចូលផ្សេង ហើយឧបករណ៍នេះនឹងប្ដូរទៅមុខងារដេកក្នុងពេលឆាប់ៗនេះ។ ជ្រើសរើសជម្រើសមួយ ដើម្បីរក្សាឧបករណ៍នេះឱ្យនៅបើកចោល។"</string>
