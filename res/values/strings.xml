@@ -42,13 +42,11 @@
     S/PDIF [CHAR LIMIT=NONE] -->
     <string name="media_output_internal_speaker_spdif_subtitle">Built-in speaker + S/PDIF</string>
 
-    <!-- Tooltip text instructing the user to press the DPAD right button (for LTR layout direction)
-    to access the audio device settings [CHAR LIMIT=50] -->
-    <string name="audio_device_tooltip_right">Press <annotation icon="dpad_icon">DPAD_RIGHT</annotation> for audio device settings</string>
-
-    <!-- Tooltip text instructing the user to press the DPAD left button (for RTL layout direction)
-    to access the audio device settings [CHAR LIMIT=50] -->
-    <string name="audio_device_tooltip_left">Press <annotation icon="dpad_icon">DPAD_LEFT</annotation> for audio device settings</string>
+    <!-- Tooltip text instructing the user to press the DPAD right button (or left for RTL)
+    to access the audio device settings. This string is not used when accessibility is turned on and
+    the annotation will therefore always be replaced with the right/left dpad icon.
+    [CHAR LIMIT=NONE] -->
+    <string name="audio_device_settings_tooltip">Press <annotation icon="dpad_icon">DPAD</annotation> for audio device settings.</string>
 
     <string name="audio_device_settings_content_description"><xliff:g id="audio_device_name" example="Foo Soundbar">%1$s</xliff:g> settings.</string>
 

@@ -258,6 +258,9 @@ public final class SlicePreferencesUtil {
             if (preference.getTitle() != null) {
                 fallbackInfoContentDescription += preference.getTitle().toString();
             }
+            if (subtitleExists) {
+                fallbackInfoContentDescription += CONTENT_DESCRIPTION_SEPARATOR + subtitle;
+            }
             if (infoImage != null) {
                 tooltipConfig.setImageDrawable(infoImage.loadDrawable(context));
             }
