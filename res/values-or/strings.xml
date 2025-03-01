@@ -34,8 +34,8 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"ଅନ୍ୟ ଡିଭାଇସ"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"ଅନ୍ୟ ଏକ ଡିଭାଇସ କନେକ୍ଟ କରନ୍ତୁ"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"ବିଲ୍ଟ-ଇନ ସ୍ପିକର + S/PDIF"</string>
-    <string name="audio_device_tooltip_right" msgid="8410621031774996322">"ଅଡିଓ ଡିଭାଇସ ସେଟିଂସ ପାଇଁ "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>"କୁ ଦବାନ୍ତୁ"</string>
-    <string name="audio_device_tooltip_left" msgid="9062689648623861935">"ଅଡିଓ ଡିଭାଇସ ସେଟିଂସ ପାଇଁ "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>"କୁ ଦବାନ୍ତୁ"</string>
+    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
+    <skip />
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> ସେଟିଂସ।"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"ଆପଣ ଏବେ ବି ଦେଖୁଛନ୍ତି?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"ଆପଣ ଏକ ଭିନ୍ନ ଇନପୁଟକୁ ସୁଇଚ କରିଛନ୍ତି ଏବଂ ଏହି ଡିଭାଇସ ଶୀଘ୍ର ବନ୍ଦ ହୋଇଯିବ ବୋଲି ଆପଣଙ୍କ ଟିଭି ସୂଚିତ କରିଛି। ଏହି ଡିଭାଇସକୁ ସକ୍ରିୟ ରଖିବା ପାଇଁ ଏକ ବିକଳ୍ପକୁ ଚୟନ କରନ୍ତୁ।"</string>

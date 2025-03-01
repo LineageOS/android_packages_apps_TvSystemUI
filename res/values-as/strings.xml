@@ -34,8 +34,8 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"অন্য ডিভাইচ"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"আন এটা ডিভাইচ সংযোগ কৰক"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"বিল্ট-ইন স্পীকাৰ + S/PDIF"</string>
-    <string name="audio_device_tooltip_right" msgid="8410621031774996322">"অডিঅ’ ডিভাইচৰ ছেটিঙৰ বাবে "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" টিপক"</string>
-    <string name="audio_device_tooltip_left" msgid="9062689648623861935">"অডিঅ’ ডিভাইচৰ ছেটিঙৰ বাবে "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" টিপক"</string>
+    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
+    <skip />
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>ৰ ছেটিং।"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"আপুনি এতিয়াও চাই আছে নেকি?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"আপোনাৰ টিভিয়ে সূচাইছে যে আপুনি অন্য কোনো ইনপুটলৈ সলনি কৰিছে আৰু এই ডিভাইচটো সোনকালেই সুপ্ত হ’ব। এই ডিভাইচটো সক্ৰিয় কৰি ৰাখিবলৈ এটা বিকল্প বাছনি কৰক।"</string>
