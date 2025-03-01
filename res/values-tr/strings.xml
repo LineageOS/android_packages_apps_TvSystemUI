@@ -34,8 +34,8 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Diğer cihazlar"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Başka bir cihaz bağlayın"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Dahili hoparlör + S/PDIF"</string>
-    <string name="audio_device_tooltip_right" msgid="8410621031774996322">"Ses sistemi ayarları için "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" tuşuna basın"</string>
-    <string name="audio_device_tooltip_left" msgid="9062689648623861935">"Ses sistemi ayarları için "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" tuşuna basın"</string>
+    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
+    <skip />
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> ayarları."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Hâlâ izliyor musunuz?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"TV\'niz farklı bir girişe geçtiğinizi bildirdi ve bu cihaz yakında uyku moduna geçecektir. Bu cihazın uyanık kalması için bir seçenek belirleyin."</string>
