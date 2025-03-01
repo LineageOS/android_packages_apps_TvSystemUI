@@ -173,8 +173,8 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
      */
     private CharSequence createTooltipText() {
         Resources res = mContext.getResources();
-        final SpannedString tooltipText = (SpannedString) res.getText(mIsRtl
-                ? R.string.audio_device_tooltip_right : R.string.audio_device_tooltip_left);
+        final SpannedString tooltipText = (SpannedString) res.getText(
+                R.string.audio_device_settings_tooltip);
         final SpannableString spannableString = new SpannableString(tooltipText);
         Arrays.stream(tooltipText.getSpans(0, tooltipText.length(), Annotation.class)).findFirst()
                 .ifPresent(annotation -> {

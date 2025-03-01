@@ -34,8 +34,8 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"อุปกรณ์อื่นๆ"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"เชื่อมต่ออุปกรณ์อื่น"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"ลำโพงในตัว + S/PDIF"</string>
-    <string name="audio_device_tooltip_right" msgid="8410621031774996322">"กด "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" เพื่อตั้งค่าอุปกรณ์เสียง"</string>
-    <string name="audio_device_tooltip_left" msgid="9062689648623861935">"กด "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" เพื่อตั้งค่าอุปกรณ์เสียง"</string>
+    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
+    <skip />
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"การตั้งค่า <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"คุณยังรับชมอยู่ไหม"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"ทีวีแจ้งว่าคุณเปลี่ยนเป็นอินพุตอื่นและอุปกรณ์นี้จะเข้าสู่โหมดสลีปในไม่ช้า เลือกตัวเลือกเพื่อเปิดอุปกรณ์นี้ค้างไว้"</string>
