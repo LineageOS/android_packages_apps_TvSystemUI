@@ -28,6 +28,7 @@ import com.android.systemui.assist.AssistManager;
 import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.KeyboardShortcuts;
+import com.android.systemui.utils.windowmanager.WindowManagerProvider;
 
 import dagger.Lazy;
 
@@ -47,13 +48,15 @@ public class TvStatusBar implements CoreStartable, CommandQueue.Callbacks {
     private final Context mContext;
     private final CommandQueue mCommandQueue;
     private final Lazy<AssistManager> mAssistManagerLazy;
+    private final WindowManagerProvider mWindowManagerProvider;
 
     @Inject
     public TvStatusBar(Context context, CommandQueue commandQueue,
-            Lazy<AssistManager> assistManagerLazy) {
+            Lazy<AssistManager> assistManagerLazy, WindowManagerProvider windowManagerProvider) {
         mContext = context;
         mCommandQueue = commandQueue;
         mAssistManagerLazy = assistManagerLazy;
+        mWindowManagerProvider = windowManagerProvider;
     }
 
     @Override
@@ -82,6 +85,6 @@ public class TvStatusBar implements CoreStartable, CommandQueue.Callbacks {
 
     @Override
     public void toggleKeyboardShortcutsMenu(int deviceId) {
-        KeyboardShortcuts.show(mContext, deviceId);
+        KeyboardShortcuts.show(mContext, deviceId, mWindowManagerProvider);
     }
 }
