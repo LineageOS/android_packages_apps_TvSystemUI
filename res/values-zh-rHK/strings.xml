@@ -34,8 +34,8 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"其他裝置"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"連接另一部裝置"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"內置喇叭 + S/PDIF"</string>
-    <string name="audio_device_tooltip_right" msgid="8410621031774996322">"按一下 "<annotation icon="dpad_icon">"DPAD_RIGHT"</annotation>" 以存取音響裝置設定"</string>
-    <string name="audio_device_tooltip_left" msgid="9062689648623861935">"按一下 "<annotation icon="dpad_icon">"DPAD_LEFT"</annotation>" 以存取音響裝置設定"</string>
+    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
+    <skip />
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"「<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>」設定。"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"你仍在觀看嗎？"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"你的電視表示你已切換至其他輸入來源，而此裝置即將進入休眠模式。請選取任何選項，讓此裝置保持啟用狀態。"</string>
