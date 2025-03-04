@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"他のデバイス"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"別のデバイスに接続"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"内蔵スピーカー + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"オーディオ機器の設定に移動するには "<annotation icon="dpad_icon">"DPAD"</annotation>" を押します。"</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> の設定。"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"まだ視聴中ですか？"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"テレビで別の入力に切り替えたため、このデバイスはまもなくスリープ状態になります。このデバイスの電源を入れたままにするためのオプションを 1 つ選択してください。"</string>
