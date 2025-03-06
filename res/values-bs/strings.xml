@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Drugi uređaji"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Povežite drugi uređaj"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Ugrađeni zvučnik + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Za postavke audio uređaja pritisnite "<annotation icon="dpad_icon">"dugmad za smjer"</annotation>"."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"Postavke uređaja <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Gledate li još uvijek?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"TV je pokazao da ste prebacili na drugi ulaz i uređaj će uskoro preći u mirovanje. Odaberite opciju da uređaj ostane aktivan."</string>
