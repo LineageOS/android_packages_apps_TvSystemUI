@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"മറ്റ് ഉപകരണങ്ങൾ"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"മറ്റൊരു ഉപകരണം കണക്റ്റ് ചെയ്യുക"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"ബിൽറ്റ്-ഇൻ സ്‌പീക്കർ + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"ഓഡിയോ ഉപകരണ ക്രമീകരണത്തിനുള്ള "<annotation icon="dpad_icon">"DPAD"</annotation>" അമർത്തുക."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> ക്രമീകരണം."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"ഇപ്പോഴും കാണുന്നുണ്ടോ?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"നിങ്ങൾ മറ്റൊരു ഇൻപുട്ടിലേക്ക് മാറിയെന്നും ഉപകരണം ഉടൻ പ്രവർത്തനരഹിതമാക്കുമെന്നും ടിവി സൂചിപ്പിച്ചിരിക്കുന്നു. ഈ ഉപകരണം സജീവമാക്കി നിലനിർത്താൻ ഓപ്ഷൻ തിരഞ്ഞെടുക്കുക."</string>

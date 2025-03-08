@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"အခြားစက်များ"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"အခြားစက်နှင့် ချိတ်ဆက်ခြင်း"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"အသင့်ပါပြီး စပီကာ + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"အသံစက်ပစ္စည်း ဆက်တင်များအတွက် "<annotation icon="dpad_icon">"DPAD"</annotation>" ကို နှိပ်ပါ။"</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> ဆက်တင်များ။"</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"ကြည့်နေသေးသလား။"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"အခြားအဝင်ပေါက်ကို ပြောင်းထားသည်ဟု သင့် TV က ညွှန်ပြထားပြီး ဤစက်သည် မကြာမီတွင် ပိတ်သွားပါမည်။ ဤစက်ကို ဖွင့်ထားရန် နည်းလမ်းတစ်ခု ရွေးပါ။"</string>

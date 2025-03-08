@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Altres dispositius"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Connecta un altre dispositiu"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Altaveu integrat + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Prem la "<annotation icon="dpad_icon">"creu direccional"</annotation>" per a la configuració del dispositiu d\'àudio."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"Configuració de <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Encara mires el contingut?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"El televisor ha indicat que has canviat a una altra entrada i aquest dispositiu aviat entrarà en mode de repòs. Selecciona una opció per mantenir aquest dispositiu activat."</string>
