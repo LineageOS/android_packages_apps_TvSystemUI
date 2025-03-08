@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Otros dispositivos"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Conecta otro dispositivo"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Altavoz integrado + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Pulsa "<annotation icon="dpad_icon">"CRUCETA"</annotation>" para acceder a los ajustes del dispositivo de audio."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"Ajustes de <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"¿Sigues ahí?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"Tu televisión ha indicado que has cambiado a otra entrada y que este dispositivo entrará en suspensión pronto. Selecciona una opción para mantener este dispositivo activo."</string>

@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Outros dispositivos"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Conectar outro dispositivo"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Alto-falante integrado + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Pressione o botão "<annotation icon="dpad_icon">"DPAD"</annotation>" para ver as configurações do dispositivo de áudio."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"Configurações de <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Ainda está assistindo?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"Sua TV indicou que você mudou para uma entrada diferente, e o dispositivo vai entrar no modo de suspensão em breve. Selecione uma opção para manter o dispositivo ativado."</string>
