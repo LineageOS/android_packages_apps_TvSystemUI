@@ -24,14 +24,10 @@
 
     <include layout="@layout/core_slice_preference" />
 
-    <Switch
+    <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@android:id/switch_widget"
-        android:layout_width="@dimen/switch_width"
-        android:layout_height="@dimen/switch_height"
-        android:background="@null"
-        android:clickable="false"
-        android:duplicateParentState="true"
-        android:focusable="false"
-        android:thumb="@drawable/custom_switch_thumb"
-        android:track="@drawable/custom_switch_track" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/SliceSwitchStyle"
+        style="@style/SliceSwitchStyle"/>
 </LinearLayout>

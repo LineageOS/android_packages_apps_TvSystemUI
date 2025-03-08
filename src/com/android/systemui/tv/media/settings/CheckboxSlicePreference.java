@@ -17,11 +17,8 @@
 package com.android.systemui.tv.media.settings;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,12 +34,6 @@ import com.android.tv.twopanelsettings.slices.compat.core.SliceActionImpl;
  */
 public class CheckboxSlicePreference extends SliceCheckboxPreference implements TooltipPreference {
     private ControlWidget.TooltipConfig mTooltipConfig = new ControlWidget.TooltipConfig();
-    private View mItemView;
-    private CheckBox mCheckBox;
-
-    private final int mFocusedCheckboxTint;
-    private final int mUnfocusedCheckboxTint;
-    private final int mCheckedCheckboxTint;
 
     public CheckboxSlicePreference(Context context, SliceActionImpl action) {
         this(context, null, action);
@@ -52,35 +43,15 @@ public class CheckboxSlicePreference extends SliceCheckboxPreference implements 
             SliceActionImpl action) {
         super(context, attrs, action);
         setLayoutResource(R.layout.checkbox_slice_pref);
-
-        Resources res = context.getResources();
-        mFocusedCheckboxTint = res.getColor(R.color.media_dialog_radio_button_focused);
-        mUnfocusedCheckboxTint = res.getColor(R.color.media_dialog_radio_button_unfocused);
-        mCheckedCheckboxTint = res.getColor(R.color.media_dialog_radio_button_checked);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        mItemView = holder.itemView;
-        mItemView.setOnFocusChangeListener((v, hasFocus) -> updateColors());
 
-        CheckboxControlWidget widget = (CheckboxControlWidget) mItemView;
+        CheckboxControlWidget widget = (CheckboxControlWidget) holder.itemView;
         widget.setEnabled(this.isEnabled());
         widget.setTooltipConfig(mTooltipConfig);
-
-        mCheckBox = mItemView.findViewById(android.R.id.checkbox);
-        mCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> updateColors());
-        updateColors();
-    }
-
-    private void updateColors() {
-        Drawable drawable = mCheckBox.getButtonDrawable();
-        if (mItemView.hasFocus()) {
-            drawable.setTint(mCheckBox.isChecked() ? mCheckedCheckboxTint : mFocusedCheckboxTint);
-        } else {
-            drawable.setTint(mUnfocusedCheckboxTint);
-        }
     }
 
     /** Set tool tip related attributes. */

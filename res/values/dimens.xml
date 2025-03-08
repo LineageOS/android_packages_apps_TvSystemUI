@@ -100,6 +100,7 @@
     <dimen name="control_widget_icon_size">32dp</dimen>
     <dimen name="control_widget_small_icon_size">16dp</dimen>
     <dimen name="control_widget_icon_padding">2dp</dimen>
+    <dimen name="control_widget_padding">12dp</dimen>
 
     <!-- Switch widget basic -->
     <dimen name="switch_height">20dp</dimen>

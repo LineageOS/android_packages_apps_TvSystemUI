@@ -162,21 +162,52 @@
     </style>
 
     <style name="SwitchWidgetStyle" parent="ControlWidgetStyle">
-        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingStart">@dimen/control_widget_padding</item>
+        <!-- Reduced padding to keep alignment after scaling the switch -->
         <item name="android:paddingEnd">8dp</item>
-        <item name="android:paddingVertical">14dp</item>
+        <item name="android:paddingVertical">0dp</item>
+    </style>
+
+    <style name="SliceSwitchStyle" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="thumbTint">@color/thumb_tint_selector</item>
+        <item name="trackTint">@color/track_tint_selector</item>
+        <item name="trackDecorationTint">@color/track_decoration_tint_selector</item>
+        <item name="android:scaleX">0.78</item>
+        <item name="android:scaleY">0.78</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="SliceCheckboxStyle" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">@color/control_tint_selector</item>
+        <item name="android:button">@drawable/checkbox_drawable</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
+    </style>
+
+    <style name="SliceRadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:buttonTint">@color/control_tint_selector</item>
+        <item name="android:duplicateParentState">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:focusable">false</item>
+        <item name="android:clickable">false</item>
     </style>
 
     <style name="CheckboxWidgetStyle" parent="ControlWidgetStyle">
-        <item name="android:paddingStart">12dp</item>
-        <item name="android:paddingEnd">8dp</item>
-        <item name="android:paddingVertical">12dp</item>
+        <item name="android:paddingHorizontal">@dimen/control_widget_padding</item>
+        <item name="android:paddingVertical">0dp</item>
     </style>
 
     <style name="RadioWidgetStyle" parent="ControlWidgetStyle">
-        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingStart">@dimen/control_widget_padding</item>
+        <!-- Reduced padding due to space around the radio button -->
         <item name="android:paddingEnd">8dp</item>
-        <item name="android:paddingVertical">12dp</item>
+        <item name="android:paddingVertical">0dp</item>
     </style>
 
     <style name="OutputDeviceWidgetStyle" parent="RadioWidgetStyle">
@@ -187,16 +218,18 @@
     </style>
 
     <style name="SeekbarWidgetStyle" parent="ControlWidgetStyle">
-        <item name="android:paddingHorizontal">12dp</item>
-        <item name="android:paddingVertical">12dp</item>
+        <item name="android:paddingHorizontal">@dimen/control_widget_padding</item>
+        <item name="android:paddingVertical">@dimen/control_widget_padding</item>
     </style>
 
     <style name="BasicIconTextWidgetStyle" parent="ControlWidgetStyle">
-        <item name="android:paddingHorizontal">12dp</item>
-        <item name="android:paddingVertical">14dp</item>
+        <item name="android:paddingHorizontal">@dimen/control_widget_padding</item>
+        <item name="android:paddingVertical">0dp</item>
     </style>
 
-    <style name="BasicCenteredIconTextWidgetStyle" parent="BasicIconTextWidgetStyle">
+    <style name="BasicCenteredIconTextWidgetStyle" parent="ControlWidgetStyle">
+        <item name="android:paddingHorizontal">@dimen/control_widget_padding</item>
+        <item name="android:paddingVertical">@dimen/control_widget_padding</item>
         <item name="android:background">@drawable/media_dialog_item_bg_rounded</item>
     </style>
 
