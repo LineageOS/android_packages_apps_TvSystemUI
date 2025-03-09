@@ -24,21 +24,8 @@
     android:focusable="false"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/media_dialog_title_margin"
-        android:text="@string/media_output_dialog_title"
-        android:textColor="@color/media_dialog_title"
-        android:fontFamily="@string/font_label_large"
-        android:textSize="@dimen/media_dialog_title" />
-
-    <com.android.internal.widget.RecyclerView
-        android:id="@+id/device_list"
+    <FrameLayout
+        android:id="@+id/media_output_fragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:clipToPadding="false" />
+        android:layout_height="match_parent" />
 </LinearLayout>

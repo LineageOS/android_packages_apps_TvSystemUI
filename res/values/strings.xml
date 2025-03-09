@@ -38,10 +38,23 @@
     <string name="media_output_dialog_other_devices">Other devices</string>
     <string name="media_output_dialog_pairing_new">Connect another device</string>
 
+    <!-- TV media output switcher. Subtitle for internal speaker audio output when grouped with
+    S/PDIF [CHAR LIMIT=NONE] -->
+    <string name="media_output_internal_speaker_spdif_subtitle">Built-in speaker + S/PDIF</string>
+
+    <!-- Tooltip text instructing the user to press the DPAD right button (for LTR layout direction)
+    to access the audio device settings [CHAR LIMIT=50] -->
+    <string name="audio_device_tooltip_right">Press <annotation icon="dpad_icon">DPAD_RIGHT</annotation> for audio device settings</string>
+
+    <!-- Tooltip text instructing the user to press the DPAD left button (for RTL layout direction)
+    to access the audio device settings [CHAR LIMIT=50] -->
+    <string name="audio_device_tooltip_left">Press <annotation icon="dpad_icon">DPAD_LEFT</annotation> for audio device settings</string>
+
+    <string name="audio_device_settings_content_description"><xliff:g id="audio_device_name" example="Foo Soundbar">%1$s</xliff:g> settings.</string>
 
     <string name="hdmi_cec_on_active_source_lost_title">Are you still watching?</string>
-    <string name="hdmi_cec_on_active_source_lost_description">The TV told us it will display another input. Select one option to keep this device awake.</string>
-    <string name="hdmi_cec_on_active_source_lost_ok">Yes</string>
+    <string name="hdmi_cec_on_active_source_lost_description">Your TV indicated that you switched to a different input and this device will go to sleep soon. Select an option to keep this device awake.</string>
+    <string name="hdmi_cec_on_active_source_lost_ok">Yes (<xliff:g id="seconds" example="10">%1$d</xliff:g>s)</string>
     <string name="hdmi_cec_on_active_source_lost_do_not_show">Don\u2019t ask again</string>
 
     <string name="font_display_large" translatable="false">sans-serif</string>
@@ -67,4 +80,15 @@
     <string name="font_body_extra_small" translatable="false">roboto</string>
 
     <string name="font_overline" translatable="false">sans-serif</string>
+
+    <string name="audio_output_builtin_speaker_slice_uri" translatable="false"/>
+    <string name="audio_output_wired_headphone_slice_uri" translatable="false" />
+    <string name="audio_output_bluetooth_slice_uri" translatable="false"/>
+    <string name="audio_output_hdmi_slice_uri" translatable="false"/>
+    <string name="audio_output_hdmi_e_arc_slice_uri" translatable="false"/>
+    <string name="audio_output_usb_slice_uri" translatable="false"/>
+    <string name="audio_output_remote_avr_slice_uri" translatable="false" />
+    <string name="audio_output_cast_device_slice_uri" translatable="false" />
+    <string name="audio_output_cast_group_slice_uri" translatable="false" />
+
 </resources>

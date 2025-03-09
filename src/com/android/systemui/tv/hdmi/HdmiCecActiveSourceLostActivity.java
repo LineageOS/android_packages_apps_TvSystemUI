@@ -21,7 +21,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.hardware.hdmi.HdmiControlManager;
+import android.hardware.hdmi.HdmiPlaybackClient;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.util.Slog;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -38,7 +41,9 @@ import com.android.systemui.tv.res.R;
  */
 public class HdmiCecActiveSourceLostActivity extends TvBottomSheetActivity
         implements View.OnClickListener {
+    private static final String TAG = "HdmiCecActiveSourceLostActivity";
     private HdmiControlManager mHdmiControlManager;
+    private static final int COUNTDOWN_GO_TO_SLEEP_MS = 30_000; // 30 seconds
 
     @Override
     public final void onCreate(Bundle b) {
@@ -68,6 +73,18 @@ public class HdmiCecActiveSourceLostActivity extends TvBottomSheetActivity
             mHdmiControlManager.setPowerStateChangeOnActiveSourceLost(
                     HdmiControlManager.POWER_STATE_CHANGE_ON_ACTIVE_SOURCE_LOST_NONE);
         }
+        HdmiPlaybackClient playbackClient = mHdmiControlManager.getPlaybackClient();
+        if (playbackClient != null) {
+            playbackClient.oneTouchPlay(new HdmiPlaybackClient.OneTouchPlayCallback() {
+                @Override
+                public void onComplete(int result) {
+                    if (result != HdmiControlManager.RESULT_SUCCESS) {
+                        Slog.w(TAG, "One touch play failed: " + result);
+                    }
+                }
+            });
+        }
+
         finish();
     }
 
@@ -84,7 +101,20 @@ public class HdmiCecActiveSourceLostActivity extends TvBottomSheetActivity
         icon.setImageResource(R.drawable.ic_input_switch);
         secondIcon.setVisibility(View.GONE);
 
-        okButton.setText(R.string.hdmi_cec_on_active_source_lost_ok);
+        new CountDownTimer(COUNTDOWN_GO_TO_SLEEP_MS, 1000) {
+            public void onTick(long millisUntilFinished) {
+                // Start countdown from 30, not 29.
+                okButton.setText(String.format(getResources()
+                                .getString(R.string.hdmi_cec_on_active_source_lost_ok),
+                        millisUntilFinished / 1000 + 1));
+            }
+            public void onFinish() {
+                okButton.setText(String.format(getResources()
+                                .getString(R.string.hdmi_cec_on_active_source_lost_ok), 0));
+            }
+        }.start();
+
+
         okButton.setOnClickListener(this);
         okButton.requestFocus();
 
