@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Alte dispozitive"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Conectează alt dispozitiv"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Difuzor încorporat + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Apasă pe "<annotation icon="dpad_icon">"DPAD"</annotation>" pentru setările dispozitivului audio."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"Setări <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Încă vizionezi?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"Televizorul a indicat că ai comutat la altă intrare și dispozitivul va intra în modul de repaus în curând. Selectează o opțiune pentru a menține dispozitivul activ."</string>

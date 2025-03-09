@@ -34,8 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Башка түзмөктөр"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Башка түзмөктү туташтыруу"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Кыстарылган динамик + S/PDIF"</string>
-    <!-- no translation found for audio_device_settings_tooltip (2817501350919310424) -->
-    <skip />
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Аудио түзмөктүн параметрлери – "<annotation icon="dpad_icon">"DPAD"</annotation>" дегенди басыңыз."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> параметрлери."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Көрүп жатасызбы?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"Сыналгыңыз башка киргизүү булагына которулганыңызды жана бул түзмөк жакында уйку режимине өтөрүн көрсөттү. Бул түзмөктүн экраны өчүп калбашы үчүн, параметр тандаңыз."</string>
