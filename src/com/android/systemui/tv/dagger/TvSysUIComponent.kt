@@ -23,8 +23,6 @@ import com.android.systemui.keyguard.dagger.KeyguardModule
 import com.android.systemui.navigationbar.NoopNavigationBarControllerModule
 import com.android.systemui.scene.ShadelessSceneContainerFrameworkModule
 import com.android.systemui.statusbar.dagger.CentralSurfacesDependenciesModule
-import com.android.systemui.statusbar.notification.dagger.NotificationsModule
-import com.android.systemui.statusbar.notification.row.NotificationRowModule
 import com.android.systemui.tv.recents.TvRecentsModule
 import com.android.systemui.wallpapers.dagger.NoopWallpaperModule
 import dagger.Subcomponent
@@ -42,8 +40,6 @@ import dagger.Subcomponent
     KeyguardModule::class,
     NoopNavigationBarControllerModule::class,
     NoopWallpaperModule::class,
-    NotificationRowModule::class,
-    NotificationsModule::class,
     TvRecentsModule::class,
     ShadelessSceneContainerFrameworkModule::class,
     SystemUIModule::class,

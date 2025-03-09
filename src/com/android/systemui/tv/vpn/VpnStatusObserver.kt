@@ -48,9 +48,9 @@ class VpnStatusObserver @Inject constructor(
 
     private val vpnIconId: Int
         get() = if (securityController.isVpnBranded) {
-            com.android.systemui.R.drawable.stat_sys_branded_vpn
+            com.android.systemui.res.R.drawable.stat_sys_branded_vpn
         } else {
-            com.android.systemui.R.drawable.stat_sys_vpn_ic
+            com.android.systemui.res.R.drawable.stat_sys_vpn_ic
         }
 
     private val vpnName: String?

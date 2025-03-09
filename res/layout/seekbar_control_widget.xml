@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:duplicateParentState="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/seekbar_icon_title_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="@dimen/seekbar_widget_title_margin_bottom"
+        android:duplicateParentState="true">
+
+        <ImageView
+            android:id="@android:id/icon"
+            android:duplicateParentState="true"
+            android:layout_marginEnd="@dimen/control_widget_icon_margin_end"
+            style="@style/ControlWidgetSmallIconStyle" />
+
+        <com.android.systemui.tv.SmoothScalingTextView
+            android:id="@android:id/title"
+            android:duplicateParentState="true"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/media_dialog_item_padding"
+            style="@style/TextAppearance.Panel.ListItem" />
+
+        <com.android.systemui.tv.SmoothScalingTextView
+            android:id="@+id/seekbar_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:duplicateParentState="true"
+            style="@style/TextAppearance.Panel.ListItem" />
+    </LinearLayout>
+
+    <SeekBar
+        android:id="@+id/seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/seekbar_height"
+        android:focusable="false"
+        android:clickable="false"
+        android:duplicateParentState="true"
+        android:splitTrack="false"
+        android:background="@null"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:progressDrawable="@drawable/seekbar_style_drawable"
+        android:thumb="@null" />
+
+</LinearLayout>

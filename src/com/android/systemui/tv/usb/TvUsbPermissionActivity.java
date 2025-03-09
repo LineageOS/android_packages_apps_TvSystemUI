@@ -16,7 +16,7 @@
 
 package com.android.systemui.tv.usb;
 
-import com.android.systemui.R;
+import com.android.systemui.res.R;
 
 /**
  * Dialog shown when a package requests access to a USB device or accessory on TVs.

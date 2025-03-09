@@ -52,12 +52,13 @@ import com.android.systemui.statusbar.NotificationLockscreenUserManager
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl
 import com.android.systemui.statusbar.NotificationShadeWindowController
 import com.android.systemui.statusbar.events.StatusBarEventsModule
+import com.android.systemui.statusbar.notification.dagger.ReferenceNotificationsModule
+import com.android.systemui.statusbar.notification.headsup.HeadsUpEmptyImplModule
 import com.android.systemui.statusbar.phone.DozeServiceHost
 import com.android.systemui.statusbar.phone.StatusBarKeyguardViewManager
 import com.android.systemui.statusbar.policy.AospPolicyModule
 import com.android.systemui.statusbar.policy.DeviceProvisionedController
 import com.android.systemui.statusbar.policy.DeviceProvisionedControllerImpl
-import com.android.systemui.statusbar.policy.HeadsUpEmptyImplModule
 import com.android.systemui.statusbar.policy.IndividualSensorPrivacyController
 import com.android.systemui.statusbar.policy.IndividualSensorPrivacyControllerImpl
 import com.android.systemui.statusbar.policy.SensorPrivacyController
@@ -108,6 +109,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     PowerModule::class,
     PrivacyModule::class,
     QSModule::class,
+    ReferenceNotificationsModule::class,
     ReferenceScreenshotModule::class,
     ShadeEmptyImplModule::class,
     StatusBarEventsModule::class,
