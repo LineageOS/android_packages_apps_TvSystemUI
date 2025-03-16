@@ -34,7 +34,7 @@
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Други устройства"</string>
     <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Свързване на друго устройство"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Вграден високоговорител + S/PDIF"</string>
-    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Натиснете "<annotation icon="dpad_icon">"DPAD"</annotation>" за настройки на устройството"</string>
+    <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Натиснете "<annotation icon="dpad_icon">"DPAD"</annotation>" за настройки на аудиоустройството"</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"Настройки на <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"Още ли гледате?"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"Телевизорът ви сигнализира, че сте превключили към друг вход и това устройство скоро ще премине в спящ режим. Изберете опция, за да остане устройството активно."</string>
