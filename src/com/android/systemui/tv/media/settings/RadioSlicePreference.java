@@ -17,11 +17,8 @@
 package com.android.systemui.tv.media.settings;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.RadioButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,45 +34,19 @@ import com.android.tv.twopanelsettings.slices.compat.core.SliceActionImpl;
  */
 public class RadioSlicePreference extends SliceRadioPreference implements TooltipPreference {
     private ControlWidget.TooltipConfig mTooltipConfig = new ControlWidget.TooltipConfig();
-    private View mItemView;
-    private RadioButton mRadioButton;
-
-    private final int mFocusedRadioTint;
-    private final int mUnfocusedRadioTint;
-    private final int mCheckedRadioTint;
 
     public RadioSlicePreference(Context context, SliceActionImpl action) {
         super(context,  action);
         setLayoutResource(R.layout.radio_slice_pref);
-
-        Resources res = context.getResources();
-        mFocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_focused);
-        mUnfocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_unfocused);
-        mCheckedRadioTint = res.getColor(R.color.media_dialog_radio_button_checked);
     }
 
     @Override
     public void onBindViewHolder(@NonNull PreferenceViewHolder holder) {
         super.onBindViewHolder(holder);
-        mItemView = holder.itemView;
-        mItemView.setOnFocusChangeListener((v, hasFocus) -> updateColors());
 
-        RadioControlWidget widget = (RadioControlWidget) mItemView;
+        RadioControlWidget widget = (RadioControlWidget) holder.itemView;
         widget.setEnabled(this.isEnabled());
         widget.setTooltipConfig(mTooltipConfig);
-
-        mRadioButton = mItemView.findViewById(android.R.id.checkbox);
-        mRadioButton.setOnCheckedChangeListener((buttonView, isChecked) -> updateColors());
-        updateColors();
-    }
-
-    private void updateColors() {
-        Drawable drawable = mRadioButton.getButtonDrawable();
-        if (mItemView.hasFocus()) {
-            drawable.setTint(mRadioButton.isChecked() ? mCheckedRadioTint : mFocusedRadioTint);
-        } else {
-            drawable.setTint(mUnfocusedRadioTint);
-        }
     }
 
     /** Set tool tip related attributes. */
