@@ -49,7 +49,6 @@ import com.android.settingslib.media.MediaDevice.MediaDeviceType;
 import com.android.systemui.media.dialog.MediaItem;
 import com.android.systemui.tv.media.settings.CenteredImageSpan;
 import com.android.systemui.tv.media.settings.ControlWidget;
-
 import com.android.systemui.tv.res.R;
 
 import java.util.Arrays;
@@ -71,10 +70,6 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     private final AccessibilityManager mA11yManager;
 
-    private final int mFocusedRadioTint;
-    private final int mUnfocusedRadioTint;
-    private final int mCheckedRadioTint;
-
     private final CharSequence mTooltipText;
     private String mSavedDeviceId;
 
@@ -89,10 +84,6 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
         mA11yManager = context.getSystemService(AccessibilityManager.class);
 
         Resources res = mContext.getResources();
-        mFocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_focused);
-        mUnfocusedRadioTint = res.getColor(R.color.media_dialog_radio_button_unfocused);
-        mCheckedRadioTint = res.getColor(R.color.media_dialog_radio_button_checked);
-
         mIsRtl = res.getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
         mTooltipText = createTooltipText();
 
@@ -267,11 +258,9 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             mRadioButton.setVisibility(mediaDevice.isConnected() ? View.VISIBLE : View.GONE);
             mRadioButton.setChecked(isCurrentlyConnected(mediaDevice));
-            setRadioButtonColor();
 
             mWidget.setOnFocusChangeListener((view, focused) -> {
                 setSummary(mediaDevice);
-                setRadioButtonColor();
                 mTitle.setSelected(focused);
                 mSubtitle.setSelected(focused);
             });
@@ -340,15 +329,6 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
                     mMediaDevice.getId());
 
             return true;
-        }
-
-        private void setRadioButtonColor() {
-            if (mWidget.hasFocus()) {
-                mRadioButton.getButtonDrawable().setTint(
-                        mRadioButton.isChecked() ? mCheckedRadioTint : mFocusedRadioTint);
-            } else {
-                mRadioButton.getButtonDrawable().setTint(mUnfocusedRadioTint);
-            }
         }
 
         private void setSummary(MediaDevice mediaDevice) {
