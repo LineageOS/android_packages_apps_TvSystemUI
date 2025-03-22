@@ -32,6 +32,7 @@ import com.android.systemui.statusbar.policy.AccessibilityManagerWrapper
 import com.android.systemui.statusbar.policy.ConfigurationController
 import com.android.systemui.statusbar.policy.DevicePostureController
 import com.android.systemui.statusbar.policy.DeviceProvisionedController
+import com.android.systemui.tv.volume.dialog.dagger.TvVolumeDialogPluginComponent
 import com.android.systemui.util.settings.SecureSettings
 import com.android.systemui.util.time.SystemClock
 import com.android.systemui.volume.CsdWarningDialog
@@ -47,7 +48,6 @@ import com.android.systemui.volume.dagger.CaptioningModule
 import com.android.systemui.volume.dagger.MediaDevicesModule
 import com.android.systemui.volume.dagger.SpatializerModule
 import com.android.systemui.volume.dialog.VolumeDialogPlugin
-import com.android.systemui.volume.dialog.dagger.VolumeDialogPluginComponent
 import com.android.systemui.volume.dialog.dagger.factory.VolumeDialogPluginComponentFactory
 import com.android.systemui.volume.domain.interactor.VolumeDialogInteractor
 import com.android.systemui.volume.domain.interactor.VolumePanelNavigationInteractor
@@ -66,15 +66,15 @@ import dagger.multibindings.IntoSet
 
 @Module(
     includes =
-    [
-        AudioModule::class,
-        AudioSharingModule::class,
-        AncModule::class,
-        CaptioningModule::class,
-        MediaDevicesModule::class,
-        SpatializerModule::class,
-    ],
-    subcomponents = [VolumePanelComponent::class, VolumeDialogPluginComponent::class],
+        [
+            AudioModule::class,
+            AudioSharingModule::class,
+            AncModule::class,
+            CaptioningModule::class,
+            MediaDevicesModule::class,
+            SpatializerModule::class,
+        ],
+    subcomponents = [VolumePanelComponent::class, TvVolumeDialogPluginComponent::class],
 )
 interface TvVolumeModule {
 
@@ -92,8 +92,7 @@ interface TvVolumeModule {
     @IntoSet
     fun bindVolumeUIConfigChanges(impl: VolumeUI): ConfigurationController.ConfigurationListener
 
-    @Binds
-    fun provideVolumeComponent(volumeDialogComponent: VolumeDialogComponent): VolumeComponent
+    @Binds fun provideVolumeComponent(volumeDialogComponent: VolumeDialogComponent): VolumeComponent
 
     @Binds
     fun bindVolumePanelComponentFactory(
@@ -102,7 +101,7 @@ interface TvVolumeModule {
 
     @Binds
     fun bindVolumeDialogPluginComponentFactory(
-        impl: VolumeDialogPluginComponent.Factory
+        impl: TvVolumeDialogPluginComponent.Factory
     ): VolumeDialogPluginComponentFactory
 
     companion object {
@@ -128,11 +127,10 @@ interface TvVolumeModule {
             systemClock: SystemClock,
             interactor: VolumeDialogInteractor,
         ): VolumeDialog {
-            if (Flags.volumeRedesign()) {
-                return volumeDialogProvider.get()
+            return if (Flags.volumeRedesign()) {
+                volumeDialogProvider.get()
             } else {
-                val impl =
-                    VolumeDialogImpl(
+                VolumeDialogImpl(
                         context,
                         volumeDialogController,
                         accessibilityManagerWrapper,
@@ -154,10 +152,11 @@ interface TvVolumeModule {
                         systemClock,
                         interactor,
                     )
-                impl.setStreamImportant(AudioManager.STREAM_SYSTEM, false)
-                impl.setAutomute(true)
-                impl.setSilentMode(false)
-                return impl
+                    .apply {
+                        setStreamImportant(AudioManager.STREAM_SYSTEM, false)
+                        setAutomute(true)
+                        setSilentMode(false)
+                    }
             }
         }
     }
