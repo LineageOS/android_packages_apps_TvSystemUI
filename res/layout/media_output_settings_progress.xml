@@ -22,7 +22,7 @@
       android:visibility="gone"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:tint="@color/progress_bar_color"
+      android:indeterminateTint="@color/progress_bar_color"
       android:background="@null"
       android:layout_centerInParent="true"/>
 </RelativeLayout>

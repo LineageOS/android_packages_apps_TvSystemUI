@@ -15,7 +15,16 @@
   ~ limitations under the License.
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingVertical="@dimen/control_widget_padding"
+    android:minHeight="48dp"
+    android:duplicateParentState="true">
+
     <ImageView
         android:id="@android:id/icon"
         android:duplicateParentState="true"
@@ -43,4 +52,4 @@
             android:textAppearance="@style/TextAppearance.Panel.ListItem.Secondary"
             android:duplicateParentState="true" />
     </LinearLayout>
-</merge>
+</LinearLayout>

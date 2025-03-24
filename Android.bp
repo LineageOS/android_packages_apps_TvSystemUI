@@ -46,6 +46,7 @@ android_library {
         "SystemUI-core",
         "SystemUIPluginLib",
         "SystemUISharedLib",
+        "SystemUI-shared-utils",
         "TvSystemUI-res",
         "TwoPanelSettingsLib"
     ],
