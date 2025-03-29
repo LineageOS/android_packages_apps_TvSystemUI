@@ -32,7 +32,7 @@
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"Gravação de ecrã parada"</string>
     <string name="media_output_dialog_title" msgid="6307582009756803143">"Saída de áudio"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"Outros dispositivos"</string>
-    <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Ligue outro dispositivo"</string>
+    <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"Ligar outro dispositivo"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"Altifalante integrado + S/PDIF"</string>
     <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"Prima o "<annotation icon="dpad_icon">"teclado direcional"</annotation>" para aceder às definições do dispositivo de áudio."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"Definições do dispositivo <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>."</string>
