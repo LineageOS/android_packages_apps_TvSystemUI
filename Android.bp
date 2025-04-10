@@ -15,6 +15,7 @@
 
 package {
     default_applicable_licenses: ["Android-Apache-2.0"],
+    default_team: "trendy_team_tv_os",
 }
 
 prebuilt_etc {
@@ -48,7 +49,7 @@ android_library {
         "SystemUISharedLib",
         "SystemUI-shared-utils",
         "TvSystemUI-res",
-        "TwoPanelSettingsLib"
+        "TwoPanelSettingsLib",
     ],
     javacflags: ["-Adagger.fastInit=enabled"],
     manifest: "AndroidManifest.xml",
@@ -63,7 +64,7 @@ android_app {
         "SystemUI_optimized_defaults",
     ],
     static_libs: [
-        "TvSystemUI-core"
+        "TvSystemUI-core",
     ],
     overrides: [
         "SystemUI",
@@ -84,6 +85,6 @@ android_app {
     },
     required: [
         "privapp_whitelist_com.android.systemui",
-        "privapp_extension_com.android.systemui"
+        "privapp_extension_com.android.systemui",
     ],
 }
