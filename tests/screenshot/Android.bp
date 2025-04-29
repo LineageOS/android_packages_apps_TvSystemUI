@@ -25,7 +25,6 @@ android_app {
         "androidx.appcompat_appcompat",
         "flag-junit",
         "mockito-kotlin-nodeps",
-        "SystemUIGoogleScreenshotTestsResourcesLib",
         "SystemUI-tests-base",
         "TvSystemUI-core",
     ],
