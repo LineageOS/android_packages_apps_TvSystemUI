@@ -16,239 +16,80 @@
 
 package com.android.systemui.tv.media;
 
-import static com.android.settingslib.media.MediaDevice.MediaDeviceType.TYPE_3POINT5_MM_AUDIO_DEVICE;
-import static com.android.settingslib.media.MediaDevice.MediaDeviceType.TYPE_BLUETOOTH_DEVICE;
-import static com.android.settingslib.media.MediaDevice.MediaDeviceType.TYPE_CAST_DEVICE;
-import static com.android.settingslib.media.MediaDevice.MediaDeviceType.TYPE_CAST_GROUP_DEVICE;
-import static com.android.settingslib.media.MediaDevice.MediaDeviceType.TYPE_FAST_PAIR_BLUETOOTH_DEVICE;
-import static com.android.settingslib.media.MediaDevice.MediaDeviceType.TYPE_PHONE_DEVICE;
-import static com.android.settingslib.media.MediaDevice.MediaDeviceType.TYPE_USB_C_AUDIO_DEVICE;
-
-import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.media.AudioManager;
-import android.media.session.MediaSessionManager;
 import android.os.PowerExemptionManager;
-import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.android.settingslib.bluetooth.LocalBluetoothManager;
+import com.android.settingslib.media.InfoMediaManager;
+import com.android.settingslib.media.LocalMediaManager;
 import com.android.settingslib.media.MediaDevice;
-import com.android.systemui.animation.DialogTransitionAnimator;
-import com.android.systemui.flags.FeatureFlags;
-import com.android.systemui.media.dialog.MediaItem;
-import com.android.systemui.media.dialog.MediaSwitchingController;
-import com.android.systemui.media.nearby.NearbyMediaDevicesManager;
-import com.android.systemui.plugins.ActivityStarter;
-import com.android.systemui.settings.UserTracker;
-import com.android.systemui.statusbar.notification.collection.notifcollection.CommonNotifCollection;
-import com.android.systemui.tv.res.R;
-import com.android.systemui.volume.panel.domain.interactor.VolumePanelGlobalStateInteractor;
+import com.android.settingslib.utils.ThreadUtils;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import javax.inject.Inject;
 
 /**
- * Extends {@link MediaSwitchingController} to create a TV specific ordering and grouping of devices
- * which are shown in the {@link TvMediaOutputDialogActivity}.
+ * Keeps track of output devices and sorts and groups them to be displayed in the
+ * OutputDevicesFragment.
  */
-public class TvMediaOutputController extends MediaSwitchingController {
+public class TvMediaOutputController implements LocalMediaManager.DeviceCallback {
 
     private static final String TAG = TvMediaOutputController.class.getSimpleName();
+    private static final boolean DEBUG = false;
+
     private static final String SETTINGS_PACKAGE = "com.android.tv.settings";
+
+    private static final long POWER_ALLOWLIST_DURATION_MS = 20_000;
+    private static final String POWER_ALLOWLIST_REASON = "mediaoutput:remote_transfer";
 
     private final Context mContext;
     private final AudioManager mAudioManager;
+    protected final Object mMediaDevicesLock = new Object();
+    private final InfoMediaManager mInfoMediaManager;
+    private final LocalMediaManager mLocalMediaManager;
+    private final PowerExemptionManager mPowerExemptionManager;
+    private final String mPackageName;
+    private final TvOutputMediaItemListProxy mOutputMediaItemListProxy;
+    private final List<MediaDevice> mCachedMediaDevices = new CopyOnWriteArrayList<>();
+    private Callback mCallback;
+    private boolean mIsRefreshing;
+    private boolean mNeedRefresh;
 
+    @Inject
     public TvMediaOutputController(
             @NotNull Context context,
-            String packageName,
-            MediaSessionManager mediaSessionManager,
-            LocalBluetoothManager lbm,
-            ActivityStarter starter,
-            CommonNotifCollection notifCollection,
-            DialogTransitionAnimator dialogTransitionAnimator,
-            NearbyMediaDevicesManager nearbyMediaDevicesManager,
+            @Nullable LocalBluetoothManager localBluetoothManager,
             AudioManager audioManager,
-            PowerExemptionManager powerExemptionManager,
-            KeyguardManager keyGuardManager,
-            FeatureFlags featureFlags,
-            VolumePanelGlobalStateInteractor volumePanelGlobalStateInteractor,
-            UserTracker userTracker) {
-        super(
-                context,
-                packageName,
-                /* userHandle= */ null,
-                /* token= */ null,
-                mediaSessionManager,
-                lbm,
-                starter,
-                notifCollection,
-                dialogTransitionAnimator,
-                nearbyMediaDevicesManager,
-                audioManager,
-                powerExemptionManager,
-                keyGuardManager,
-                featureFlags,
-                volumePanelGlobalStateInteractor,
-                userTracker);
+            PowerExemptionManager powerExemptionManager) {
         mContext = context;
         mAudioManager = audioManager;
+        mPowerExemptionManager = powerExemptionManager;
+        mPackageName = mContext.getPackageName();
+
+        mInfoMediaManager =
+                InfoMediaManager.createInstance(mContext, mPackageName,
+                        /* userHandle= */ null, localBluetoothManager, /* token= */ null);
+        mLocalMediaManager = new LocalMediaManager(mContext, localBluetoothManager,
+                mInfoMediaManager, mPackageName);
+        mOutputMediaItemListProxy = new TvOutputMediaItemListProxy(context);
     }
 
-    void showVolumeDialog() {
-        mAudioManager.adjustVolume(AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
-    }
-
-    /**
-     * Assigns lower priorities to devices that should be shown higher up in the list.
-     */
-    private int getDevicePriorityGroup(MediaDevice mediaDevice) {
-        int mediaDeviceType = mediaDevice.getDeviceType();
-        return switch (mediaDeviceType) {
-            case TYPE_PHONE_DEVICE -> 1;
-            case TYPE_USB_C_AUDIO_DEVICE -> 2;
-            case TYPE_3POINT5_MM_AUDIO_DEVICE -> 3;
-            case TYPE_CAST_DEVICE, TYPE_CAST_GROUP_DEVICE, TYPE_BLUETOOTH_DEVICE,
-                    TYPE_FAST_PAIR_BLUETOOTH_DEVICE -> 5;
-            default -> 4;
-        };
-    }
-
-    private void sortMediaDevices(List<MediaDevice> mediaDevices) {
-        mediaDevices.sort((device1, device2) -> {
-            int priority1 = getDevicePriorityGroup(device1);
-            int priority2 = getDevicePriorityGroup(device2);
-
-            if (priority1 != priority2) {
-                return (priority1 < priority2) ? -1 : 1;
-            }
-            // Show connected before disconnected devices
-            if (device1.isConnected() != device2.isConnected()) {
-                return device1.isConnected() ? -1 : 1;
-            }
-            return device1.getName().compareToIgnoreCase(device2.getName());
-        });
-    }
-
-    @Override
-    protected List<MediaItem> buildMediaItems(List<MediaItem> oldMediaItems,
-            List<MediaDevice> devices) {
-        synchronized (mMediaDevicesLock) {
-            if (oldMediaItems.isEmpty()) {
-                return buildInitialList(devices);
-            }
-            return buildBetterSubsequentList(oldMediaItems, devices);
-        }
-    }
-
-    private List<MediaItem> buildInitialList(List<MediaDevice> devices) {
-        sortMediaDevices(devices);
-
-        List<MediaItem> finalMediaItems = new ArrayList<>();
-        boolean disconnectedDevicesAdded = false;
-        for (MediaDevice device : devices) {
-            // Add divider before first disconnected device
-            if (!device.isConnected() && !disconnectedDevicesAdded) {
-                addOtherDevicesDivider(finalMediaItems);
-                disconnectedDevicesAdded = true;
-            }
-            finalMediaItems.add(MediaItem.createDeviceMediaItem(device));
-        }
-        addConnectAnotherDeviceItem(finalMediaItems);
-        return finalMediaItems;
-    }
-
-    /**
-     * Keep devices that have not changed their connection state in the same order.
-     * If there is a new connected device, put it at the *bottom* of the connected devices list and
-     * if there is a newly disconnected device, add it at the *top* of the disconnected devices.
-     */
-    private List<MediaItem> buildBetterSubsequentList(List<MediaItem> previousMediaItems,
-            List<MediaDevice> devices) {
-
-        final List<MediaItem> targetMediaItems = new ArrayList<>();
-        // Only use the actual devices, not the dividers etc.
-        List<MediaItem> oldMediaItems = previousMediaItems.stream()
-                .filter(mediaItem -> mediaItem.getMediaDevice().isPresent()).toList();
-        addItemsBasedOnConnection(targetMediaItems, oldMediaItems, devices,
-                /* isConnected= */ true);
-        addItemsBasedOnConnection(targetMediaItems, oldMediaItems, devices,
-                /* isConnected= */ false);
-
-        addConnectAnotherDeviceItem(targetMediaItems);
-        return targetMediaItems;
-    }
-
-    private void addItemsBasedOnConnection(List<MediaItem> targetMediaItems,
-            List<MediaItem> oldMediaItems, List<MediaDevice> devices, boolean isConnected) {
-
-        List<MediaDevice> matchingMediaDevices = new ArrayList<>();
-        for (MediaItem originalMediaItem : oldMediaItems) {
-            // Only go through the device items
-            MediaDevice oldDevice = originalMediaItem.getMediaDevice().get();
-
-            for (MediaDevice newDevice : devices) {
-                if (TextUtils.equals(oldDevice.getId(), newDevice.getId())
-                        && oldDevice.isConnected() == isConnected
-                        && newDevice.isConnected() == isConnected) {
-                    matchingMediaDevices.add(newDevice);
-                    break;
-                }
-            }
-        }
-        devices.removeAll(matchingMediaDevices);
-
-        List<MediaDevice> newMediaDevices = new ArrayList<>();
-        for (MediaDevice remainingDevice : devices) {
-            if (remainingDevice.isConnected() == isConnected) {
-                newMediaDevices.add(remainingDevice);
-            }
-        }
-        devices.removeAll(newMediaDevices);
-
-        // Add new connected devices at the end, add new disconnected devices at the start
-        if (isConnected) {
-            targetMediaItems.addAll(
-                    matchingMediaDevices.stream().map(MediaItem::createDeviceMediaItem).toList());
-            targetMediaItems.addAll(
-                    newMediaDevices.stream().map(MediaItem::createDeviceMediaItem).toList());
-        } else {
-            if (!matchingMediaDevices.isEmpty() || !newMediaDevices.isEmpty()) {
-                addOtherDevicesDivider(targetMediaItems);
-            }
-            targetMediaItems.addAll(
-                    newMediaDevices.stream().map(MediaItem::createDeviceMediaItem).toList());
-            targetMediaItems.addAll(
-                    matchingMediaDevices.stream().map(MediaItem::createDeviceMediaItem).toList());
-        }
-    }
-
-    private void addOtherDevicesDivider(List<MediaItem> mediaItems) {
-        mediaItems.add(
-                MediaItem.createGroupDividerMediaItem(
-                        mContext.getString(R.string.media_output_dialog_other_devices)));
-    }
-
-    private void addConnectAnotherDeviceItem(List<MediaItem> mediaItems) {
-        if (getBluetoothSettingsSliceUri() == null) {
-            Log.d(TAG, "No bluetooth slice set.");
-            return;
-        }
-        mediaItems.add(MediaItem.createGroupDividerMediaItem(/* title */ null));
-        mediaItems.add(MediaItem.createPairNewDeviceMediaItem());
-    }
-
-    String getBluetoothSettingsSliceUri() {
+    static String getBluetoothSettingsSliceUri(Context context) {
         String uri = null;
         Resources res;
 
         try {
-            res = mContext.getPackageManager().getResourcesForApplication(SETTINGS_PACKAGE);
+            res = context.getPackageManager().getResourcesForApplication(SETTINGS_PACKAGE);
             int resourceId = res.getIdentifier(
                     SETTINGS_PACKAGE + ":string/connected_devices_slice_uri", null, null);
             if (resourceId != 0) {
@@ -260,23 +101,154 @@ public class TvMediaOutputController extends MediaSwitchingController {
         return uri;
     }
 
-    @Override
     protected void start(@NotNull Callback cb) {
-        super.start(cb);
+        synchronized (mMediaDevicesLock) {
+            mCachedMediaDevices.clear();
+            mOutputMediaItemListProxy.clear();
+        }
+        mCallback = cb;
+        mLocalMediaManager.registerCallback(this);
+        mLocalMediaManager.startScan();
     }
 
-    @Override
     protected void stop() {
-        super.stop();
+        mLocalMediaManager.unregisterCallback(this);
+        mLocalMediaManager.stopScan();
+        synchronized (mMediaDevicesLock) {
+            mCachedMediaDevices.clear();
+            mOutputMediaItemListProxy.clear();
+        }
+    }
+
+    public boolean isRefreshing() {
+        return mIsRefreshing;
+    }
+
+    public void setRefreshing(boolean refreshing) {
+        mIsRefreshing = refreshing;
+    }
+
+    public void refreshDataSetIfNeeded() {
+        if (mNeedRefresh) {
+            buildMediaItems(mCachedMediaDevices);
+            mCallback.onDeviceListChanged();
+            mNeedRefresh = false;
+        }
+    }
+
+    private void buildMediaItems(List<MediaDevice> devices) {
+        synchronized (mMediaDevicesLock) {
+            mOutputMediaItemListProxy.updateMediaDevices(devices);
+        }
+    }
+
+    /**
+     * Returns a list of media items to be rendered in the device list.
+     */
+    public List<TvMediaItem> getMediaItemList() {
+        synchronized (mMediaDevicesLock) {
+            return mOutputMediaItemListProxy.getOutputMediaItemList();
+        }
+    }
+
+    public boolean isAnyDeviceTransferring() {
+        synchronized (mMediaDevicesLock) {
+            for (TvMediaItem mediaItem : mOutputMediaItemListProxy.getOutputMediaItemList()) {
+                if (mediaItem.getMediaDevice().isPresent()
+                        && mediaItem.getMediaDevice().get().getState()
+                        == LocalMediaManager.MediaDeviceState.STATE_CONNECTING) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public MediaDevice getCurrentConnectedMediaDevice() {
+        return mLocalMediaManager.getCurrentConnectedDevice();
+    }
+
+    public List<MediaDevice> getSelectedMediaDevice() {
+        return mLocalMediaManager.getSelectedMediaDevice();
+    }
+
+    protected void setTemporaryAllowListExceptionIfNeeded() {
+        if (mPowerExemptionManager == null || mPackageName == null) {
+            Log.w(TAG, "powerExemptionManager or package name is null");
+            return;
+        }
+        mPowerExemptionManager.addToTemporaryAllowList(mPackageName,
+                PowerExemptionManager.REASON_MEDIA_NOTIFICATION_TRANSFER,
+                POWER_ALLOWLIST_REASON,
+                POWER_ALLOWLIST_DURATION_MS);
+    }
+
+    protected void connectDevice(MediaDevice device) {
+        mInfoMediaManager.setDeviceState(
+                device, LocalMediaManager.MediaDeviceState.STATE_CONNECTING);
+
+        if (DEBUG) {
+            Log.d(TAG, "initiate switching from " + getCurrentConnectedMediaDevice()
+                    + " to " + device);
+        }
+
+        ThreadUtils.postOnBackgroundThread(() -> {
+            mLocalMediaManager.connectDevice(device);
+        });
+    }
+
+    // Extending DeviceCallback
+
+    void showVolumeDialog() {
+        mAudioManager.adjustVolume(AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
     }
 
     @Override
-    protected void setTemporaryAllowListExceptionIfNeeded(MediaDevice targetDevice) {
-        super.setTemporaryAllowListExceptionIfNeeded(targetDevice);
+    public void onDeviceListUpdate(List<MediaDevice> devices) {
+        if (!mIsRefreshing) {
+            buildMediaItems(devices);
+            mCallback.onDeviceListChanged();
+        } else {
+            synchronized (mMediaDevicesLock) {
+                mNeedRefresh = true;
+                mCachedMediaDevices.clear();
+                mCachedMediaDevices.addAll(devices);
+            }
+        }
     }
 
     @Override
-    protected void connectDevice(MediaDevice mediaDevice) {
-        super.connectDevice(mediaDevice);
+    public void onSelectedDeviceStateChanged(
+            MediaDevice device, @LocalMediaManager.MediaDeviceState int state) {
+        if (DEBUG) Log.d(TAG, "Successfully switched output to " + device.getName());
+        mCallback.onRouteChanged();
+    }
+
+    @Override
+    public void onDeviceAttributesChanged() {
+        mCallback.onRouteChanged();
+    }
+
+    @Override
+    public void onRequestFailed(int reason) {
+        if (DEBUG) Log.d(TAG, "Failed to switch output: " + reason);
+        mCallback.onRouteChanged();
+    }
+
+    public interface Callback {
+        /**
+         * Override to handle the device status or attributes updating.
+         */
+        void onRouteChanged();
+
+        /**
+         * Override to handle the devices set updating.
+         */
+        void onDeviceListChanged();
+
+        /**
+         * Override to dismiss dialog.
+         */
+        void dismissDialog();
     }
 }
