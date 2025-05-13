@@ -43,7 +43,13 @@ public class FadingEdgeUtil {
     @SuppressWarnings("nullness")
     private static boolean shouldShowTopFadingEdge(RecyclerView recyclerView) {
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+        if (layoutManager == null) {
+            return false;
+        }
         View firstVisibleChildView = layoutManager.getChildAt(0);
+        if (firstVisibleChildView == null) {
+            return false;
+        }
         int positionOfCurrentFistView = layoutManager.getPosition(firstVisibleChildView);
         boolean isFirstAdapterItemVisible = (positionOfCurrentFistView == 0);
         if (!isFirstAdapterItemVisible) {
