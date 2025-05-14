@@ -46,7 +46,6 @@ import com.android.settingslib.media.BluetoothMediaDevice;
 import com.android.settingslib.media.LocalMediaManager;
 import com.android.settingslib.media.MediaDevice;
 import com.android.settingslib.media.MediaDevice.MediaDeviceType;
-import com.android.systemui.media.dialog.MediaItem;
 import com.android.systemui.tv.media.settings.CenteredImageSpan;
 import com.android.systemui.tv.media.settings.ControlWidget;
 import com.android.systemui.tv.res.R;
@@ -56,7 +55,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Adapter for showing the {@link MediaItem}s in the {@link TvMediaOutputDialogActivity}.
+ * Adapter for showing the {@link TvMediaItem}s in the {@link TvMediaOutputDialogActivity}.
  */
 public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -66,7 +65,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
     private final TvMediaOutputController mMediaOutputController;
     private final PanelCallback mCallback;
     private final Context mContext;
-    protected List<MediaItem> mMediaItemList = new CopyOnWriteArrayList<>();
+    protected List<TvMediaItem> mMediaItemList = new CopyOnWriteArrayList<>();
 
     private final AccessibilityManager mA11yManager;
 
@@ -94,7 +93,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
     public int getItemViewType(int position) {
         if (position >= mMediaItemList.size()) {
             Log.e(TAG, "Incorrect position for item type: " + position);
-            return MediaItem.MediaItemType.TYPE_GROUP_DIVIDER;
+            return TvMediaItem.MediaItemType.TYPE_GROUP_DIVIDER;
         }
         return mMediaItemList.get(position).getMediaItemType();
     }
@@ -102,13 +101,13 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View mHolderView = LayoutInflater.from(mContext)
-                .inflate(MediaItem.getMediaLayoutId(viewType), parent, false);
+                .inflate(TvMediaItem.getMediaLayoutId(viewType), parent, false);
 
         switch (viewType) {
-            case MediaItem.MediaItemType.TYPE_GROUP_DIVIDER:
+            case TvMediaItem.MediaItemType.TYPE_GROUP_DIVIDER:
                 return new DividerViewHolder(mHolderView);
-            case MediaItem.MediaItemType.TYPE_PAIR_NEW_DEVICE:
-            case MediaItem.MediaItemType.TYPE_DEVICE:
+            case TvMediaItem.MediaItemType.TYPE_PAIR_NEW_DEVICE:
+            case TvMediaItem.MediaItemType.TYPE_DEVICE:
                 return new DeviceViewHolder(mHolderView);
             default:
                 Log.e(TAG, "unknown viewType: " + viewType);
@@ -122,13 +121,13 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             Log.e(TAG, "Tried to bind at position > list size (" + getItemCount() + ")");
         }
 
-        MediaItem currentMediaItem = mMediaItemList.get(position);
+        TvMediaItem currentMediaItem = mMediaItemList.get(position);
         switch (currentMediaItem.getMediaItemType()) {
-            case MediaItem.MediaItemType.TYPE_GROUP_DIVIDER ->
+            case TvMediaItem.MediaItemType.TYPE_GROUP_DIVIDER ->
                     ((DividerViewHolder) viewHolder).onBind(currentMediaItem.getTitle());
-            case MediaItem.MediaItemType.TYPE_PAIR_NEW_DEVICE ->
+            case TvMediaItem.MediaItemType.TYPE_PAIR_NEW_DEVICE ->
                     ((DeviceViewHolder) viewHolder).onBindNewDevice();
-            case MediaItem.MediaItemType.TYPE_DEVICE -> ((DeviceViewHolder) viewHolder).onBind(
+            case TvMediaItem.MediaItemType.TYPE_DEVICE -> ((DeviceViewHolder) viewHolder).onBind(
                     currentMediaItem.getMediaDevice().get(), position);
             default -> Log.d(TAG, "Incorrect position: " + position);
         }
@@ -148,7 +147,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             return 0;
         }
         for (int i = 0; i < mMediaItemList.size(); i++) {
-            MediaItem item = mMediaItemList.get(i);
+            TvMediaItem item = mMediaItemList.get(i);
             if (item.getMediaDevice().isPresent()) {
                 if (item.getMediaDevice().get().getId().equals(mSavedDeviceId)) {
                     mSavedDeviceId = null;
@@ -186,13 +185,13 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public long getItemId(int position) {
-        MediaItem item = mMediaItemList.get(position);
+        TvMediaItem item = mMediaItemList.get(position);
         if (item.getMediaDevice().isPresent()) {
             return item.getMediaDevice().get().getId().hashCode();
         }
-        if (item.getMediaItemType() == MediaItem.MediaItemType.TYPE_GROUP_DIVIDER) {
+        if (item.getMediaItemType() == TvMediaItem.MediaItemType.TYPE_GROUP_DIVIDER) {
             if (item.getTitle() == null || item.getTitle().isEmpty()) {
-                return MediaItem.MediaItemType.TYPE_GROUP_DIVIDER;
+                return TvMediaItem.MediaItemType.TYPE_GROUP_DIVIDER;
             }
             return item.getTitle().hashCode();
         }
@@ -204,7 +203,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
         mMediaItemList.addAll(mMediaOutputController.getMediaItemList());
         if (DEBUG) {
             Log.d(TAG, "updateItems");
-            for (MediaItem mediaItem : mMediaItemList) {
+            for (TvMediaItem mediaItem : mMediaItemList) {
                 Log.d(TAG, mediaItem.toString());
             }
         }
@@ -367,7 +366,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
                 if (DEBUG) Log.d(TAG, "Device is already selected as the active output");
                 return;
             }
-            mMediaOutputController.setTemporaryAllowListExceptionIfNeeded(mediaDevice);
+            mMediaOutputController.setTemporaryAllowListExceptionIfNeeded();
             mMediaOutputController.connectDevice(mediaDevice);
             mediaDevice.setState(LocalMediaManager.MediaDeviceState.STATE_CONNECTING);
             notifyDataSetChanged();
@@ -395,7 +394,7 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
         private void launchBluetoothSettings() {
             mCallback.dismissDialog();
 
-            String uri = mMediaOutputController.getBluetoothSettingsSliceUri();
+            String uri = TvMediaOutputController.getBluetoothSettingsSliceUri(mContext);
             if (uri == null) {
                 return;
             }
