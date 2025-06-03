@@ -28,6 +28,7 @@ import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.communal.posturing.dagger.NoopPosturingModule
 import com.android.systemui.dagger.ReferenceSystemUIModule
 import com.android.systemui.dagger.SysUISingleton
+import com.android.systemui.display.dagger.SystemUIDisplaySubcomponent
 import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
@@ -125,8 +126,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     TvNotificationsModule::class,
     TvSensorPrivacyModule::class,
     TvVolumeModule::class,
-]
-)
+], subcomponents = [
+    SystemUIDisplaySubcomponent::class,
+])
 abstract class TvSystemUIModule {
     @Binds
     abstract fun bindNotificationLockscreenUserManager(
