@@ -43,20 +43,37 @@
       ]
     },
     {
+      "name": "CtsWindowManagerDeviceDreams",
+      "options": [
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    },
+    {
       "name": "CtsWindowManagerDeviceOther",
       "options": [
-        {"include-filter": "android.server.wm.other.PinnedStackTests"},
-        {"include-filter": "android.server.wm.other.TvMaxWindowSizeTests"},
-        {"include-filter": "android.server.wm.other.PictureInPictureParamsBuilderTest"},
         {"include-filter": "android.server.wm.other.PrivacyIndicatorBoundsTests"},
         {"include-filter": "android.server.wm.other.KeepClearRectsTests"},
-        {"include-filter": "android.server.wm.other.DreamManagerServiceTests"},
 
-        {"exclude-filter": "android.server.wm.other.PinnedStackTests#testPreventSetAspectRatioWhileExpanding"},
-        {"exclude-filter": "android.server.wm.other.PinnedStackTests#testConfigurationChangeOrderDuringTransition"},
-        {"exclude-filter": "android.server.wm.other.PinnedStackTests#testLaunchTaskByAffinityMatchSingleTask"},
-        {"exclude-filter": "android.server.wm.other.PinnedStackTests#testPipFromTaskWithMultipleActivitiesAndExpandPip"},
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    },
+    {
+      "name": "CtsWindowManagerDevicePip",
+      "options": [
+        {"exclude-filter": "android.server.wm.pip.PinnedStackTests#testPreventSetAspectRatioWhileExpanding"},
+        {"exclude-filter": "android.server.wm.pip.PinnedStackTests#testConfigurationChangeOrderDuringTransition"},
+        {"exclude-filter": "android.server.wm.pip.PinnedStackTests#testLaunchTaskByAffinityMatchSingleTask"},
+        {"exclude-filter": "android.server.wm.pip.PinnedStackTests#testPipFromTaskWithMultipleActivitiesAndExpandPip"},
 
+        {"exclude-annotation": "org.junit.Ignore"},
+        {"exclude-annotation": "androidx.test.filters.FlakyTest"}
+      ]
+    },
+    {
+      "name": "CtsWindowManagerDeviceTv",
+      "options": [
         {"exclude-annotation": "org.junit.Ignore"},
         {"exclude-annotation": "androidx.test.filters.FlakyTest"}
       ]
