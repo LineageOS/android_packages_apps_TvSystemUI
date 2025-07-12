@@ -44,6 +44,7 @@ android_library {
     resource_dirs: [],
     use_resource_processor: true,
     static_libs: [
+        "SystemUI-application",
         "SystemUI-core",
         "SystemUIPluginLib",
         "SystemUISharedLib",
