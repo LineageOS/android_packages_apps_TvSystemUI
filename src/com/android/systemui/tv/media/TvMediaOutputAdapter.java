@@ -376,10 +376,11 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
          * The single currentConnected device or the only selected device
          */
         boolean isCurrentlyConnected(MediaDevice device) {
-            return TextUtils.equals(device.getId(),
-                    mMediaOutputController.getCurrentConnectedMediaDevice().getId())
+            return TextUtils.equals(
+                            device.getId(),
+                            mMediaOutputController.getCurrentConnectedMediaDevice().getId())
                     || (mMediaOutputController.getSelectedMediaDevice().size() == 1
-                    && isDeviceIncluded(mMediaOutputController.getSelectedMediaDevice(), device));
+                            && device.isSelected());
         }
 
         void onBindNewDevice() {
@@ -406,15 +407,6 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             bluetoothIntent.addFlags(
                     Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             mContext.startActivity(bluetoothIntent);
-        }
-
-        private boolean isDeviceIncluded(List<MediaDevice> deviceList, MediaDevice targetDevice) {
-            for (MediaDevice device : deviceList) {
-                if (TextUtils.equals(device.getId(), targetDevice.getId())) {
-                    return true;
-                }
-            }
-            return false;
         }
 
         static String getBaseUriForDevice(Context context, MediaDevice device) {

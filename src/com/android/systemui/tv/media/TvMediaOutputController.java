@@ -169,7 +169,11 @@ public class TvMediaOutputController implements LocalMediaManager.DeviceCallback
     }
 
     public List<MediaDevice> getSelectedMediaDevice() {
-        return mLocalMediaManager.getSelectedMediaDevice();
+        return mOutputMediaItemListProxy.getOutputMediaItemList().stream()
+                .filter(item -> item.getMediaDevice().isPresent())
+                .map(item -> item.getMediaDevice().get())
+                .filter(MediaDevice::isSelected)
+                .toList();
     }
 
     protected void setTemporaryAllowListExceptionIfNeeded() {
