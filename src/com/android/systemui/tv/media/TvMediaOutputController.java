@@ -252,47 +252,48 @@ public class TvMediaOutputController implements LocalMediaManager.DeviceCallback
         int resourceId;
 
         int deviceType = device.getDeviceType();
+        int routeType = device.getRouteType();
 
         if (deviceType == MediaDevice.MediaDeviceType.TYPE_USB_C_AUDIO_DEVICE) {
-            int routeType = device.getRouteType();
             switch (routeType) {
-                case MediaRoute2Info.TYPE_HDMI:
-                    resourceId = R.string.audio_output_hdmi_slice_uri;
-                    break;
-                case MediaRoute2Info.TYPE_HDMI_ARC:
-                case MediaRoute2Info.TYPE_HDMI_EARC:
-                    resourceId = R.string.audio_output_hdmi_e_arc_slice_uri;
-                    break;
-                case MediaRoute2Info.TYPE_USB_HEADSET:
-                case MediaRoute2Info.TYPE_USB_DEVICE:
-                case MediaRoute2Info.TYPE_USB_ACCESSORY:
-                    resourceId = R.string.audio_output_usb_slice_uri;
-                    break;
-                default:
+                case MediaRoute2Info.TYPE_HDMI ->
+                        resourceId = R.string.audio_output_hdmi_slice_uri;
+                case MediaRoute2Info.TYPE_HDMI_ARC,
+                     MediaRoute2Info.TYPE_HDMI_EARC ->
+                        resourceId = R.string.audio_output_hdmi_e_arc_slice_uri;
+                case MediaRoute2Info.TYPE_USB_HEADSET,
+                     MediaRoute2Info.TYPE_USB_DEVICE,
+                     MediaRoute2Info.TYPE_USB_ACCESSORY ->
+                        resourceId = R.string.audio_output_usb_slice_uri;
+                default -> {
                     return null;
+                }
             }
+        } else if (deviceType == MediaDevice.MediaDeviceType.TYPE_3POINT5_MM_AUDIO_DEVICE) {
+            resourceId = switch (routeType) {
+                case MediaRoute2Info.TYPE_AUX_LINE ->
+                        R.string.audio_output_aux_slice_uri;
+                case MediaRoute2Info.TYPE_LINE_ANALOG ->
+                        R.string.audio_output_line_analog_slice_uri;
+                case MediaRoute2Info.TYPE_LINE_DIGITAL ->
+                        R.string.audio_output_line_digital_slice_uri;
+                default -> R.string.audio_output_wired_headphone_slice_uri;
+            };
         } else {
             switch (deviceType) {
-                case MediaDevice.MediaDeviceType.TYPE_PHONE_DEVICE:
-                    resourceId = R.string.audio_output_builtin_speaker_slice_uri;
-                    break;
-                case MediaDevice.MediaDeviceType.TYPE_BLUETOOTH_DEVICE:
-                    resourceId = R.string.audio_output_bluetooth_slice_uri;
-                    break;
-                case MediaDevice.MediaDeviceType.TYPE_3POINT5_MM_AUDIO_DEVICE:
-                    resourceId = R.string.audio_output_wired_headphone_slice_uri;
-                    break;
-                case MediaDevice.MediaDeviceType.TYPE_CAST_DEVICE:
-                    resourceId = R.string.audio_output_cast_device_slice_uri;
-                    break;
-                case MediaDevice.MediaDeviceType.TYPE_CAST_GROUP_DEVICE:
-                    resourceId = R.string.audio_output_cast_group_slice_uri;
-                    break;
-                case MediaDevice.MediaDeviceType.TYPE_REMOTE_AUDIO_VIDEO_RECEIVER:
-                    resourceId = R.string.audio_output_remote_avr_slice_uri;
-                    break;
-                default:
+                case MediaDevice.MediaDeviceType.TYPE_PHONE_DEVICE ->
+                        resourceId = R.string.audio_output_builtin_speaker_slice_uri;
+                case MediaDevice.MediaDeviceType.TYPE_BLUETOOTH_DEVICE ->
+                        resourceId = R.string.audio_output_bluetooth_slice_uri;
+                case MediaDevice.MediaDeviceType.TYPE_CAST_DEVICE ->
+                        resourceId = R.string.audio_output_cast_device_slice_uri;
+                case MediaDevice.MediaDeviceType.TYPE_CAST_GROUP_DEVICE ->
+                        resourceId = R.string.audio_output_cast_group_slice_uri;
+                case MediaDevice.MediaDeviceType.TYPE_REMOTE_AUDIO_VIDEO_RECEIVER ->
+                        resourceId = R.string.audio_output_remote_avr_slice_uri;
+                default -> {
                     return null;
+                }
             }
         }
 
