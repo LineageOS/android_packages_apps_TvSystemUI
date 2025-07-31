@@ -128,9 +128,15 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
             TvSensorPrivacyModule::class,
             TvVolumeModule::class,
         ],
-    subcomponents = [SystemUIDisplaySubcomponent::class],
+    subcomponents = [TvSysUIDisplaySubcomponent::class],
 )
 abstract class TvSystemUIModule {
+
+    @Binds
+    abstract fun displaySubcomponentFactory(
+        tvDisplaySubcomponentFactory: TvSysUIDisplaySubcomponent.Factory
+    ): SystemUIDisplaySubcomponent.Factory
+
     @Binds
     abstract fun bindNotificationLockscreenUserManager(
         notificationLockscreenUserManager: NotificationLockscreenUserManagerImpl
