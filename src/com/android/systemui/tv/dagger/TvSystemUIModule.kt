@@ -52,7 +52,6 @@ import com.android.systemui.settings.MultiUserUtilsModule
 import com.android.systemui.settings.UserTracker
 import com.android.systemui.settings.brightness.dagger.BrightnessSliderModule
 import com.android.systemui.shade.ShadeEmptyImplModule
-import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
 import com.android.systemui.statusbar.NotificationLockscreenUserManager
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl
@@ -111,7 +110,6 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
             GestureModule::class,
             HdmiModule::class,
             HeadsUpEmptyImplModule::class,
-            KeyboardShortcutsModule::class,
             MediaMuteAwaitConnectionCli.StartableModule::class,
             MultiUserUtilsModule::class,
             NearbyMediaDevicesManager.StartableModule::class,
