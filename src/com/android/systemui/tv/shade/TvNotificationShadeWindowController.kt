@@ -23,4 +23,3 @@ import javax.inject.Inject
 /** A no-op implementation of the notification shade for TV. */
 @SysUISingleton
 class TvNotificationShadeWindowController @Inject constructor() : NotificationShadeWindowController
-

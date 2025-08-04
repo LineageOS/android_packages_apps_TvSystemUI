@@ -25,35 +25,32 @@ import com.android.systemui.scene.ShadelessSceneContainerFrameworkModule
 import com.android.systemui.statusbar.dagger.CentralSurfacesDependenciesModule
 import com.android.systemui.tv.recents.TvRecentsModule
 import com.android.systemui.wallpapers.dagger.NoopWallpaperModule
-import com.android.systemui.window.dagger.WindowRootViewBlurNotSupportedModule;
+import com.android.systemui.window.dagger.WindowRootViewBlurNotSupportedModule
 import dagger.Subcomponent
 
-/**
- * Dagger Subcomponent for Tv SysUI.
- */
+/** Dagger Subcomponent for Tv SysUI. */
 @SysUISingleton
 @Subcomponent(
-    modules = [
-    CentralSurfacesDependenciesModule::class,
-    TvServiceBinder::class,
-    TvBroadcastReceiverBinder::class,
-    DependencyProvider::class,
-    KeyguardModule::class,
-    NoopNavigationBarControllerModule::class,
-    NoopWallpaperModule::class,
-    TvRecentsModule::class,
-    ShadelessSceneContainerFrameworkModule::class,
-    SystemUIModule::class,
-    TvSystemUIBinder::class,
-    TVSystemUICoreStartableModule::class,
-    TvSystemUIModule::class,
-    WindowRootViewBlurNotSupportedModule::class,
-]
+    modules =
+        [
+            CentralSurfacesDependenciesModule::class,
+            TvServiceBinder::class,
+            TvBroadcastReceiverBinder::class,
+            DependencyProvider::class,
+            KeyguardModule::class,
+            NoopNavigationBarControllerModule::class,
+            NoopWallpaperModule::class,
+            TvRecentsModule::class,
+            ShadelessSceneContainerFrameworkModule::class,
+            SystemUIModule::class,
+            TvSystemUIBinder::class,
+            TVSystemUICoreStartableModule::class,
+            TvSystemUIModule::class,
+            WindowRootViewBlurNotSupportedModule::class,
+        ]
 )
 interface TvSysUIComponent : SysUIComponent {
-    /**
-     * Builder for a SysUIComponent.
-     */
+    /** Builder for a SysUIComponent. */
     @Subcomponent.Builder
     interface Builder : SysUIComponent.Builder {
         override fun build(): TvSysUIComponent

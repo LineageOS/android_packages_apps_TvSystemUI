@@ -28,15 +28,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.onEach
 
 @VolumeDialogScope
-class TvVolumeDialogFooterViewBinder @Inject constructor(
-    private val viewModel: TvVolumeDialogFooterViewModel
-) :
-    ViewBinder {
+class TvVolumeDialogFooterViewBinder
+@Inject
+constructor(private val viewModel: TvVolumeDialogFooterViewModel) : ViewBinder {
 
     override fun CoroutineScope.bind(view: View) {
         val volumeRowIcon = view.requireViewById<ImageView>(R.id.volume_row_icon)
-        viewModel.icon.onEach {
-            volumeRowIcon.setImageDrawable(it)
-        }.launchInTraced("TVDFVB#icon", this)
+        viewModel.icon
+            .onEach { volumeRowIcon.setImageDrawable(it) }
+            .launchInTraced("TVDFVB#icon", this)
     }
 }
