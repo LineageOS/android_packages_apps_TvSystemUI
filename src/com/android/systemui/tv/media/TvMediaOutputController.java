@@ -16,10 +16,13 @@
 
 package com.android.systemui.tv.media;
 
+import static android.media.RoutingChangeInfo.ENTRY_POINT_TV_OUTPUT_SWITCHER;
+
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.media.RoutingChangeInfo;
 import android.os.PowerExemptionManager;
 import android.util.Log;
 
@@ -196,9 +199,13 @@ public class TvMediaOutputController implements LocalMediaManager.DeviceCallback
                     + " to " + device);
         }
 
-        ThreadUtils.postOnBackgroundThread(() -> {
-            mLocalMediaManager.connectDevice(device);
-        });
+        ThreadUtils.postOnBackgroundThread(
+                () -> {
+                    mLocalMediaManager.connectDevice(
+                            device,
+                            new RoutingChangeInfo(
+                                    ENTRY_POINT_TV_OUTPUT_SWITCHER, /* isSuggested= */ false));
+                });
     }
 
     // Extending DeviceCallback
