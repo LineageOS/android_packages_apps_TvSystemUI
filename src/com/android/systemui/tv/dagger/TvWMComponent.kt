@@ -20,15 +20,11 @@ import com.android.wm.shell.dagger.WMComponent
 import com.android.wm.shell.dagger.WMSingleton
 import dagger.Subcomponent
 
-/**
- * Dagger Subcomponent for WindowManager.
- */
+/** Dagger Subcomponent for WindowManager. */
 @WMSingleton
 @Subcomponent(modules = [TvWMShellModule::class])
 interface TvWMComponent : WMComponent {
-    /**
-     * Builder for a SysUIComponent.
-     */
+    /** Builder for a SysUIComponent. */
     @Subcomponent.Builder
     interface Builder : WMComponent.Builder {
         override fun build(): TvWMComponent

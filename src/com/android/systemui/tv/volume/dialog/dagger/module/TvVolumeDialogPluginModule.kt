@@ -33,8 +33,7 @@ interface TvVolumeDialogPluginModule {
         factory: TvVolumeDialogComponent.Factory
     ): VolumeDialogComponentFactory
 
-    @Binds
-    fun bindVolumeTracer(volumeTracer: VolumeTracerImpl): VolumeTracer
+    @Binds fun bindVolumeTracer(volumeTracer: VolumeTracerImpl): VolumeTracer
 
     companion object {
 

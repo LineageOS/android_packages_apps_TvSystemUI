@@ -50,104 +50,104 @@ import dagger.multibindings.IntoMap
  */
 @Module
 abstract class TVSystemUICoreStartableModule {
-    /** Inject into GlobalActionsComponent.  */
+    /** Inject into GlobalActionsComponent. */
     @Binds
     @IntoMap
     @ClassKey(GlobalActionsComponent::class)
     abstract fun bindGlobalActionsComponent(sysui: GlobalActionsComponent): CoreStartable
 
-    /** Inject into HomeSoundEffectController.  */
+    /** Inject into HomeSoundEffectController. */
     @Binds
     @IntoMap
     @ClassKey(HomeSoundEffectController::class)
     abstract fun bindHomeSoundEffectController(sysui: HomeSoundEffectController): CoreStartable
 
-    /** Inject into InstantAppNotifier.  */
+    /** Inject into InstantAppNotifier. */
     @Binds
     @IntoMap
     @ClassKey(InstantAppNotifier::class)
     abstract fun bindInstantAppNotifier(sysui: InstantAppNotifier): CoreStartable
 
-    /** Inject into KeyboardUI.  */
+    /** Inject into KeyboardUI. */
     @Binds
     @IntoMap
     @ClassKey(KeyboardUI::class)
     abstract fun bindKeyboardUI(sysui: KeyboardUI): CoreStartable
 
-    /** Inject into MediaOutputSwitcherDialogUI.  */
+    /** Inject into MediaOutputSwitcherDialogUI. */
     @Binds
     @IntoMap
     @ClassKey(MediaOutputSwitcherDialogUI::class)
     abstract fun bindMediaOutputSwitcherDialogUI(sysui: MediaOutputSwitcherDialogUI): CoreStartable
 
-    /** Inject into NotificationChannels.  */
+    /** Inject into NotificationChannels. */
     @Binds
     @IntoMap
     @ClassKey(NotificationChannels::class)
     @PerUser
     abstract fun bindNotificationChannels(sysui: NotificationChannels): CoreStartable
 
-    /** Inject into RingtonePlayer.  */
+    /** Inject into RingtonePlayer. */
     @Binds
     @IntoMap
     @ClassKey(RingtonePlayer::class)
     abstract fun bind(sysui: RingtonePlayer): CoreStartable
 
-    /** Inject into ShortcutKeyDispatcher.  */
+    /** Inject into ShortcutKeyDispatcher. */
     @Binds
     @IntoMap
     @ClassKey(ShortcutKeyDispatcher::class)
     abstract fun bindShortcutKeyDispatcher(sysui: ShortcutKeyDispatcher): CoreStartable
 
-    /** Inject into SliceBroadcastRelayHandler.  */
+    /** Inject into SliceBroadcastRelayHandler. */
     @Binds
     @IntoMap
     @ClassKey(SliceBroadcastRelayHandler::class)
     abstract fun bindSliceBroadcastRelayHandler(sysui: SliceBroadcastRelayHandler): CoreStartable
 
-    /** Inject into StorageNotification.  */
+    /** Inject into StorageNotification. */
     @Binds
     @IntoMap
     @ClassKey(StorageNotification::class)
     abstract fun bindStorageNotification(sysui: StorageNotification): CoreStartable
 
-    /** Inject into ToastUI.  */
+    /** Inject into ToastUI. */
     @Binds
     @IntoMap
     @ClassKey(ToastUI::class)
     abstract fun bindToastUI(service: ToastUI): CoreStartable
 
-    /** Inject into TvNotificationHandler.  */
+    /** Inject into TvNotificationHandler. */
     @Binds
     @IntoMap
     @ClassKey(TvNotificationHandler::class)
     abstract fun bindTvNotificationHandler(sysui: TvNotificationHandler): CoreStartable
 
-    /** Inject into TvNotificationPanel.  */
+    /** Inject into TvNotificationPanel. */
     @Binds
     @IntoMap
     @ClassKey(TvNotificationPanel::class)
     abstract fun bindTvNotificationPanel(sysui: TvNotificationPanel): CoreStartable
 
-    /** Inject into TvStatusBar.  */
+    /** Inject into TvStatusBar. */
     @Binds
     @IntoMap
     @ClassKey(TvStatusBar::class)
     abstract fun bindTvStatusBar(sysui: TvStatusBar): CoreStartable
 
-    /** Inject into VpnStatusObserver.  */
+    /** Inject into VpnStatusObserver. */
     @Binds
     @IntoMap
     @ClassKey(VpnStatusObserver::class)
     abstract fun bindVpnStatusObserver(sysui: VpnStatusObserver): CoreStartable
 
-    /** Inject into Magnification.  */
+    /** Inject into Magnification. */
     @Binds
     @IntoMap
     @ClassKey(Magnification::class)
     abstract fun bindMagnification(sysui: Magnification): CoreStartable
 
-    /** Inject into WMShell.  */
+    /** Inject into WMShell. */
     @Binds
     @IntoMap
     @ClassKey(WMShell::class)

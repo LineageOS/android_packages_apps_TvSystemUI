@@ -26,17 +26,17 @@ import dagger.multibindings.IntoMap
 /** BroadcastReceivers that are injectable should go here. */
 @Module
 abstract class TvBroadcastReceiverBinder {
-  @Binds
-  @IntoMap
-  @ClassKey(MediaOutputDialogReceiver::class)
-  abstract fun bindMediaOutputDialogReceiver(
-      broadcastReceiver: MediaOutputDialogReceiver
-  ): BroadcastReceiver
+    @Binds
+    @IntoMap
+    @ClassKey(MediaOutputDialogReceiver::class)
+    abstract fun bindMediaOutputDialogReceiver(
+        broadcastReceiver: MediaOutputDialogReceiver
+    ): BroadcastReceiver
 
-  @Binds
-  @IntoMap
-  @ClassKey(GuestResetOrExitSessionReceiver::class)
-  abstract fun bindGuestResetOrExitSessionReceiver(
-      broadcastReceiver: GuestResetOrExitSessionReceiver
-  ): BroadcastReceiver
+    @Binds
+    @IntoMap
+    @ClassKey(GuestResetOrExitSessionReceiver::class)
+    abstract fun bindGuestResetOrExitSessionReceiver(
+        broadcastReceiver: GuestResetOrExitSessionReceiver
+    ): BroadcastReceiver
 }

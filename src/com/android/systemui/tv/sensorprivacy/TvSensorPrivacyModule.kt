@@ -25,14 +25,13 @@ import dagger.multibindings.IntoMap
 @Module
 interface TvSensorPrivacyModule {
 
-    /** Inject into TvUnblockSensorActivity.  */
+    /** Inject into TvUnblockSensorActivity. */
     @Binds
     @IntoMap
     @ClassKey(TvUnblockSensorActivity::class)
     fun bindTvUnblockSensorActivity(activity: TvUnblockSensorActivity): Activity
 
-
-    /** Inject into TvSensorPrivacyChangedActivity.  */
+    /** Inject into TvSensorPrivacyChangedActivity. */
     @Binds
     @IntoMap
     @ClassKey(TvSensorPrivacyChangedActivity::class)

@@ -29,16 +29,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.onEach
 
 @VolumeDialogScope
-class TvVolumeDialogHeaderViewBinder @Inject constructor(
-    private val viewModel: TvVolumeDialogHeaderViewModel
-) :
-    ViewBinder {
+class TvVolumeDialogHeaderViewBinder
+@Inject
+constructor(private val viewModel: TvVolumeDialogHeaderViewModel) : ViewBinder {
 
     @SuppressLint("SetTextI18n")
     override fun CoroutineScope.bind(view: View) {
         val volumeNumber = view.requireViewById<TextView>(R.id.volume_number)
-        viewModel.sliderProgress.onEach {
-            volumeNumber.text = it.toString()
-        }.launchInTraced("TVDHVB#sliderProgress", this)
+        viewModel.sliderProgress
+            .onEach { volumeNumber.text = it.toString() }
+            .launchInTraced("TVDHVB#sliderProgress", this)
     }
 }

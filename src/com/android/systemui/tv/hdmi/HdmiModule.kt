@@ -25,7 +25,7 @@ import dagger.multibindings.IntoMap
 @Module
 interface HdmiModule {
 
-    /** Inject into HdmiCecSetMenuLanguageActivity.  */
+    /** Inject into HdmiCecSetMenuLanguageActivity. */
     @Binds
     @IntoMap
     @ClassKey(HdmiCecSetMenuLanguageActivity::class)
