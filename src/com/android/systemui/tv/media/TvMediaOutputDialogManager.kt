@@ -26,26 +26,27 @@ import com.android.internal.logging.UiEventLogger
 import com.android.settingslib.media.flags.Flags
 import com.android.systemui.animation.DialogTransitionAnimator
 import com.android.systemui.broadcast.BroadcastSender
-import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.dialog.MediaOutputDialogManager
+import com.android.systemui.media.dialog.MediaSwitchingController
 import javax.inject.Inject
 
-/**
- * Manager to create and show [TvMediaOutputDialogActivity].
- */
-class TvMediaOutputDialogManager @Inject constructor(
-        private val context: Context,
-        broadcastSender: BroadcastSender,
-        uiEventLogger: UiEventLogger,
-        dialogTransitionAnimator: DialogTransitionAnimator,
-        mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
-) : MediaOutputDialogManager(
+/** Manager to create and show [TvMediaOutputDialogActivity]. */
+class TvMediaOutputDialogManager
+@Inject
+constructor(
+    private val context: Context,
+    broadcastSender: BroadcastSender,
+    uiEventLogger: UiEventLogger,
+    dialogTransitionAnimator: DialogTransitionAnimator,
+    mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
+) :
+    MediaOutputDialogManager(
         context,
         broadcastSender,
         uiEventLogger,
         dialogTransitionAnimator,
-        mediaSwitchingControllerFactory
-) {
+        mediaSwitchingControllerFactory,
+    ) {
     companion object {
         private const val TAG = "TvMediaOutputDialogFactory"
     }

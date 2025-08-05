@@ -30,15 +30,12 @@ import com.android.systemui.statusbar.policy.SecurityController
 import com.android.systemui.tv.res.R
 import javax.inject.Inject
 
-/**
- * Observes if a vpn connection is active and displays a notification to the user
- */
+/** Observes if a vpn connection is active and displays a notification to the user */
 @SysUISingleton
-class VpnStatusObserver @Inject constructor(
-    private val context: Context,
-    private val securityController: SecurityController
-) : CoreStartable,
-        SecurityController.SecurityControllerCallback {
+class VpnStatusObserver
+@Inject
+constructor(private val context: Context, private val securityController: SecurityController) :
+    CoreStartable, SecurityController.SecurityControllerCallback {
 
     private var vpnConnected = false
     private val notificationManager = NotificationManager.from(context)
@@ -47,11 +44,12 @@ class VpnStatusObserver @Inject constructor(
     private val vpnDisconnectedNotification = createVpnDisconnectedNotification()
 
     private val vpnIconId: Int
-        get() = if (securityController.isVpnBranded) {
-            com.android.systemui.res.R.drawable.stat_sys_branded_vpn
-        } else {
-            com.android.systemui.res.R.drawable.stat_sys_vpn_ic
-        }
+        get() =
+            if (securityController.isVpnBranded) {
+                com.android.systemui.res.R.drawable.stat_sys_branded_vpn
+            } else {
+                com.android.systemui.res.R.drawable.stat_sys_vpn_ic
+            }
 
     private val vpnName: String?
         get() = securityController.primaryVpnName ?: securityController.workProfileVpnName
@@ -74,60 +72,61 @@ class VpnStatusObserver @Inject constructor(
         }
     }
 
-    private fun notifyVpnConnected() = notificationManager.notify(
+    private fun notifyVpnConnected() =
+        notificationManager.notify(
             NOTIFICATION_TAG,
             SystemMessageProto.SystemMessage.NOTE_VPN_STATUS,
-            createVpnConnectedNotification()
-    )
-
-    private fun notifyVpnDisconnected() = notificationManager.run {
-        // remove existing connected notification
-        cancel(NOTIFICATION_TAG, SystemMessageProto.SystemMessage.NOTE_VPN_STATUS)
-        // show the disconnected notification only for a short while
-        notify(
-            NOTIFICATION_TAG,
-            SystemMessageProto.SystemMessage.NOTE_VPN_DISCONNECTED,
-                vpnDisconnectedNotification
+            createVpnConnectedNotification(),
         )
-    }
+
+    private fun notifyVpnDisconnected() =
+        notificationManager.run {
+            // remove existing connected notification
+            cancel(NOTIFICATION_TAG, SystemMessageProto.SystemMessage.NOTE_VPN_STATUS)
+            // show the disconnected notification only for a short while
+            notify(
+                NOTIFICATION_TAG,
+                SystemMessageProto.SystemMessage.NOTE_VPN_DISCONNECTED,
+                vpnDisconnectedNotification,
+            )
+        }
 
     private fun createNotificationChannel() =
-            NotificationChannel(
-                    NOTIFICATION_CHANNEL_TV_VPN,
-                    NOTIFICATION_CHANNEL_TV_VPN,
-                    NotificationManager.IMPORTANCE_HIGH
-            ).also {
-                notificationManager.createNotificationChannel(it)
-            }
+        NotificationChannel(
+                NOTIFICATION_CHANNEL_TV_VPN,
+                NOTIFICATION_CHANNEL_TV_VPN,
+                NotificationManager.IMPORTANCE_HIGH,
+            )
+            .also { notificationManager.createNotificationChannel(it) }
 
     private fun createVpnConnectedNotification() =
-            vpnConnectedNotificationBuilder.apply {
+        vpnConnectedNotificationBuilder
+            .apply {
                 vpnName?.let {
-                            setContentText(
-                                context.getString(R.string.notification_disclosure_vpn_text, it)
-                            )
-                    }
-                }.build()
+                    setContentText(context.getString(R.string.notification_disclosure_vpn_text, it))
+                }
+            }
+            .build()
 
     private fun createVpnConnectedNotificationBuilder() =
-            Notification.Builder(context, NOTIFICATION_CHANNEL_TV_VPN)
-                    .setSmallIcon(vpnIconId)
-                    .setVisibility(Notification.VISIBILITY_PUBLIC)
-                    .setCategory(Notification.CATEGORY_SYSTEM)
-                    .extend(Notification.TvExtender())
-                    .setOngoing(true)
-                    .setContentTitle(context.getString(R.string.notification_vpn_connected))
-                    .setContentIntent(VpnConfig.getIntentForStatusPanel(context))
+        Notification.Builder(context, NOTIFICATION_CHANNEL_TV_VPN)
+            .setSmallIcon(vpnIconId)
+            .setVisibility(Notification.VISIBILITY_PUBLIC)
+            .setCategory(Notification.CATEGORY_SYSTEM)
+            .extend(Notification.TvExtender())
+            .setOngoing(true)
+            .setContentTitle(context.getString(R.string.notification_vpn_connected))
+            .setContentIntent(VpnConfig.getIntentForStatusPanel(context))
 
     private fun createVpnDisconnectedNotification() =
-            Notification.Builder(context, NOTIFICATION_CHANNEL_TV_VPN)
-                    .setSmallIcon(vpnIconId)
-                    .setVisibility(Notification.VISIBILITY_PUBLIC)
-                    .setCategory(Notification.CATEGORY_SYSTEM)
-                    .extend(Notification.TvExtender())
-                    .setTimeoutAfter(VPN_DISCONNECTED_NOTIFICATION_TIMEOUT_MS)
-                    .setContentTitle(context.getString(R.string.notification_vpn_disconnected))
-                    .build()
+        Notification.Builder(context, NOTIFICATION_CHANNEL_TV_VPN)
+            .setSmallIcon(vpnIconId)
+            .setVisibility(Notification.VISIBILITY_PUBLIC)
+            .setCategory(Notification.CATEGORY_SYSTEM)
+            .extend(Notification.TvExtender())
+            .setTimeoutAfter(VPN_DISCONNECTED_NOTIFICATION_TIMEOUT_MS)
+            .setContentTitle(context.getString(R.string.notification_vpn_disconnected))
+            .build()
 
     companion object {
         const val NOTIFICATION_CHANNEL_TV_VPN = "VPN Status"

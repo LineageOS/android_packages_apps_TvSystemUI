@@ -27,13 +27,13 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class TvRecentsModule {
 
-  companion object {
-    @Provides
-    fun provideRecentsImpl(): RecentsImplementation = object : RecentsImplementation {}
-  }
+    companion object {
+        @Provides
+        fun provideRecentsImpl(): RecentsImplementation = object : RecentsImplementation {}
+    }
 
-  @Binds
-  @IntoMap
-  @ClassKey(OverviewProxyRecentsImpl::class)
-  abstract fun bindOverviewProxyRecentsImpl(impl: OverviewProxyRecentsImpl): RecentsImplementation
+    @Binds
+    @IntoMap
+    @ClassKey(OverviewProxyRecentsImpl::class)
+    abstract fun bindOverviewProxyRecentsImpl(impl: OverviewProxyRecentsImpl): RecentsImplementation
 }
