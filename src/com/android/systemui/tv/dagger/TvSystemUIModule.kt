@@ -34,6 +34,7 @@ import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
+import com.android.systemui.dreams.suppression.dagger.NoOpActivityRecognitionModule
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
@@ -113,6 +114,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
             MediaMuteAwaitConnectionCli.StartableModule::class,
             MultiUserUtilsModule::class,
             NearbyMediaDevicesManager.StartableModule::class,
+            NoOpActivityRecognitionModule::class,
             NoopPosturingModule::class,
             PowerModule::class,
             PrivacyModule::class,
