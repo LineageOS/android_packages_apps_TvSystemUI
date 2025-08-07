@@ -34,6 +34,7 @@ import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
+import com.android.systemui.dreams.suppression.dagger.NoOpActivityRecognitionModule
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
@@ -52,7 +53,6 @@ import com.android.systemui.settings.MultiUserUtilsModule
 import com.android.systemui.settings.UserTracker
 import com.android.systemui.settings.brightness.dagger.BrightnessSliderModule
 import com.android.systemui.shade.ShadeEmptyImplModule
-import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
 import com.android.systemui.statusbar.NotificationLockscreenUserManager
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl
@@ -111,10 +111,10 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
             GestureModule::class,
             HdmiModule::class,
             HeadsUpEmptyImplModule::class,
-            KeyboardShortcutsModule::class,
             MediaMuteAwaitConnectionCli.StartableModule::class,
             MultiUserUtilsModule::class,
             NearbyMediaDevicesManager.StartableModule::class,
+            NoOpActivityRecognitionModule::class,
             NoopPosturingModule::class,
             PowerModule::class,
             PrivacyModule::class,
