@@ -22,6 +22,7 @@ import com.android.systemui.accessibility.Magnification
 import com.android.systemui.dagger.qualifiers.PerUser
 import com.android.systemui.globalactions.GlobalActionsComponent
 import com.android.systemui.keyboard.KeyboardUI
+import com.android.systemui.keyevent.SysUIKeyGestureEventInitializer
 import com.android.systemui.media.RingtonePlayer
 import com.android.systemui.media.dialog.MediaOutputSwitcherDialogUI
 import com.android.systemui.media.systemsounds.HomeSoundEffectController
@@ -152,4 +153,11 @@ abstract class TVSystemUICoreStartableModule {
     @IntoMap
     @ClassKey(WMShell::class)
     abstract fun bindWMShell(sysui: WMShell): CoreStartable
+
+    @Binds
+    @IntoMap
+    @ClassKey(SysUIKeyGestureEventInitializer::class)
+    abstract fun bindSysUIKeyGestureEventInitializer(
+        keyGestureEventInitializer: SysUIKeyGestureEventInitializer
+    ): CoreStartable
 }
