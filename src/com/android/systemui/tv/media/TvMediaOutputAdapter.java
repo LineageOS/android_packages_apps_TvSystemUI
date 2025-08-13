@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.media.MediaRoute2Info;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Annotation;
@@ -266,7 +265,8 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             mWidget.setOnClickListener(v -> transferOutput(mediaDevice));
 
-            String baseUri = getBaseUriForDevice(mContext, mMediaDevice);
+            String baseUri = TvMediaOutputController.getSettingsBaseUriForDevice(mContext,
+                    mMediaDevice);
             boolean hasSettings = baseUri != null && !baseUri.isEmpty();
 
             if (hasSettings) {
@@ -409,56 +409,6 @@ public class TvMediaOutputAdapter extends RecyclerView.Adapter<RecyclerView.View
             mContext.startActivity(bluetoothIntent);
         }
 
-        static String getBaseUriForDevice(Context context, MediaDevice device) {
-            int resourceId;
-
-            int deviceType = device.getDeviceType();
-
-            if (deviceType == MediaDeviceType.TYPE_USB_C_AUDIO_DEVICE) {
-                int routeType = device.getRouteType();
-                switch (routeType) {
-                    case MediaRoute2Info.TYPE_HDMI:
-                        resourceId = R.string.audio_output_hdmi_slice_uri;
-                        break;
-                    case MediaRoute2Info.TYPE_HDMI_ARC:
-                    case MediaRoute2Info.TYPE_HDMI_EARC:
-                        resourceId = R.string.audio_output_hdmi_e_arc_slice_uri;
-                        break;
-                    case MediaRoute2Info.TYPE_USB_HEADSET:
-                    case MediaRoute2Info.TYPE_USB_DEVICE:
-                    case MediaRoute2Info.TYPE_USB_ACCESSORY:
-                        resourceId = R.string.audio_output_usb_slice_uri;
-                        break;
-                    default:
-                        return null;
-                }
-            } else {
-                switch (deviceType) {
-                    case MediaDeviceType.TYPE_PHONE_DEVICE:
-                        resourceId = R.string.audio_output_builtin_speaker_slice_uri;
-                        break;
-                    case MediaDeviceType.TYPE_BLUETOOTH_DEVICE:
-                        resourceId = R.string.audio_output_bluetooth_slice_uri;
-                        break;
-                    case MediaDeviceType.TYPE_3POINT5_MM_AUDIO_DEVICE:
-                        resourceId = R.string.audio_output_wired_headphone_slice_uri;
-                        break;
-                    case MediaDeviceType.TYPE_CAST_DEVICE:
-                        resourceId = R.string.audio_output_cast_device_slice_uri;
-                        break;
-                    case MediaDeviceType.TYPE_CAST_GROUP_DEVICE:
-                        resourceId = R.string.audio_output_cast_group_slice_uri;
-                        break;
-                    case MediaDeviceType.TYPE_REMOTE_AUDIO_VIDEO_RECEIVER:
-                        resourceId = R.string.audio_output_remote_avr_slice_uri;
-                        break;
-                    default:
-                        return null;
-                }
-            }
-
-            return context.getString(resourceId);
-        }
     }
 
     private static class DividerViewHolder extends RecyclerView.ViewHolder {
