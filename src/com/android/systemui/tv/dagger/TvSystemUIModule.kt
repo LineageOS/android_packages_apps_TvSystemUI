@@ -35,6 +35,7 @@ import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
 import com.android.systemui.dreams.suppression.dagger.NoOpActivityRecognitionModule
+import com.android.systemui.lowlight.dagger.NoopAmbientLightModeMonitorModule
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
@@ -116,6 +117,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
             NearbyMediaDevicesManager.StartableModule::class,
             NoOpActivityRecognitionModule::class,
             NoopPosturingModule::class,
+            NoopAmbientLightModeMonitorModule::class,
             PowerModule::class,
             PrivacyModule::class,
             QSModule::class,
