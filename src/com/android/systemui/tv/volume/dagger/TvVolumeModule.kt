@@ -144,7 +144,6 @@ interface TvVolumeModule {
                         csdFactory,
                         devicePostureController,
                         Looper.getMainLooper(),
-                        volumePanelFlag,
                         dumpManager,
                         secureSettings,
                         vibratorHelper,
