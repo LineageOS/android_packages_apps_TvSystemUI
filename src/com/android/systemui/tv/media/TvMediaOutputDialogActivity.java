@@ -22,7 +22,6 @@ import android.graphics.Rect;
 import android.media.MediaRouter2;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,7 +30,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.android.settingslib.media.flags.Flags;
 import com.android.systemui.tv.media.settings.SliceFragment;
 import com.android.systemui.tv.res.R;
 import com.android.tv.twopanelsettings.slices.SlicesConstants;
@@ -48,8 +46,6 @@ import javax.inject.Inject;
  * MediaRouter2#showSystemOutputSwitcher()}
  */
 public class TvMediaOutputDialogActivity extends FragmentActivity {
-    private static final String TAG = TvMediaOutputDialogActivity.class.getSimpleName();
-    private static final boolean DEBUG = false;
 
     private FragmentManager mFragmentManager;
     private final OutputDevicesFragment mOutputDevicesFragment;
@@ -63,15 +59,7 @@ public class TvMediaOutputDialogActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (DEBUG) Log.d(TAG, "package name: " + getPackageName());
-
-        if (!Flags.enableTvMediaOutputDialog()) {
-            finish();
-            return;
-        }
-
         setContentView(R.layout.media_output_dialog);
-
 
         Resources res = getResources();
         DisplayMetrics metrics = res.getDisplayMetrics();
