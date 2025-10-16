@@ -29,6 +29,7 @@ android_test {
     manifest: "AndroidManifest.xml",
 
     static_libs: [
+        "androidx.compose.ui_ui-test-junit4",
         "androidx.test.uiautomator_uiautomator",
         "androidx.test.core",
         "androidx.test.ext.junit",
