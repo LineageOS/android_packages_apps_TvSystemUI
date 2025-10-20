@@ -22,6 +22,7 @@ import com.android.systemui.dagger.SystemUIModule
 import com.android.systemui.keyguard.dagger.KeyguardModule
 import com.android.systemui.navigationbar.NoopNavigationBarControllerModule
 import com.android.systemui.scene.ShadelessSceneContainerFrameworkModule
+import com.android.systemui.shade.ShadeDisplayAwareWindowWithoutShadeModule
 import com.android.systemui.statusbar.dagger.CentralSurfacesDependenciesModule
 import com.android.systemui.tv.recents.TvRecentsModule
 import com.android.systemui.wallpapers.dagger.NoopWallpaperModule
@@ -42,6 +43,7 @@ import dagger.Subcomponent
             NoopWallpaperModule::class,
             TvRecentsModule::class,
             ShadelessSceneContainerFrameworkModule::class,
+            ShadeDisplayAwareWindowWithoutShadeModule::class,
             SystemUIModule::class,
             TvSystemUIBinder::class,
             TVSystemUICoreStartableModule::class,
