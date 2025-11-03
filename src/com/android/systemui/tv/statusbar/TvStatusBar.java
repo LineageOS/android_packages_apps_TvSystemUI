@@ -27,7 +27,6 @@ import com.android.systemui.CoreStartable;
 import com.android.systemui.assist.AssistManager;
 import com.android.systemui.dagger.SysUISingleton;
 import com.android.systemui.statusbar.CommandQueue;
-import com.android.systemui.statusbar.KeyboardShortcuts;
 import com.android.systemui.utils.windowmanager.WindowManagerProvider;
 
 import dagger.Lazy;
@@ -81,10 +80,5 @@ public class TvStatusBar implements CoreStartable, CommandQueue.Callbacks {
         mContext.sendBroadcast(
                 new Intent(ACTION_SHOW_PIP_MENU).setPackage(mContext.getPackageName()),
                 SYSTEMUI_PERMISSION);
-    }
-
-    @Override
-    public void toggleKeyboardShortcutsMenu(int deviceId) {
-        KeyboardShortcuts.show(mContext, deviceId, mWindowManagerProvider);
     }
 }
