@@ -17,12 +17,25 @@
 package com.android.systemui.tv.volume.dagger
 
 import android.content.BroadcastReceiver
+import android.content.Context
 import android.media.AudioManager
+import android.os.Looper
+import com.android.internal.jank.InteractionJankMonitor
 import com.android.systemui.CoreStartable
 import com.android.systemui.Flags
+import com.android.systemui.dump.DumpManager
+import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.plugins.VolumeDialog
+import com.android.systemui.plugins.VolumeDialogController
+import com.android.systemui.statusbar.VibratorHelper
+import com.android.systemui.statusbar.policy.AccessibilityManagerWrapper
 import com.android.systemui.statusbar.policy.ConfigurationController
+import com.android.systemui.statusbar.policy.DevicePostureController
+import com.android.systemui.statusbar.policy.DeviceProvisionedController
 import com.android.systemui.tv.volume.dialog.dagger.TvVolumeDialogPluginComponent
+import com.android.systemui.util.settings.SecureSettings
+import com.android.systemui.util.time.SystemClock
+import com.android.systemui.volume.CsdWarningDialog
 import com.android.systemui.volume.VolumeComponent
 import com.android.systemui.volume.VolumeDialogComponent
 import com.android.systemui.volume.VolumeDialogImpl
@@ -36,8 +49,13 @@ import com.android.systemui.volume.dagger.MediaDevicesModule
 import com.android.systemui.volume.dagger.SpatializerModule
 import com.android.systemui.volume.dialog.VolumeDialogPlugin
 import com.android.systemui.volume.dialog.dagger.factory.VolumeDialogPluginComponentFactory
+import com.android.systemui.volume.domain.interactor.VolumeDialogInteractor
+import com.android.systemui.volume.domain.interactor.VolumePanelNavigationInteractor
 import com.android.systemui.volume.panel.dagger.VolumePanelComponent
 import com.android.systemui.volume.panel.dagger.factory.VolumePanelComponentFactory
+import com.android.systemui.volume.panel.shared.flag.VolumePanelFlag
+import com.android.systemui.volume.ui.navigation.VolumeNavigator
+import com.google.android.msdl.domain.MSDLPlayer
 import dagger.Binds
 import dagger.Lazy
 import dagger.Module
@@ -45,7 +63,6 @@ import dagger.Provides
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
-import javax.inject.Named
 
 @Module(
     includes =
@@ -88,26 +105,58 @@ interface TvVolumeModule {
     ): VolumeDialogPluginComponentFactory
 
     companion object {
-        /**  */
-        @Provides
-        @Named(VolumeDialogImpl.VOLUME_DIALOG_JANK)
-        fun providesListenForJank(): Boolean {
-            return true
-        }
-
         @Provides
         fun provideVolumeDialog(
             volumeDialogProvider: Lazy<VolumeDialogPlugin>,
-            volumeDialogImplLazy: Lazy<VolumeDialogImpl>,
+            context: Context,
+            volumeDialogController: VolumeDialogController,
+            accessibilityManagerWrapper: AccessibilityManagerWrapper,
+            deviceProvisionedController: DeviceProvisionedController,
+            configurationController: ConfigurationController,
+            mediaOutputDialogManager: MediaOutputDialogManager,
+            interactionJankMonitor: InteractionJankMonitor,
+            volumePanelNavigationInteractor: VolumePanelNavigationInteractor,
+            volumeNavigator: VolumeNavigator,
+            csdFactory: CsdWarningDialog.Factory,
+            devicePostureController: DevicePostureController,
+            volumePanelFlag: VolumePanelFlag,
+            dumpManager: DumpManager,
+            secureSettings: Lazy<SecureSettings>,
+            vibratorHelper: VibratorHelper,
+            msdlPlayer: MSDLPlayer,
+            systemClock: SystemClock,
+            interactor: VolumeDialogInteractor,
         ): VolumeDialog {
             return if (Flags.volumeRedesign()) {
                 volumeDialogProvider.get()
             } else {
-                volumeDialogImplLazy.get().apply {
-                    setStreamImportant(AudioManager.STREAM_SYSTEM, false)
-                    setAutomute(true)
-                    setSilentMode(false)
-                }
+                VolumeDialogImpl(
+                        context,
+                        volumeDialogController,
+                        accessibilityManagerWrapper,
+                        deviceProvisionedController,
+                        configurationController,
+                        mediaOutputDialogManager,
+                        interactionJankMonitor,
+                        volumePanelNavigationInteractor,
+                        volumeNavigator,
+                        true,
+                        csdFactory,
+                        devicePostureController,
+                        Looper.getMainLooper(),
+                        volumePanelFlag,
+                        dumpManager,
+                        secureSettings,
+                        vibratorHelper,
+                        msdlPlayer,
+                        systemClock,
+                        interactor,
+                    )
+                    .apply {
+                        setStreamImportant(AudioManager.STREAM_SYSTEM, false)
+                        setAutomute(true)
+                        setSilentMode(false)
+                    }
             }
         }
     }
