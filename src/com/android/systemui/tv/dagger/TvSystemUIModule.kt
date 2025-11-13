@@ -28,14 +28,18 @@ import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.communal.posturing.dagger.NoopPosturingModule
 import com.android.systemui.dagger.ReferenceSystemUIModule
 import com.android.systemui.dagger.SysUISingleton
+import com.android.systemui.display.dagger.SystemUIDisplaySubcomponent
 import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
+import com.android.systemui.Flags
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
 import com.android.systemui.media.nearby.NearbyMediaDevicesManager
+import com.android.systemui.minmode.MinModeManager
+import com.android.systemui.minmode.MinModeManagerImpl
 import com.android.systemui.navigationbar.gestural.GestureModule
 import com.android.systemui.plugins.qs.QSFactory
 import com.android.systemui.power.dagger.PowerModule
@@ -86,7 +90,9 @@ import dagger.Provides
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
+import java.util.Optional
 import javax.inject.Named
+import javax.inject.Provider
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 /**
@@ -122,8 +128,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
     TvSensorPrivacyModule::class,
     TvUsbDebuggingModule::class,
     TvVolumeModule::class,
-]
-)
+], subcomponents = [
+    SystemUIDisplaySubcomponent::class,
+])
 abstract class TvSystemUIModule {
     @Binds
     abstract fun bindNotificationLockscreenUserManager(
@@ -252,5 +259,14 @@ abstract class TvSystemUIModule {
                     dialogTransitionAnimator,
                     mediaSwitchingControllerFactory
                 )
-    }
+
+        @Provides
+        @SysUISingleton
+        fun provideMinModeManager(impl: Provider<MinModeManagerImpl>): Optional<MinModeManager> =
+            if (Flags.enableMinmode()) {
+                Optional.of(impl.get())
+            } else {
+                Optional.empty()
+            }
+        }
 }
