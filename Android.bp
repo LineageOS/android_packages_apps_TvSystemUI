@@ -84,6 +84,7 @@ android_app {
     dxflags: ["--multi-dex"],
     optimize: {
         proguard_flags_files: ["proguard.flags"],
+        included_proguard_flags_files: [":sysui_proguard_common_and_kotlin"],
     },
     required: [
         "privapp_whitelist_com.android.systemui",
