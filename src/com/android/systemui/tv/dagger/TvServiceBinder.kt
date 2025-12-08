@@ -27,18 +27,18 @@ import dagger.multibindings.IntoMap
 /** Services that are injectable should go here. */
 @Module
 abstract class TvServiceBinder {
-  @Binds
-  @IntoMap
-  @ClassKey(SystemUIService::class)
-  abstract fun bindSystemUIService(service: SystemUIService): Service
+    @Binds
+    @IntoMap
+    @ClassKey(SystemUIService::class)
+    abstract fun bindSystemUIService(service: SystemUIService): Service
 
-  @Binds
-  @IntoMap
-  @ClassKey(SystemUIAuxiliaryDumpService::class)
-  abstract fun bindSystemUIAuxiliaryDumpService(service: SystemUIAuxiliaryDumpService): Service
+    @Binds
+    @IntoMap
+    @ClassKey(SystemUIAuxiliaryDumpService::class)
+    abstract fun bindSystemUIAuxiliaryDumpService(service: SystemUIAuxiliaryDumpService): Service
 
-  @Binds
-  @IntoMap
-  @ClassKey(ImageWallpaper::class)
-  abstract fun bindImageWallpaper(service: ImageWallpaper): Service
+    @Binds
+    @IntoMap
+    @ClassKey(ImageWallpaper::class)
+    abstract fun bindImageWallpaper(service: ImageWallpaper): Service
 }

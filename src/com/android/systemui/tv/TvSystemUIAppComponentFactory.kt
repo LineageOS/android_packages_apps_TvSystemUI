@@ -27,7 +27,7 @@ import com.android.systemui.tv.dagger.TvSystemUIInitializer
  *
  * @see SystemUIAppComponentFactoryBase
  */
-class TvSystemUIAppComponentFactory : SystemUIAppComponentFactoryBase()  {
+class TvSystemUIAppComponentFactory : SystemUIAppComponentFactoryBase() {
 
     override fun createSystemUIInitializer(context: Context) = TvSystemUIInitializer(context)
 }

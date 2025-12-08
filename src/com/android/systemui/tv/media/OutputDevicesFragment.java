@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -35,6 +36,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.settingslib.media.MediaDevice;
 import com.android.systemui.tv.res.R;
+
+import java.util.List;
 
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -90,6 +93,44 @@ public class OutputDevicesFragment extends Fragment
 
         int itemSpacingPx = getResources().getDimensionPixelSize(R.dimen.media_dialog_item_spacing);
         mDevicesRecyclerView.addItemDecoration(new SpacingDecoration(itemSpacingPx));
+
+        mDevicesRecyclerView.setAccessibilityDelegate(
+                new View.AccessibilityDelegate() {
+                    @Override
+                    public void onInitializeAccessibilityNodeInfo(
+                            @NonNull View host, @NonNull AccessibilityNodeInfo info) {
+                        super.onInitializeAccessibilityNodeInfo(host, info);
+                        List<TvMediaItem> mediaItems = mMediaOutputController.getMediaItemList();
+                        boolean hasSettings = false;
+                        int importantItemsCount = 0;
+                        for (TvMediaItem item : mediaItems) {
+                            if (item.getMediaItemType()
+                                    != TvMediaItem.MediaItemType.TYPE_GROUP_DIVIDER
+                                    || (item.getTitle() != null && !item.getTitle().isEmpty())) {
+                                // Everything except for the divider lines are important
+                                importantItemsCount++;
+                            }
+                            if (!hasSettings && item.getMediaItemType()
+                                    == TvMediaItem.MediaItemType.TYPE_DEVICE) {
+                                String baseUri =
+                                        TvMediaOutputController.getSettingsBaseUriForDevice(
+                                                getContext(), item.getMediaDevice().get());
+                                if (baseUri != null && !baseUri.isEmpty()) {
+                                    hasSettings = true;
+                                }
+                            }
+                        }
+
+                        info.setCollectionInfo(
+                                new AccessibilityNodeInfo.CollectionInfo.Builder()
+                                        .setRowCount(mediaItems.size())
+                                        .setColumnCount(hasSettings ? 2 : 1)
+                                        .setItemCount(mediaItems.size())
+                                        .setImportantForAccessibilityItemCount(importantItemsCount)
+                                        .build()
+                        );
+                    }
+                });
 
         return view;
     }

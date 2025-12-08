@@ -24,7 +24,7 @@ import dagger.multibindings.IntoMap
 
 @Module
 interface TvNotificationsModule {
-    /** Inject into TvNotificationPanelActivity.  */
+    /** Inject into TvNotificationPanelActivity. */
     @Binds
     @IntoMap
     @ClassKey(TvNotificationPanelActivity::class)

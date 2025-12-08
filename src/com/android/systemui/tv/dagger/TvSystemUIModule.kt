@@ -21,6 +21,7 @@ import android.hardware.SensorPrivacyManager
 import com.android.internal.logging.UiEventLogger
 import com.android.keyguard.KeyguardViewController
 import com.android.systemui.Dependency
+import com.android.systemui.Flags
 import com.android.systemui.accessibility.AccessibilityModule
 import com.android.systemui.accessibility.data.repository.AccessibilityRepositoryModule
 import com.android.systemui.animation.DialogTransitionAnimator
@@ -33,7 +34,8 @@ import com.android.systemui.display.ui.viewmodel.ConnectingDisplayViewModel
 import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
-import com.android.systemui.Flags
+import com.android.systemui.dreams.suppression.dagger.NoOpActivityRecognitionModule
+import com.android.systemui.lowlight.dagger.NoopAmbientLightModeMonitorModule
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
@@ -52,7 +54,6 @@ import com.android.systemui.settings.MultiUserUtilsModule
 import com.android.systemui.settings.UserTracker
 import com.android.systemui.settings.brightness.dagger.BrightnessSliderModule
 import com.android.systemui.shade.ShadeEmptyImplModule
-import com.android.systemui.statusbar.KeyboardShortcutsModule
 import com.android.systemui.statusbar.NotificationListener
 import com.android.systemui.statusbar.NotificationLockscreenUserManager
 import com.android.systemui.statusbar.NotificationLockscreenUserManagerImpl
@@ -102,99 +103,102 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
  * variants of SystemUI.
  */
 @Module(
-    includes = [
-    AccessibilityModule::class,
-    AccessibilityRepositoryModule::class,
-    AospPolicyModule::class,
-    BrightnessSliderModule::class,
-    ConnectingDisplayViewModel.StartableModule::class,
-    GestureModule::class,
-    HdmiModule::class,
-    HeadsUpEmptyImplModule::class,
-    KeyboardShortcutsModule::class,
-    MediaMuteAwaitConnectionCli.StartableModule::class,
-    MultiUserUtilsModule::class,
-    NearbyMediaDevicesManager.StartableModule::class,
-    NoopPosturingModule::class,
-    PowerModule::class,
-    PrivacyModule::class,
-    QSModule::class,
-    ReferenceNotificationsModule::class,
-    ReferenceScreenshotModule::class,
-    ShadeEmptyImplModule::class,
-    StatusBarEventsModule::class,
-    SysUIUnfoldStartableModule::class,
-    TvNotificationsModule::class,
-    TvSensorPrivacyModule::class,
-    TvUsbDebuggingModule::class,
-    TvVolumeModule::class,
-], subcomponents = [
-    SystemUIDisplaySubcomponent::class,
-])
+    includes =
+        [
+            AccessibilityModule::class,
+            AccessibilityRepositoryModule::class,
+            AospPolicyModule::class,
+            BrightnessSliderModule::class,
+            ConnectingDisplayViewModel.StartableModule::class,
+            GestureModule::class,
+            HdmiModule::class,
+            HeadsUpEmptyImplModule::class,
+            MediaMuteAwaitConnectionCli.StartableModule::class,
+            MultiUserUtilsModule::class,
+            NearbyMediaDevicesManager.StartableModule::class,
+            NoOpActivityRecognitionModule::class,
+            NoopPosturingModule::class,
+            NoopAmbientLightModeMonitorModule::class,
+            PowerModule::class,
+            PrivacyModule::class,
+            QSModule::class,
+            ReferenceNotificationsModule::class,
+            ReferenceScreenshotModule::class,
+            ShadeEmptyImplModule::class,
+            StatusBarEventsModule::class,
+            SysUIUnfoldStartableModule::class,
+            TvNotificationsModule::class,
+            TvSensorPrivacyModule::class,
+            TvUsbDebuggingModule::class,
+            TvVolumeModule::class,
+        ],
+    subcomponents = [TvSysUIDisplaySubcomponent::class],
+)
 abstract class TvSystemUIModule {
+
+    @Binds
+    abstract fun displaySubcomponentFactory(
+        tvDisplaySubcomponentFactory: TvSysUIDisplaySubcomponent.Factory
+    ): SystemUIDisplaySubcomponent.Factory
+
     @Binds
     abstract fun bindNotificationLockscreenUserManager(
-            notificationLockscreenUserManager: NotificationLockscreenUserManagerImpl
+        notificationLockscreenUserManager: NotificationLockscreenUserManagerImpl
     ): NotificationLockscreenUserManager
 
-    @Binds
-    @SysUISingleton
-    abstract fun bindQSFactory(qsFactoryImpl: QSFactoryImpl): QSFactory
+    @Binds @SysUISingleton abstract fun bindQSFactory(qsFactoryImpl: QSFactoryImpl): QSFactory
 
-    @Binds
-    abstract fun bindDockManager(dockManager: DockManagerImpl): DockManager
+    @Binds abstract fun bindDockManager(dockManager: DockManagerImpl): DockManager
 
     @Binds
     abstract fun bindKeyguardViewController(
-            statusBarKeyguardViewManager: StatusBarKeyguardViewManager
+        statusBarKeyguardViewManager: StatusBarKeyguardViewManager
     ): KeyguardViewController
 
     @Binds
     abstract fun bindNotificationShadeController(
-            notificationShadeWindowController: TvNotificationShadeWindowController
+        notificationShadeWindowController: TvNotificationShadeWindowController
     ): NotificationShadeWindowController
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Binds
     abstract fun provideDozeHost(dozeServiceHost: DozeServiceHost): DozeHost
 
-    /**
-     * Binds [MediaProjectionPrivacyItemMonitor] into the set of [PrivacyItemMonitor].
-     */
+    /** Binds [MediaProjectionPrivacyItemMonitor] into the set of [PrivacyItemMonitor]. */
     @Binds
     @IntoSet
     abstract fun bindMediaProjectionPrivacyItemMonitor(
-            mediaProjectionPrivacyItemMonitor: MediaProjectionPrivacyItemMonitor
+        mediaProjectionPrivacyItemMonitor: MediaProjectionPrivacyItemMonitor
     ): PrivacyItemMonitor
 
     @Binds
     @IntoMap
     @ClassKey(TvMediaOutputDialogActivity::class)
     abstract fun provideTvMediaOutputDialogActivity(
-            tvMediaOutputDialogActivity: TvMediaOutputDialogActivity
+        tvMediaOutputDialogActivity: TvMediaOutputDialogActivity
     ): Activity
 
-    /** Inject into UsbDebuggingActivity.  */
+    /** Inject into UsbDebuggingActivity. */
     @Binds
     @IntoMap
     @ClassKey(UsbDebuggingActivity::class)
     abstract fun bindUsbDebuggingActivity(activity: UsbDebuggingActivity): Activity
 
-    /** Inject into UsbDebuggingSecondaryUserActivity.  */
+    /** Inject into UsbDebuggingSecondaryUserActivity. */
     @Binds
     @IntoMap
     @ClassKey(UsbDebuggingSecondaryUserActivity::class)
     abstract fun bindUsbDebuggingSecondaryUserActivity(
-        activity: UsbDebuggingSecondaryUserActivity,
+        activity: UsbDebuggingSecondaryUserActivity
     ): Activity
 
-    /** Inject into UsbAccessoryUriActivity.  */
+    /** Inject into UsbAccessoryUriActivity. */
     @Binds
     @IntoMap
     @ClassKey(UsbAccessoryUriActivity::class)
     abstract fun bindUsbAccessoryUriActivity(activity: UsbAccessoryUriActivity): Activity
 
-    /** Inject into CreateUserActivity.  */
+    /** Inject into CreateUserActivity. */
     @Binds
     @IntoMap
     @ClassKey(CreateUserActivity::class)
@@ -209,20 +213,19 @@ abstract class TvSystemUIModule {
         @Provides
         @SysUISingleton
         fun provideSensorPrivacyController(
-                sensorPrivacyManager: SensorPrivacyManager
+            sensorPrivacyManager: SensorPrivacyManager
         ): SensorPrivacyController =
-                SensorPrivacyControllerImpl(sensorPrivacyManager).apply { init() }
+            SensorPrivacyControllerImpl(sensorPrivacyManager).apply { init() }
 
         @Provides
         @SysUISingleton
         fun provideIndividualSensorPrivacyController(
-                sensorPrivacyManager: SensorPrivacyManager,
-            userTracker: UserTracker
+            sensorPrivacyManager: SensorPrivacyManager,
+            userTracker: UserTracker,
         ): IndividualSensorPrivacyController =
-                IndividualSensorPrivacyControllerImpl(
-                    sensorPrivacyManager,
-                    userTracker
-                ).apply { init() }
+            IndividualSensorPrivacyControllerImpl(sensorPrivacyManager, userTracker).apply {
+                init()
+            }
 
         @SysUISingleton
         @Provides
@@ -232,7 +235,7 @@ abstract class TvSystemUIModule {
         @SysUISingleton
         @Provides
         fun providesDeviceProvisionedController(
-                deviceProvisionedController: DeviceProvisionedControllerImpl
+            deviceProvisionedController: DeviceProvisionedControllerImpl
         ): DeviceProvisionedController {
             deviceProvisionedController.init()
             return deviceProvisionedController
@@ -241,24 +244,24 @@ abstract class TvSystemUIModule {
         @Provides
         @SysUISingleton
         fun provideTvNotificationHandler(
-                notificationListener: NotificationListener
+            notificationListener: NotificationListener
         ): TvNotificationHandler = TvNotificationHandler(notificationListener)
 
         @Provides
         fun provideMediaOutputDialogFactory(
-                context: Context,
-                broadcastSender: BroadcastSender,
-                uiEventLogger: UiEventLogger,
-                dialogTransitionAnimator: DialogTransitionAnimator,
-                mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
-            ): MediaOutputDialogManager =
-                TvMediaOutputDialogManager(
-                    context,
-                    broadcastSender,
-                    uiEventLogger,
-                    dialogTransitionAnimator,
-                    mediaSwitchingControllerFactory
-                )
+            context: Context,
+            broadcastSender: BroadcastSender,
+            uiEventLogger: UiEventLogger,
+            dialogTransitionAnimator: DialogTransitionAnimator,
+            mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
+        ): MediaOutputDialogManager =
+            TvMediaOutputDialogManager(
+                context,
+                broadcastSender,
+                uiEventLogger,
+                dialogTransitionAnimator,
+                mediaSwitchingControllerFactory,
+            )
 
         @Provides
         @SysUISingleton
@@ -268,5 +271,5 @@ abstract class TvSystemUIModule {
             } else {
                 Optional.empty()
             }
-        }
+    }
 }

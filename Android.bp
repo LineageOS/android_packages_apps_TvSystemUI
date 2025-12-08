@@ -44,6 +44,7 @@ android_library {
     resource_dirs: [],
     use_resource_processor: true,
     static_libs: [
+        "SystemUI-application",
         "SystemUI-core",
         "SystemUIPluginLib",
         "SystemUISharedLib",
@@ -62,6 +63,7 @@ android_app {
     defaults: [
         "platform_app_defaults",
         "SystemUI_optimized_defaults",
+        "wmshell_defaults",
     ],
     static_libs: [
         "TvSystemUI-core",

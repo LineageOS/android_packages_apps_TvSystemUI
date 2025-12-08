@@ -88,5 +88,8 @@
     <string name="audio_output_remote_avr_slice_uri" translatable="false" />
     <string name="audio_output_cast_device_slice_uri" translatable="false" />
     <string name="audio_output_cast_group_slice_uri" translatable="false" />
+    <string name="audio_output_aux_slice_uri" translatable="false" />
+    <string name="audio_output_line_digital_slice_uri" translatable="false" />
+    <string name="audio_output_line_analog_slice_uri" translatable="false"/>
 
 </resources>
