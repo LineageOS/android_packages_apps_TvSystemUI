@@ -25,5 +25,5 @@ import com.android.systemui.dagger.GlobalRootComponent
  */
 class TvSystemUIInitializer(context: Context) : SystemUIInitializer(context) {
     override fun getGlobalRootComponentBuilder(): GlobalRootComponent.Builder =
-            DaggerTvGlobalRootComponent.builder()
+        DaggerTvGlobalRootComponent.builder()
 }

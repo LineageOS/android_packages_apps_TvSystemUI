@@ -130,9 +130,6 @@
         <provider android:name=".keyguard.KeyguardSliceProvider"
             android:authorities="${applicationId}.keyguard"
             tools:node="remove" />
-        <provider android:name=".keyguard.CustomizationProvider"
-            android:authorities="${applicationId}.customization"
-            tools:node="remove" />
 
         <!-- Remove unused functionality from SystemUI libraries -->
         <activity android:name="com.android.wm.shell.legacysplitscreen.ForcedResizableInfoActivity"
