@@ -20,20 +20,17 @@ import com.android.systemui.dagger.GlobalRootComponent
 import dagger.Component
 import javax.inject.Singleton
 
-/**
- * Root component for Dagger injection.
- */
+/** Root component for Dagger injection. */
 @Singleton
 @Component(modules = [GlobalModule::class])
 interface TvGlobalRootComponent : GlobalRootComponent {
-    /**
-     * Component Builder interface. This allows to bind Context instance in the component
-     */
+    /** Component Builder interface. This allows to bind Context instance in the component */
     @Component.Builder
     interface Builder : GlobalRootComponent.Builder {
         override fun build(): TvGlobalRootComponent
     }
 
     override fun getWMComponentBuilder(): TvWMComponent.Builder
+
     override fun getSysUIComponent(): TvSysUIComponent.Builder
 }

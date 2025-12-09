@@ -26,7 +26,7 @@ import dagger.multibindings.IntoSet
 
 @Module
 interface PrivacyModule {
-    /** Starts TvPrivacyChipsController.  */
+    /** Starts TvPrivacyChipsController. */
     @Binds
     @IntoMap
     @ClassKey(TvPrivacyChipsController::class)

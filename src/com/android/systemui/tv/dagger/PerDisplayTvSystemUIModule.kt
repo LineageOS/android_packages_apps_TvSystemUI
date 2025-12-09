@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,20 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.android.systemui.tv.dagger
 
-import com.android.wm.shell.dagger.TvWMShellModule
-import com.android.wm.shell.dagger.WMComponent
-import com.android.wm.shell.dagger.WMSingleton
-import dagger.Subcomponent
+import dagger.Module
 
-/** Dagger Subcomponent for WindowManager. */
-@WMSingleton
-@Subcomponent(modules = [TvWMShellModule::class])
-interface TvWMComponent : WMComponent {
-    /** Builder for a SysUIComponent. */
-    @Subcomponent.Builder
-    interface Builder : WMComponent.Builder {
-        override fun build(): TvWMComponent
-    }
-}
+/** Module providing TV specific dependencies that should be per-display. */
+@Module interface PerDisplayTvSystemUIModule
