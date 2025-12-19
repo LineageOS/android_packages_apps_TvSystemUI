@@ -35,6 +35,7 @@ import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
 import com.android.systemui.dreams.suppression.dagger.NoOpActivityRecognitionModule
+import com.android.systemui.inputmethod.DefaultImeSwitcherMenuModule
 import com.android.systemui.lowlight.dagger.NoopAmbientLightModeMonitorModule
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.dialog.MediaSwitchingController
@@ -107,6 +108,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
             AccessibilityRepositoryModule::class,
             AospPolicyModule::class,
             ConnectingDisplayViewModel.StartableModule::class,
+            DefaultImeSwitcherMenuModule::class,
             GestureModule::class,
             HdmiModule::class,
             HeadsUpEmptyImplModule::class,
