@@ -22,8 +22,8 @@ import com.android.systemui.tv.res.R;
 import com.android.tv.twopanelsettings.slices.EmbeddedSlicePreference;
 
 /**
- * Slice preference for one panel settings which shows a setting like the
- * @link BasicSlicePreference}, but takes its content from another slice.
+ * Slice preference for one panel settings which shows a setting like the {@link
+ * BasicSlicePreference}, but takes its content from another slice.
  */
 public class EmbeddedPreference extends EmbeddedSlicePreference {
 
