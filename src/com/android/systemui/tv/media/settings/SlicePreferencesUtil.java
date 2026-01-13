@@ -95,7 +95,6 @@ public final class SlicePreferencesUtil {
                     // Currently if we don't set icon for the SliceAction, slice lib will
                     // automatically treat it as a toggle. To distinguish preference action and
                     // toggle action, we need to add a subtype if this is a preference action.
-                    if (DEBUG) Log.d(TAG, "BasicCenteredSlicePreference - has intent");
                     Icon icon = getIcon(data.mStartItem);
                     CharSequence subtitle =
                             data.mSubtitleItem != null ? data.mSubtitleItem.getText() : null;
@@ -104,8 +103,10 @@ public final class SlicePreferencesUtil {
                                     || (data.mSubtitleItem != null
                                             && data.mSubtitleItem.hasHint(HINT_PARTIAL));
                     if (icon == null && !subtitleExists) {
+                        if (DEBUG) Log.d(TAG, "BasicCenteredSlicePreference - has intent");
                         preference = new BasicCenteredSlicePreference(context);
                     } else {
+                        if (DEBUG) Log.d(TAG, "BasicSlicePreference - has intent");
                         preference = new BasicSlicePreference(context);
                     }
 
@@ -158,8 +159,13 @@ public final class SlicePreferencesUtil {
                 CharSequence uri = getText(data.mTargetSliceItem);
                 if (uri == null || TextUtils.isEmpty(uri)) {
                     if (preference == null) {
-                        if (DEBUG) Log.d(TAG, "TextSlicePreference");
-                        preference = new TextSlicePreference(context);
+                        if (hasTooltipData(item)) {
+                            if (DEBUG) Log.d(TAG, "BasicSlicePreference - has tooltip");
+                            preference = new BasicSlicePreference(context);
+                        } else {
+                            if (DEBUG) Log.d(TAG, "TextSlicePreference - no intent or uri");
+                            preference = new TextSlicePreference(context);
+                        }
                     }
                 } else {
                     if (preference == null) {
@@ -297,6 +303,22 @@ public final class SlicePreferencesUtil {
         }
 
         return preference;
+    }
+
+    private static boolean hasTooltipData(SliceItem item) {
+        CharSequence infoText = getInfoText(item);
+        if (infoText != null && !infoText.toString().isEmpty()) {
+            return true;
+        }
+        CharSequence infoSummary = getInfoSummary(item);
+        if (infoSummary != null && !infoSummary.toString().isEmpty()) {
+            return true;
+        }
+        IconCompat infoImage = getInfoImage(item);
+        if (infoImage != null) {
+            return true;
+        }
+        return false;
     }
 
     static class Data {
