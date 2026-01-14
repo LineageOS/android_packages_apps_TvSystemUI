@@ -30,12 +30,10 @@ import static android.app.slice.SliceItem.FORMAT_TEXT;
 import static com.android.tv.twopanelsettings.slices.HasCustomContentDescription.CONTENT_DESCRIPTION_SEPARATOR;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.CHECKMARK;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_ACTION_ID;
-import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_ADD_INFO_STATUS;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_PAGE_ID;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_PREFERENCE_INFO_IMAGE;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_PREFERENCE_INFO_SUMMARY;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_PREFERENCE_INFO_TEXT;
-import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_PREFERENCE_INFO_TITLE_ICON;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.RADIO;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.SEEKBAR;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.SWITCH;
@@ -55,14 +53,14 @@ import com.android.tv.twopanelsettings.slices.CustomContentDescriptionPreference
 import com.android.tv.twopanelsettings.slices.HasCustomContentDescription;
 import com.android.tv.twopanelsettings.slices.HasSliceAction;
 import com.android.tv.twopanelsettings.slices.HasSliceUri;
+import com.android.tv.twopanelsettings.slices.SlicePreference;
+import com.android.tv.twopanelsettings.slices.SliceSwitchPreference;
+import com.android.tv.twopanelsettings.slices.SlicesConstants;
 import com.android.tv.twopanelsettings.slices.compat.Slice;
 import com.android.tv.twopanelsettings.slices.compat.SliceItem;
 import com.android.tv.twopanelsettings.slices.compat.core.SliceActionImpl;
 import com.android.tv.twopanelsettings.slices.compat.core.SliceQuery;
 import com.android.tv.twopanelsettings.slices.compat.widget.SliceContent;
-import com.android.tv.twopanelsettings.slices.SlicePreference;
-import com.android.tv.twopanelsettings.slices.SliceSwitchPreference;
-import com.android.tv.twopanelsettings.slices.SlicesConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,78 +86,72 @@ public final class SlicePreferencesUtil {
             if (subType.equals(SlicesConstants.TYPE_PREFERENCE)
                     || subType.equals(SlicesConstants.TYPE_PREFERENCE_EMBEDDED)
                     || subType.equals(SlicesConstants.TYPE_PREFERENCE_EMBEDDED_PLACEHOLDER)) {
-                // TODO: Figure out all the possible cases and reorganize the logic
-                if (data.mInfoItems.size() > 0) {
+                if (!data.mInfoItems.isEmpty()) {
                     if (DEBUG) Log.d(TAG, "InfoSlicePreference");
                     preference = new InfoSlicePreference(
                                 context, getInfoList(data.mInfoItems));
                 } else if (data.mIntentItem != null) {
                     SliceActionImpl action = new SliceActionImpl(data.mIntentItem);
-                    if (action != null) {
-                        // Currently if we don't set icon for the SliceAction, slice lib will
-                        // automatically treat it as a toggle. To distinguish preference action and
-                        // toggle action, we need to add a subtype if this is a preference action.
-                        if (DEBUG) Log.d(TAG, "BasicCenteredSlicePreference - has intent");
-                        Icon icon = getIcon(data.mStartItem);
-                        CharSequence subtitle =
-                                data.mSubtitleItem != null ? data.mSubtitleItem.getText() : null;
-                        boolean subtitleExists = !TextUtils.isEmpty(subtitle)
-                                || (data.mSubtitleItem != null && data.mSubtitleItem.hasHint(
-                                HINT_PARTIAL));
-                        if (icon == null && !subtitleExists) {
-                            preference = new BasicCenteredSlicePreference(context);
-                        } else {
-                            preference = new BasicSlicePreference(context);
-                        }
+                    // Currently if we don't set icon for the SliceAction, slice lib will
+                    // automatically treat it as a toggle. To distinguish preference action and
+                    // toggle action, we need to add a subtype if this is a preference action.
+                    if (DEBUG) Log.d(TAG, "BasicCenteredSlicePreference - has intent");
+                    Icon icon = getIcon(data.mStartItem);
+                    CharSequence subtitle =
+                            data.mSubtitleItem != null ? data.mSubtitleItem.getText() : null;
+                    boolean subtitleExists =
+                            !TextUtils.isEmpty(subtitle)
+                                    || (data.mSubtitleItem != null
+                                            && data.mSubtitleItem.hasHint(HINT_PARTIAL));
+                    if (icon == null && !subtitleExists) {
+                        preference = new BasicCenteredSlicePreference(context);
+                    } else {
+                        preference = new BasicSlicePreference(context);
+                    }
 
-                        ((SlicePreference) preference).setSliceAction(action);
-                        ((SlicePreference) preference).setActionId(getActionId(item));
-                        if (data.mFollowupIntentItem != null) {
-                            SliceActionImpl followUpAction =
-                                    new SliceActionImpl(data.mFollowupIntentItem);
-                            ((SlicePreference) preference).setFollowupSliceAction(followUpAction);
-                        }
+                    ((SlicePreference) preference).setSliceAction(action);
+                    ((SlicePreference) preference).setActionId(getActionId(item));
+                    if (data.mFollowupIntentItem != null) {
+                        SliceActionImpl followUpAction =
+                                new SliceActionImpl(data.mFollowupIntentItem);
+                        ((SlicePreference) preference).setFollowupSliceAction(followUpAction);
                     }
                 } else if (!data.mEndItems.isEmpty() && data.mEndItems.get(0) != null) {
                     SliceActionImpl action = new SliceActionImpl(data.mEndItems.get(0));
-                    if (action != null) {
-                        int buttonStyle = SlicePreferencesUtil.getButtonStyle(item);
-                        switch (buttonStyle) {
-                            case CHECKMARK :
-                                if (DEBUG) Log.d(TAG, "CheckboxSlicePreference");
-                                preference = new CheckboxSlicePreference(
-                                        context, action);
-                                break;
-                            case SWITCH :
-                                if (DEBUG) Log.d(TAG, "SwitchSlicePreference");
-                                preference = new SwitchSlicePreference(context, action);
-                                break;
-                            case RADIO:
-                                if (DEBUG) Log.d(TAG, "RadioSlicePreference");
-                                preference = new RadioSlicePreference(context, action);
-                                if (getRadioGroup(item) != null) {
-                                    ((RadioSlicePreference) preference).setRadioGroup(
-                                            getRadioGroup(item).toString());
-                                }
-                                break;
-                            case SEEKBAR :
-                                if (DEBUG) Log.d(TAG, "SeekbarSlicePreference");
-                                int min = SlicePreferencesUtil.getSeekbarMin(item);
-                                int max = SlicePreferencesUtil.getSeekbarMax(item);
-                                int value = SlicePreferencesUtil.getSeekbarValue(item);
-                                preference = new SeekbarSlicePreference(
-                                        context, action, min, max, value);
-                                break;
-                        }
-                        if (preference instanceof HasSliceAction) {
-                            ((HasSliceAction) preference).setActionId(getActionId(item));
-                        }
-                        if (data.mFollowupIntentItem != null) {
-                            SliceActionImpl followUpAction =
-                                    new SliceActionImpl(data.mFollowupIntentItem);
-                            ((HasSliceAction) preference).setFollowupSliceAction(followUpAction);
-
-                        }
+                    int buttonStyle = SlicePreferencesUtil.getButtonStyle(item);
+                    switch (buttonStyle) {
+                        case CHECKMARK:
+                            if (DEBUG) Log.d(TAG, "CheckboxSlicePreference");
+                            preference = new CheckboxSlicePreference(context, action);
+                            break;
+                        case SWITCH:
+                            if (DEBUG) Log.d(TAG, "SwitchSlicePreference");
+                            preference = new SwitchSlicePreference(context, action);
+                            break;
+                        case RADIO:
+                            if (DEBUG) Log.d(TAG, "RadioSlicePreference");
+                            preference = new RadioSlicePreference(context, action);
+                            if (getRadioGroup(item) != null) {
+                                ((RadioSlicePreference) preference)
+                                        .setRadioGroup(getRadioGroup(item).toString());
+                            }
+                            break;
+                        case SEEKBAR:
+                            if (DEBUG) Log.d(TAG, "SeekbarSlicePreference");
+                            int min = SlicePreferencesUtil.getSeekbarMin(item);
+                            int max = SlicePreferencesUtil.getSeekbarMax(item);
+                            int value = SlicePreferencesUtil.getSeekbarValue(item);
+                            preference =
+                                    new SeekbarSlicePreference(context, action, min, max, value);
+                            break;
+                    }
+                    if (preference != null) {
+                        ((HasSliceAction) preference).setActionId(getActionId(item));
+                    }
+                    if (data.mFollowupIntentItem != null) {
+                        SliceActionImpl followUpAction =
+                                new SliceActionImpl(data.mFollowupIntentItem);
+                        ((HasSliceAction) preference).setFollowupSliceAction(followUpAction);
                     }
                 }
 
@@ -234,8 +226,7 @@ public final class SlicePreferencesUtil {
                 }
             }
 
-
-            //Set summary
+            // Set summary
             CharSequence subtitle =
                     data.mSubtitleItem != null ? data.mSubtitleItem.getText() : null;
             boolean subtitleExists = !TextUtils.isEmpty(subtitle)
@@ -268,8 +259,7 @@ public final class SlicePreferencesUtil {
                 tooltipConfig.setTooltipText(infoText);
                 if (preference.getTitle() != null
                         && !preference.getTitle().equals(infoText.toString())) {
-                    fallbackInfoContentDescription +=
-                            CONTENT_DESCRIPTION_SEPARATOR + infoText.toString();
+                    fallbackInfoContentDescription += CONTENT_DESCRIPTION_SEPARATOR + infoText;
                 }
 
             }
@@ -297,14 +287,11 @@ public final class SlicePreferencesUtil {
                             fallbackInfoContentDescription);
                 }
             }
-            if ((infoText == null || infoText.isEmpty() )
-                    && (infoSummary == null || infoSummary.isEmpty())) {
-                tooltipConfig.setShouldShowTooltip(false);
-            } else {
-                tooltipConfig.setShouldShowTooltip(true);
-            }
 
             if (preference instanceof TooltipPreference) {
+                tooltipConfig.setShouldShowTooltip(
+                        (infoText != null && !infoText.isEmpty())
+                                || (infoSummary != null && !infoSummary.isEmpty()));
                 ((TooltipPreference) preference).setTooltipConfig(tooltipConfig);
             }
         }
@@ -318,7 +305,6 @@ public final class SlicePreferencesUtil {
         SliceItem mSubtitleItem;
         SliceItem mSummaryItem;
         SliceItem mTargetSliceItem;
-        SliceItem mRadioGroupItem;
         SliceItem mIntentItem;
         SliceItem mFollowupIntentItem;
         SliceItem mHasEndIconItem;
@@ -330,7 +316,7 @@ public final class SlicePreferencesUtil {
         Data data = new Data();
         List<SliceItem> possibleStartItems =
                 SliceQuery.findAll(sliceItem, null, HINT_TITLE, null);
-        if (possibleStartItems.size() > 0) {
+        if (!possibleStartItems.isEmpty()) {
             // The start item will be at position 0 if it exists
             String format = possibleStartItems.get(0).getFormat();
             if ((FORMAT_ACTION.equals(format)
@@ -364,7 +350,7 @@ public final class SlicePreferencesUtil {
                         data.mHasEndIconItem = item;
                         break;
                 }
-            } else if (FORMAT_TEXT.equals(item.getFormat()) && (item.getSubType() == null)) {
+            } else if (FORMAT_TEXT.equals(item.getFormat())) {
                 if ((data.mTitleItem == null || !data.mTitleItem.hasHint(HINT_TITLE))
                         && item.hasHint(HINT_TITLE) && !item.hasHint(HINT_SUMMARY)) {
                     data.mTitleItem = item;
@@ -395,7 +381,7 @@ public final class SlicePreferencesUtil {
                         summary = element.getText();
                     }
                 }
-                infoList.add(new Pair<CharSequence, CharSequence>(title, summary));
+                infoList.add(new Pair<>(title, summary));
             }
         }
         return infoList;
@@ -444,17 +430,6 @@ public final class SlicePreferencesUtil {
             SliceItem item = contentItem.getSliceItem();
             if (item.getSubType() != null
                     && item.getSubType().equals(SlicesConstants.TYPE_FOCUSED_PREFERENCE)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    static SliceItem getEmbeddedItem(List<SliceContent> sliceItems) {
-        for (SliceContent contentItem : sliceItems)  {
-            SliceItem item = contentItem.getSliceItem();
-            if (item.getSubType() != null
-                    && item.getSubType().equals(SlicesConstants.TYPE_PREFERENCE_EMBEDDED)) {
                 return item;
             }
         }
@@ -538,40 +513,6 @@ public final class SlicePreferencesUtil {
         return true;
     }
 
-    private static boolean addInfoStatus(SliceItem sliceItem) {
-        List<SliceItem> items = sliceItem.getSlice().getItems();
-        for (SliceItem item : items)  {
-            if (item.getSubType() != null
-                    && item.getSubType().equals(EXTRA_ADD_INFO_STATUS)) {
-                return item.getInt() == 1;
-            }
-        }
-        return true;
-    }
-
-    private static boolean hasEndIcon(SliceItem item) {
-        return item != null && item.getInt() > 0;
-    }
-
-    /**
-     * Checks if custom content description should be forced to be used if provided. This function
-     * can be extended with more cases if needed.
-     *
-     * @param item The {@link SliceItem} containing the necessary information.
-     * @return <code>true</code> if custom content description should be used.
-     */
-    private static boolean shouldForceContentDescription(SliceItem sliceItem) {
-        List<SliceItem> items = sliceItem.getSlice().getItems();
-        for (SliceItem item : items)  {
-            // Checks if an end icon has been set.
-            if (item.getSubType() != null
-                    && item.getSubType().equals(SlicesConstants.EXTRA_HAS_END_ICON)) {
-                return hasEndIcon(item);
-            }
-        }
-        return false;
-    }
-
     /**
      * Get the text from the SliceItem.
      */
@@ -625,12 +566,6 @@ public final class SlicePreferencesUtil {
 
     private static IconCompat getInfoImage(SliceItem item) {
         SliceItem target = SliceQuery.findSubtype(item, FORMAT_IMAGE, EXTRA_PREFERENCE_INFO_IMAGE);
-        return target != null ? target.getIcon() : null;
-    }
-
-    private static IconCompat getInfoTitleIcon(SliceItem item) {
-        SliceItem target = SliceQuery.findSubtype(
-                item, FORMAT_IMAGE, EXTRA_PREFERENCE_INFO_TITLE_ICON);
         return target != null ? target.getIcon() : null;
     }
 

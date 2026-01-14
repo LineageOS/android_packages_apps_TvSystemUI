@@ -64,8 +64,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.systemui.tv.media.FadingEdgeUtil;
 import com.android.systemui.tv.res.R;
-
 import com.android.tv.twopanelsettings.TwoPanelSettingsFragment.SliceFragmentCallback;
+import com.android.tv.twopanelsettings.slices.ContextSingleton;
 import com.android.tv.twopanelsettings.slices.EmbeddedSlicePreference;
 import com.android.tv.twopanelsettings.slices.HasCustomContentDescription;
 import com.android.tv.twopanelsettings.slices.HasSliceAction;
@@ -75,7 +75,6 @@ import com.android.tv.twopanelsettings.slices.SlicePreference;
 import com.android.tv.twopanelsettings.slices.SliceRadioPreference;
 import com.android.tv.twopanelsettings.slices.SliceSeekbarPreference;
 import com.android.tv.twopanelsettings.slices.SlicesConstants;
-import com.android.tv.twopanelsettings.slices.ContextSingleton;
 import com.android.tv.twopanelsettings.slices.compat.Slice;
 import com.android.tv.twopanelsettings.slices.compat.SliceItem;
 import com.android.tv.twopanelsettings.slices.compat.widget.ListContent;
@@ -227,7 +226,7 @@ public class SliceFragment extends SettingsPreferenceFragment implements Observe
             return;
         }
         // If there is followup pendingIntent returned from initial activity, send it.
-        // Otherwise send the followup pendingIntent provided by slice api.
+        // Otherwise, send the followup pendingIntent provided by slice api.
         Parcelable followupPendingIntent;
         try {
             followupPendingIntent = mFollowupPendingIntentExtrasCopy.getParcelableExtra(
@@ -485,8 +484,8 @@ public class SliceFragment extends SettingsPreferenceFragment implements Observe
             }
         }
 
-        //addPreference will reset the checked status of TwoStatePreference.
-        //So we need to add them back
+        // addPreference will reset the checked status of TwoStatePreference,
+        // so we need to add them back.
         for (int i = 0; i < screen.getPreferenceCount(); i++) {
             Preference screenPref = screen.getPreference(i);
             if (screenPref instanceof TwoStatePreference
@@ -675,9 +674,10 @@ public class SliceFragment extends SettingsPreferenceFragment implements Observe
         mScreenSubtitle = subtitle;
     }
 
+    @NonNull
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            @NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final ViewGroup view =
                 (ViewGroup) super.onCreateView(inflater, container, savedInstanceState);
 
@@ -710,10 +710,8 @@ public class SliceFragment extends SettingsPreferenceFragment implements Observe
         }
 
         final View newContainer =
-                themedInflater.inflate(R.layout.media_output_settings_progress, null);
-        if (newContainer != null) {
-            ((ViewGroup) newContainer).addView(view);
-        }
+                themedInflater.inflate(R.layout.media_output_settings_progress, container, false);
+        ((ViewGroup) newContainer).addView(view);
         return newContainer;
     }
 
@@ -750,15 +748,6 @@ public class SliceFragment extends SettingsPreferenceFragment implements Observe
             getActivity().setResult(Activity.RESULT_OK);
             getActivity().finish();
         }
-    }
-
-    private int getPreferenceActionId(Preference preference) {
-        if (preference instanceof HasSliceAction) {
-            return ((HasSliceAction) preference).getActionId() != 0
-                    ? ((HasSliceAction) preference).getActionId()
-                    : TvSettingsEnums.ENTRY_DEFAULT;
-        }
-        return TvSettingsEnums.ENTRY_DEFAULT;
     }
 
     @Override
