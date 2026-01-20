@@ -51,7 +51,6 @@ android_robolectric_test {
     srcs: [
         "src/**/*.kt",
         ":platform-test-screenshot-rules",
-        ":SystemUI-tests-utils",
     ],
     // Do not add any new libraries here, they should be added to TvSystemUIRobo above.
     static_libs: [
@@ -61,6 +60,8 @@ android_robolectric_test {
         "androidx.test.ext.junit",
         "inline-mockito-robolectric-prebuilt",
         "uiautomator-helpers",
+        "SystemUI_test_fixtures",
+        "kosmos",
     ],
     libs: [
         "android.test.runner.impl",

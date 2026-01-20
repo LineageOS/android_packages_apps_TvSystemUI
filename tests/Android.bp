@@ -23,7 +23,6 @@ android_test {
     srcs: [
         "src/**/*.kt",
         "src/**/*.java",
-        ":SystemUI-tests-utils",
     ],
 
     manifest: "AndroidManifest.xml",
@@ -40,6 +39,7 @@ android_test {
         "SystemUI-tests-base",
         "SystemUICustomizationTestUtils",
         "TvSystemUI-core",
+        "SystemUI_test_fixtures",
     ],
 
     libs: [
