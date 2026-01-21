@@ -17,9 +17,7 @@
 package com.android.systemui.tv.volume.dagger
 
 import android.content.BroadcastReceiver
-import android.media.AudioManager
 import com.android.systemui.CoreStartable
-import com.android.systemui.Flags
 import com.android.systemui.plugins.VolumeDialog
 import com.android.systemui.statusbar.policy.ConfigurationController
 import com.android.systemui.tv.volume.dialog.dagger.TvVolumeDialogPluginComponent
@@ -39,7 +37,6 @@ import com.android.systemui.volume.dialog.dagger.factory.VolumeDialogPluginCompo
 import com.android.systemui.volume.panel.dagger.VolumePanelComponent
 import com.android.systemui.volume.panel.dagger.factory.VolumePanelComponentFactory
 import dagger.Binds
-import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import dagger.multibindings.ClassKey
@@ -87,28 +84,14 @@ interface TvVolumeModule {
         impl: TvVolumeDialogPluginComponent.Factory
     ): VolumeDialogPluginComponentFactory
 
+    @Binds fun bindVolumeDialog(impl: VolumeDialogPlugin): VolumeDialog
+
     companion object {
         /**  */
         @Provides
         @Named(VolumeDialogImpl.VOLUME_DIALOG_JANK)
         fun providesListenForJank(): Boolean {
             return true
-        }
-
-        @Provides
-        fun provideVolumeDialog(
-            volumeDialogProvider: Lazy<VolumeDialogPlugin>,
-            volumeDialogImplLazy: Lazy<VolumeDialogImpl>,
-        ): VolumeDialog {
-            return if (Flags.volumeRedesign()) {
-                volumeDialogProvider.get()
-            } else {
-                volumeDialogImplLazy.get().apply {
-                    setStreamImportant(AudioManager.STREAM_SYSTEM, false)
-                    setAutomute(true)
-                    setSilentMode(false)
-                }
-            }
         }
     }
 }
