@@ -16,10 +16,11 @@
 
 package com.android.systemui.tv.volume.dialog.slider.ui.binder
 
+import android.content.Context
 import android.view.View
 import android.widget.SeekBar
 import com.android.app.tracing.coroutines.launchInTraced
-import com.android.systemui.res.R
+import com.android.systemui.tv.res.R
 import com.android.systemui.volume.dialog.dagger.scope.VolumeDialogScope
 import com.android.systemui.volume.dialog.sliders.ui.viewmodel.VolumeDialogSliderViewModel
 import com.android.systemui.volume.dialog.sliders.ui.viewmodel.VolumeDialogSlidersViewModel
@@ -32,7 +33,11 @@ import kotlinx.coroutines.flow.onEach
 @VolumeDialogScope
 class TvVolumeDialogSliderViewBinder
 @Inject
-constructor(private val slidersViewModel: VolumeDialogSlidersViewModel) : ViewBinder {
+constructor(context: Context, private val slidersViewModel: VolumeDialogSlidersViewModel) :
+    ViewBinder {
+
+    private val enableSliderAnimation: Boolean =
+        context.resources.getBoolean(R.bool.config_enableVolumeSliderAnimation)
 
     override fun CoroutineScope.bind(view: View) {
         val seekBar: SeekBar = view.requireViewById(R.id.volume_dialog_slider)
@@ -48,8 +53,7 @@ constructor(private val slidersViewModel: VolumeDialogSlidersViewModel) : ViewBi
             viewModel.state
                 .onEach { state ->
                     with(seekBar) {
-                        // disable value animation due to performance limitations of lower end TVs
-                        setProgress(state.value.toInt(), false)
+                        setProgress(state.value.toInt(), enableSliderAnimation)
                         max = state.valueRange.endInclusive.toInt()
                         min = state.valueRange.start.toInt()
                     }

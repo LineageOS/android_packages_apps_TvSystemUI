@@ -16,9 +16,15 @@
 
 package com.android.systemui.volume.dialog.slider.ui.binder
 
+import androidx.test.core.app.ApplicationProvider
 import com.android.systemui.kosmos.Kosmos
 import com.android.systemui.tv.volume.dialog.slider.ui.binder.TvVolumeDialogSliderViewBinder
 import com.android.systemui.volume.dialog.sliders.ui.viewmodel.volumeDialogSlidersViewModel
 
 val Kosmos.tvVolumeDialogSliderViewBinder by
-    Kosmos.Fixture { TvVolumeDialogSliderViewBinder(volumeDialogSlidersViewModel) }
+    Kosmos.Fixture {
+        TvVolumeDialogSliderViewBinder(
+            ApplicationProvider.getApplicationContext(),
+            volumeDialogSlidersViewModel,
+        )
+    }
