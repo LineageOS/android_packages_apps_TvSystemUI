@@ -44,11 +44,16 @@ public class TvOutputMediaItemListProxy {
     private final List<TvMediaItem> mCurrentMediaItems;
     private final List<TvMediaItem> mOldMediaItems;
 
+    private boolean mHideInternalSpeaker;
+
     @Inject
     public TvOutputMediaItemListProxy(Context context) {
         mContext = context;
         mCurrentMediaItems = new CopyOnWriteArrayList<>();
         mOldMediaItems = new CopyOnWriteArrayList<>();
+        mHideInternalSpeaker =
+                mContext.getResources()
+                        .getBoolean(R.bool.config_audioOutputHideInternalSpeakerFromUI);
     }
 
     /**
@@ -88,6 +93,9 @@ public class TvOutputMediaItemListProxy {
         List<TvMediaItem> finalMediaItems = new ArrayList<>();
         boolean disconnectedDevicesAdded = false;
         for (MediaDevice device : devices) {
+            if (!shouldShowItem(device)) {
+                continue;
+            }
             // Add divider before first disconnected device
             if (!device.isConnected() && !disconnectedDevicesAdded) {
                 addOtherDevicesDivider(finalMediaItems);
@@ -155,18 +163,34 @@ public class TvOutputMediaItemListProxy {
         // Add new connected devices at the end, add new disconnected devices at the start
         if (isConnected) {
             targetMediaItems.addAll(
-                    matchingMediaDevices.stream().map(TvMediaItem::createDeviceMediaItem).toList());
+                    matchingMediaDevices.stream()
+                            .filter(this::shouldShowItem)
+                            .map(TvMediaItem::createDeviceMediaItem)
+                            .toList());
             targetMediaItems.addAll(
-                    newMediaDevices.stream().map(TvMediaItem::createDeviceMediaItem).toList());
+                    newMediaDevices.stream()
+                            .filter(this::shouldShowItem)
+                            .map(TvMediaItem::createDeviceMediaItem)
+                            .toList());
         } else {
             if (!matchingMediaDevices.isEmpty() || !newMediaDevices.isEmpty()) {
                 addOtherDevicesDivider(targetMediaItems);
             }
             targetMediaItems.addAll(
-                    newMediaDevices.stream().map(TvMediaItem::createDeviceMediaItem).toList());
+                    newMediaDevices.stream()
+                            .filter(this::shouldShowItem)
+                            .map(TvMediaItem::createDeviceMediaItem)
+                            .toList());
             targetMediaItems.addAll(
-                    matchingMediaDevices.stream().map(TvMediaItem::createDeviceMediaItem).toList());
+                    matchingMediaDevices.stream()
+                            .filter(this::shouldShowItem)
+                            .map(TvMediaItem::createDeviceMediaItem)
+                            .toList());
         }
+    }
+
+    private boolean shouldShowItem(MediaDevice mediaDevice) {
+        return !(mHideInternalSpeaker && mediaDevice.getDeviceType() == TYPE_PHONE_DEVICE);
     }
 
     private void addOtherDevicesDivider(List<TvMediaItem> mediaItems) {

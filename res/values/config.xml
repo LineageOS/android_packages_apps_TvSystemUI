@@ -46,4 +46,10 @@
     <!-- Configuration to set whether the builtin speaker audio route also outputs to S/PDIF output,
     often times optical output -->
     <bool name="config_audioOutputInternalSpeakerGroupedWithSpdif">false</bool>
+
+    <!-- Configuration to hide the internal speaker from the audio output switcher UI. Should only
+    be used by set-top boxes where the internal speaker should not be used for media audio and the
+    internal speaker cannot be removed from the audio_policy_configuration.xml due to assistant
+    usage. -->
+    <bool name="config_audioOutputHideInternalSpeakerFromUI">false</bool>
 </resources>
