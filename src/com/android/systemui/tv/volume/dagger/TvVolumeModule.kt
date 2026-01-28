@@ -23,7 +23,6 @@ import com.android.systemui.statusbar.policy.ConfigurationController
 import com.android.systemui.tv.volume.dialog.dagger.TvVolumeDialogPluginComponent
 import com.android.systemui.volume.VolumeComponent
 import com.android.systemui.volume.VolumeDialogComponent
-import com.android.systemui.volume.VolumeDialogImpl
 import com.android.systemui.volume.VolumePanelDialogReceiver
 import com.android.systemui.volume.VolumeUI
 import com.android.systemui.volume.dagger.AncModule
@@ -38,11 +37,9 @@ import com.android.systemui.volume.panel.dagger.VolumePanelComponent
 import com.android.systemui.volume.panel.dagger.factory.VolumePanelComponentFactory
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 import dagger.multibindings.IntoSet
-import javax.inject.Named
 
 @Module(
     includes =
@@ -85,13 +82,4 @@ interface TvVolumeModule {
     ): VolumeDialogPluginComponentFactory
 
     @Binds fun bindVolumeDialog(impl: VolumeDialogPlugin): VolumeDialog
-
-    companion object {
-        /**  */
-        @Provides
-        @Named(VolumeDialogImpl.VOLUME_DIALOG_JANK)
-        fun providesListenForJank(): Boolean {
-            return true
-        }
-    }
 }
