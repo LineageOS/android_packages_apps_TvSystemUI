@@ -46,7 +46,7 @@ public class TvUsbConfirmActivity extends TvUsbDialogActivity {
 
     @Override
     void onConfirm() {
-        mDialogHelper.grantUidAccessPermission();
+        mDialogHelper.grantUidAccessPermission(/* isPersistent= */ false);
         mDialogHelper.confirmDialogStartActivity();
         finish();
     }
