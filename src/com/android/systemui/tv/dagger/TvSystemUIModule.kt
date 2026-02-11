@@ -35,6 +35,7 @@ import com.android.systemui.dock.DockManager
 import com.android.systemui.dock.DockManagerImpl
 import com.android.systemui.doze.DozeHost
 import com.android.systemui.dreams.suppression.dagger.NoOpActivityRecognitionModule
+import com.android.systemui.graphics.ImageLoaderModule
 import com.android.systemui.inputmethod.ImeSwitcherMenuModule
 import com.android.systemui.lowlight.dagger.NoopAmbientLightModeMonitorModule
 import com.android.systemui.media.dialog.MediaOutputDialogManager
@@ -112,6 +113,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
             GestureModule::class,
             HdmiModule::class,
             HeadsUpEmptyImplModule::class,
+            ImageLoaderModule::class,
             MediaMuteAwaitConnectionCli.StartableModule::class,
             MultiUserUtilsModule::class,
             NearbyMediaDevicesManager.StartableModule::class,
