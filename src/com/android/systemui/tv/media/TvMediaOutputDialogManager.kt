@@ -21,9 +21,8 @@ import android.content.Intent
 import android.media.session.MediaSession
 import android.os.UserHandle
 import android.view.View
-import com.android.internal.logging.UiEventLogger
 import com.android.systemui.animation.DialogTransitionAnimator
-import com.android.systemui.broadcast.BroadcastSender
+import com.android.systemui.media.dialog.MediaOutputDialogDelegate
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.dialog.MediaSwitchingController
 import javax.inject.Inject
@@ -33,17 +32,14 @@ class TvMediaOutputDialogManager
 @Inject
 constructor(
     private val context: Context,
-    broadcastSender: BroadcastSender,
-    uiEventLogger: UiEventLogger,
     dialogTransitionAnimator: DialogTransitionAnimator,
     mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
+    mediaOutputDialogDelegateFactory: MediaOutputDialogDelegate.Factory,
 ) :
     MediaOutputDialogManager(
-        context,
-        broadcastSender,
-        uiEventLogger,
         dialogTransitionAnimator,
         mediaSwitchingControllerFactory,
+        mediaOutputDialogDelegateFactory,
     ) {
 
     /**
