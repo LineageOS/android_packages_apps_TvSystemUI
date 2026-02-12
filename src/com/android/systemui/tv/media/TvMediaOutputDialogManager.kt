@@ -58,6 +58,7 @@ constructor(
         view: View?,
         unusedUserHandle: UserHandle?,
         token: MediaSession.Token?,
+        useSystemColors: Boolean,
     ) {
         val intent = Intent(context, TvMediaOutputDialogActivity::class.java)
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
