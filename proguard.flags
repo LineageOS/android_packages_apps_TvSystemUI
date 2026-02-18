@@ -17,3 +17,5 @@
 -assumevalues class com.android.systemui.volume.VolumeDialogImpl {
     private boolean showActiveStreamOnly() return true;
 }
+
+-dontwarn com.android.extensions.appfunctions.**
