@@ -15,6 +15,7 @@
  */
 package com.android.systemui.tv.dagger
 
+import com.android.systemui.bundle.phone.PodModulePhone
 import com.android.systemui.dagger.DependencyProvider
 import com.android.systemui.dagger.SysUIComponent
 import com.android.systemui.dagger.SysUISingleton
@@ -45,6 +46,7 @@ import dagger.Subcomponent
             ShadelessSceneContainerFrameworkModule::class,
             ShadeDisplayAwareWindowWithoutShadeModule::class,
             SystemUIModule::class,
+            PodModulePhone::class,
             TvSystemUIBinder::class,
             TVSystemUICoreStartableModule::class,
             TvSystemUIModule::class,
