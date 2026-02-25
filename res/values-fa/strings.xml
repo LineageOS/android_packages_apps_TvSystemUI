@@ -36,7 +36,7 @@
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"بلندگوی داخلی + S/PDIF"</string>
     <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"برای تنظیمات دستگاه صوتی، "<annotation icon="dpad_icon">"DPAD"</annotation>" را فشار دهید."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"تنظیمات <xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g>."</string>
-    <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"هنوز درحال تماشا هستید؟"</string>
+    <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"آیا همچنان تماشا می‌کنید؟"</string>
     <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"تلویزیون شما نشان می‌دهد که به ورودی دیگری رفته‌اید و این دستگاه به‌زودی به حالت خواب می‌رود. برای بیدار نگه داشتن این دستگاه، یکی از گزینه‌ها را انتخاب کنید."</string>
     <string name="hdmi_cec_on_active_source_lost_ok" msgid="7905385172151500115">"بله (<xliff:g id="SECONDS">%1$d</xliff:g> ثانیه)"</string>
     <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"دوباره پرسیده نشود"</string>
