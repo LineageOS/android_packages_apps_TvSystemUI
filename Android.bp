@@ -51,11 +51,24 @@ android_library {
         "SystemUI-shared-utils",
         "TvSystemUI-res",
         "TwoPanelSettingsLib",
+        // AppFunctions
+        "androidx.appfunctions_appfunctions",
+        "androidx.appfunctions_appfunctions-service",
     ],
     javacflags: ["-Adagger.fastInit=enabled"],
+    platform_apis: true,
+    system_ext_specific: true,
     manifest: "AndroidManifest.xml",
     additional_manifests: ["AndroidManifest-exclude-overrides.xml"],
-    plugins: ["dagger2-compiler"],
+    plugins: [
+        "dagger2-compiler",
+        "androidx.appfunctions_appfunctions-compiler-plugin",
+    ],
+    enable_ksp: true,
+    annotation_processor_flags: [
+        "appfunctions\\\\:aggregateAppFunctions=true",
+    ],
+    optional_uses_libs: ["com.android.extensions.appfunctions"],
 }
 
 android_app {

@@ -27,6 +27,7 @@ android_app {
         "mockito-kotlin-nodeps",
         "SystemUI-tests-base",
         "TvSystemUI-core",
+        "com.android.extensions.appfunctions.stubs",
     ],
     manifest: "AndroidManifest.xml",
     javacflags: [

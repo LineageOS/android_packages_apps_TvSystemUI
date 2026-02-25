@@ -16,6 +16,7 @@
 package com.android.systemui.tv.dagger
 
 import com.android.systemui.bundle.phone.PodModulePhone
+import com.android.settingslib.bluetooth.LocalBluetoothManager
 import com.android.systemui.dagger.DependencyProvider
 import com.android.systemui.dagger.SysUIComponent
 import com.android.systemui.dagger.SysUISingleton
@@ -53,10 +54,15 @@ import dagger.Subcomponent
             WindowRootViewBlurNotSupportedModule::class,
         ]
 )
-interface TvSysUIComponent : SysUIComponent {
+interface TvSysUIComponent : SysUIComponent, TvSysUiAppFunctionEntryPoint {
     /** Builder for a SysUIComponent. */
     @Subcomponent.Builder
     interface Builder : SysUIComponent.Builder {
         override fun build(): TvSysUIComponent
     }
+}
+
+/** Dagger EntryPoint to expose dependencies required by AppFunctions from the TvSysUIComponent. */
+interface TvSysUiAppFunctionEntryPoint {
+    fun getLocalBluetoothManager(): LocalBluetoothManager?
 }
