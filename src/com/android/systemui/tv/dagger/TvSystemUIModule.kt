@@ -18,14 +18,12 @@ package com.android.systemui.tv.dagger
 import android.app.Activity
 import android.content.Context
 import android.hardware.SensorPrivacyManager
-import com.android.internal.logging.UiEventLogger
 import com.android.keyguard.KeyguardViewController
 import com.android.systemui.Dependency
 import com.android.systemui.Flags
 import com.android.systemui.accessibility.AccessibilityModule
 import com.android.systemui.accessibility.data.repository.AccessibilityRepositoryModule
 import com.android.systemui.animation.DialogTransitionAnimator
-import com.android.systemui.broadcast.BroadcastSender
 import com.android.systemui.communal.posturing.dagger.NoopPosturingModule
 import com.android.systemui.dagger.ReferenceSystemUIModule
 import com.android.systemui.dagger.SysUISingleton
@@ -38,6 +36,7 @@ import com.android.systemui.dreams.suppression.dagger.NoOpActivityRecognitionMod
 import com.android.systemui.graphics.ImageLoaderModule
 import com.android.systemui.inputmethod.ImeSwitcherMenuModule
 import com.android.systemui.lowlight.dagger.NoopAmbientLightModeMonitorModule
+import com.android.systemui.media.dialog.MediaOutputDialogDelegate
 import com.android.systemui.media.dialog.MediaOutputDialogManager
 import com.android.systemui.media.dialog.MediaSwitchingController
 import com.android.systemui.media.muteawait.MediaMuteAwaitConnectionCli
@@ -250,17 +249,15 @@ abstract class TvSystemUIModule {
         @Provides
         fun provideMediaOutputDialogFactory(
             context: Context,
-            broadcastSender: BroadcastSender,
-            uiEventLogger: UiEventLogger,
             dialogTransitionAnimator: DialogTransitionAnimator,
             mediaSwitchingControllerFactory: MediaSwitchingController.Factory,
+            mediaOutputDialogDelegateFactory: MediaOutputDialogDelegate.Factory,
         ): MediaOutputDialogManager =
             TvMediaOutputDialogManager(
                 context,
-                broadcastSender,
-                uiEventLogger,
                 dialogTransitionAnimator,
                 mediaSwitchingControllerFactory,
+                mediaOutputDialogDelegateFactory,
             )
 
         @Provides
