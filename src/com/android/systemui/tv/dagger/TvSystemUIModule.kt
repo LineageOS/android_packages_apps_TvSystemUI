@@ -70,6 +70,7 @@ import com.android.systemui.statusbar.policy.IndividualSensorPrivacyController
 import com.android.systemui.statusbar.policy.IndividualSensorPrivacyControllerImpl
 import com.android.systemui.statusbar.policy.SensorPrivacyController
 import com.android.systemui.statusbar.policy.SensorPrivacyControllerImpl
+import com.android.systemui.statusbar.policy.dagger.SmartRepliesInflationModule
 import com.android.systemui.tv.hdmi.HdmiModule
 import com.android.systemui.tv.media.TvMediaOutputDialogActivity
 import com.android.systemui.tv.media.TvMediaOutputDialogManager
@@ -125,6 +126,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
             ReferenceNotificationsModule::class,
             ReferenceScreenshotModule::class,
             ShadeEmptyImplModule::class,
+            SmartRepliesInflationModule::class,
             StatusBarEventsModule::class,
             SysUIUnfoldStartableModule::class,
             TvNotificationsModule::class,
