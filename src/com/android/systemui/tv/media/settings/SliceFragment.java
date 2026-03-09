@@ -23,6 +23,7 @@ import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_PREFE
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_PREFERENCE_KEY;
 import static com.android.tv.twopanelsettings.slices.SlicesConstants.EXTRA_SLICE_FOLLOWUP;
 
+import android.animation.AnimatorInflater;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
@@ -57,8 +58,10 @@ import androidx.lifecycle.Observer;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceDialogFragmentCompat;
 import androidx.preference.PreferenceFragmentCompat;
+import androidx.preference.PreferenceGroupAdapter;
 import androidx.preference.PreferenceManager;
 import androidx.preference.PreferenceScreen;
+import androidx.preference.PreferenceViewHolder;
 import androidx.preference.TwoStatePreference;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -707,12 +710,36 @@ public class SliceFragment extends SettingsPreferenceFragment implements Observe
                             }
                         }
                     });
+            int itemPadding =
+                    getResources().getDimensionPixelSize(R.dimen.media_dialog_item_padding);
+            recyclerView.setPadding(
+                    itemPadding, view.getPaddingTop(), itemPadding, view.getPaddingBottom());
+            recyclerView.setClipToPadding(false);
         }
 
         final View newContainer =
                 themedInflater.inflate(R.layout.media_output_settings_progress, container, false);
         ((ViewGroup) newContainer).addView(view);
         return newContainer;
+    }
+
+    @NonNull
+    @Override
+    protected RecyclerView.Adapter onCreateAdapter(PreferenceScreen preferenceScreen) {
+        return new PreferenceGroupAdapter(preferenceScreen) {
+            @Override
+            @NonNull
+            public PreferenceViewHolder onCreateViewHolder(
+                    @NonNull ViewGroup parent, int viewType) {
+                PreferenceViewHolder viewHolder = super.onCreateViewHolder(parent, viewType);
+                viewHolder.itemView.setStateListAnimator(
+                        AnimatorInflater.loadStateListAnimator(
+                                parent.getContext(), R.anim.media_dialog_item_state_list_animator));
+                viewHolder.itemView.setOnTouchListener(null);
+                viewHolder.itemView.setFocusableInTouchMode(false);
+                return viewHolder;
+            }
+        };
     }
 
     public void setLastFocused(Preference preference) {

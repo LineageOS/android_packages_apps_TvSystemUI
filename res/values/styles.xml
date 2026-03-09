@@ -121,7 +121,7 @@
     </style>
 
     <style name="ControlWidgetStyle">
-        <item name="android:layout_marginHorizontal">12dp</item>
+        <item name="android:layout_marginHorizontal">0dp</item>
         <item name="android:layout_marginVertical">5dp</item>
         <item name="android:background">@drawable/media_dialog_item_bg</item>
         <item name="android:stateListAnimator">@anim/media_dialog_item_state_list_animator</item>
