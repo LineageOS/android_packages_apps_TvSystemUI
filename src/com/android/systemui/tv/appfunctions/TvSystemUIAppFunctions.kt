@@ -89,7 +89,7 @@ class TvSystemUIAppFunctions {
             DeviceStateItemMetadata(
                 key = KEY_AUDIO_OUTPUT_DEVICE_CURRENT,
                 localizedName = "Current Audio Output Device",
-                description = "Gets or sets the current audio output device.",
+                description = "Gets or sets the current audio output device. Use device id to set the current output device.",
                 possibleValues = """{"type": "String"}""", // Device id
                 writable = true,
                 isDeviceContext = true, // Pre-fetch this context
