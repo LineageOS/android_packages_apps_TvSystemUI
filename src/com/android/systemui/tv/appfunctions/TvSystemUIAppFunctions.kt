@@ -63,7 +63,6 @@ class TvSystemUIAppFunctions {
     // Key definitions for Audio Control
     private val KEY_AUDIO_OUTPUT_DEVICES = "google.audio.output_devices"
     private val KEY_AUDIO_OUTPUT_DEVICE_CURRENT = "google.audio.output_device.current"
-    private val KEY_AUDIO_SETTINGS_OPEN = "google.audio.settings.open"
 
     /**
      * Get the metadata for all device state items.
@@ -94,19 +93,6 @@ class TvSystemUIAppFunctions {
                 possibleValues = """{"type": "String"}""", // Device id
                 writable = true,
                 isDeviceContext = true, // Pre-fetch this context
-            )
-        )
-
-        // Metadata for opening audio settings
-        metadataList.add(
-            DeviceStateItemMetadata(
-                key = KEY_AUDIO_SETTINGS_OPEN,
-                localizedName = "Open Audio Settings",
-                description =
-                    "Opens the system's main audio settings page. Set value to any non-empty string to trigger.",
-                possibleValues = """{"type": "String"}""", // Expecting a String
-                writable = true,
-                isDeviceContext = false,
             )
         )
 
@@ -245,14 +231,6 @@ class TvSystemUIAppFunctions {
                     isSuccessful = success,
                     currentValue = mediaDevice.id ?: "",
                 )
-            }
-
-            KEY_AUDIO_SETTINGS_OPEN -> {
-                context.context.startActivity(
-                    Intent("com.android.systemui.TV_MEDIA_OUTPUT_DIALOG")
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                )
-                SetDeviceStateItemResponse(isSuccessful = true, currentValue = value)
             }
 
             else -> {
