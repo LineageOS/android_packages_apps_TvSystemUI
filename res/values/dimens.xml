@@ -119,7 +119,6 @@
     <dimen name="tooltip_bg_radius">12dp</dimen>
     <dimen name="tooltip_image_width">204dp</dimen>
     <dimen name="tooltip_image_height">115dp</dimen>
-    <dimen name="tooltip_window_vertical_margin">6dp</dimen>
     <dimen name="tooltip_window_horizontal_margin">4dp</dimen>
 
     <!-- Volume -->
