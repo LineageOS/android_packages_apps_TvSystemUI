@@ -36,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="start|center_vertical"
-        android:layout_marginEnd="@dimen/media_dialog_item_padding"
         android:duplicateParentState="true"
         android:orientation="vertical">
         <com.android.systemui.tv.SmoothScalingTextView

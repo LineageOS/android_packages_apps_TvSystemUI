@@ -21,12 +21,10 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -34,9 +32,9 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
-import java.util.Objects;
-
 import com.android.systemui.tv.res.R;
+
+import java.util.Objects;
 
 /**
  * Base control widget that has default tooltip functionality.
@@ -128,47 +126,22 @@ public class ControlWidget extends FrameLayout
 
         // Construct tooltip pop-up window.
         mTooltipView = View.inflate(this.getContext(), R.layout.tooltip_window, null);
-        mTooltipView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-
-                    @Override
-                    public void onGlobalLayout() {
-                        if (DEBUG) Log.d(TAG, "onGlobalLayoutListener");
-                        mTooltipView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                        if (shouldAbortShowingTooltip()) {
-                            return;
-                        }
-                        // Calculate tooltip location on screen.
-                        Rect location = locateView(ControlWidget.this);
-                        int[] position = ControlWidget.this.calculateWindowOffset(location);
-                        if (DEBUG) {
-                            Log.d(TAG,
-                                    "new position, x=" + position[0] + ", y=" + position[1]);
-                        }
-
-                        // Only update the position, not the size
-                        mTooltipWindow.update(position[0], position[1], -1, -1);
-                        mTooltipView.postDelayed(() -> {
-                            if (shouldAbortShowingTooltip()) {
-                                return;
-                            }
-                            if (DEBUG) Log.d(TAG, "postDelayed, make visible");
-                            mTooltipView.setVisibility(VISIBLE);
-                        }, 100);
-                    }
-                });
 
         mTooltipWindow = new PopupWindow(mTooltipView, width, ViewGroup.LayoutParams.WRAP_CONTENT,
                 false);
         mTooltipWindow.setAnimationStyle(R.style.ControlWidgetTooltipWindowAnimation);
-        mTooltipView.setVisibility(INVISIBLE);
 
         // Load image and text.
         loadImage();
         loadSummary();
         loadText();
 
-        // Calculate tooltip location on screen.
+        // Measure tooltip view to get exact height.
+        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY);
+        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        mTooltipView.measure(widthMeasureSpec, heightMeasureSpec);
+
+        // Calculate tooltip location.
         Rect location = locateView(this);
         int[] position = calculateWindowOffset(location);
 
@@ -186,7 +159,7 @@ public class ControlWidget extends FrameLayout
 
     private static Rect locateView(View view) {
         int[] locationInt = new int[2];
-        view.getLocationOnScreen(locationInt);
+        view.getLocationInWindow(locationInt);
         Rect location = new Rect();
         location.left = locationInt[0];
         location.top = locationInt[1];
@@ -197,36 +170,25 @@ public class ControlWidget extends FrameLayout
 
     private int[] calculateWindowOffset(Rect focusedRect) {
         int[] windowOffset = new int[2];
-        int tooltipWidth = getContext().getResources().getDimensionPixelSize(
-                R.dimen.tooltip_window_width);
+
+        // X offset
         boolean isRtl =
                 getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL;
-        // X offset
+        int horizontalMargin =
+                getResources().getDimensionPixelSize(R.dimen.tooltip_window_horizontal_margin);
+
+        // Offset to the origin which is at the top left corner of the panel
         if (isRtl) {
-            // controlWidget.width  + margin
-            windowOffset[0] = focusedRect.right
-                    + getContext().getResources()
-                    .getDimensionPixelOffset(R.dimen.tooltip_window_horizontal_margin);
+            int panelWidth = getResources().getDimensionPixelSize(R.dimen.media_dialog_width);
+            windowOffset[0] = panelWidth + horizontalMargin;
         } else {
-            windowOffset[0] = -tooltipWidth
-                    - getContext().getResources()
-                    .getDimensionPixelOffset(R.dimen.tooltip_window_horizontal_margin);
+            int tooltipWidth = getResources().getDimensionPixelSize(R.dimen.tooltip_window_width);
+            windowOffset[0] = -tooltipWidth - horizontalMargin;
         }
+
         // Y offset
-        if (mTooltipView.getMeasuredHeight() <= 0) {
-            // Height unknown -> fixed offset
-            windowOffset[1] = focusedRect.top
-                    - getContext().getResources()
-                    .getDimensionPixelOffset(R.dimen.media_dialog_margin_vertical)
-                    + getContext().getResources().getDimensionPixelSize(
-                    R.dimen.tooltip_window_vertical_margin);
-        } else {
-            // Height known -> calculate centered position
-            windowOffset[1] = (focusedRect.top + focusedRect.bottom) / 2
-                    - mTooltipView.getMeasuredHeight() / 2
-                    - getContext().getResources()
-                    .getDimensionPixelOffset(R.dimen.media_dialog_margin_vertical);
-        }
+        windowOffset[1] =
+                (focusedRect.top + focusedRect.bottom) / 2 - mTooltipView.getMeasuredHeight() / 2;
 
         return windowOffset;
     }
