@@ -17,7 +17,6 @@
 package com.android.systemui.tv.appfunctions
 
 import android.content.Context
-import android.content.Intent
 import android.media.MediaRoute2Info
 import android.media.RoutingChangeInfo
 import android.util.Log
@@ -63,6 +62,8 @@ class TvSystemUIAppFunctions {
     // Key definitions for Audio Control
     private val KEY_AUDIO_OUTPUT_DEVICES = "google.audio.output_devices"
     private val KEY_AUDIO_OUTPUT_DEVICE_CURRENT = "google.audio.output_device.current"
+    private val KEY_AUDIO_VOLUME = "google.audio.volume"
+    private val KEY_AUDIO_MUTED = "google.audio.muted"
 
     /**
      * Get the metadata for all device state items.
@@ -77,10 +78,10 @@ class TvSystemUIAppFunctions {
             DeviceStateItemMetadata(
                 key = KEY_AUDIO_OUTPUT_DEVICES,
                 localizedName = "Available Audio Output Devices",
-                description = "Gets a list of available audio output devices (e.g., TV Speakers, Soundbar, Headphones).",
-                possibleValues = """{"type": "array", "items": {"type": "object", "properties": { "id": { "type": "string" }, "label": { "type": "string" }, "type": { "type": "string" }, "connected": { "type": "boolean" }, "selected": { "type" : "boolean" } }}}""",
+                description = "Returns a list of all hardware audio outputs. Use the 'id' field from this list when calling KEY_AUDIO_OUTPUT_DEVICE_CURRENT.",
+                possibleValues = """{"type": "array", "items": { "type": "object", "properties": { "id": { "type": "string" }, "label": { "type": "string" }, "type": { "type": "string" }, "connected": { "type": "boolean" }, "selected": { "type" : "boolean" } }, "required": ["id"] }}""",
                 writable = false,
-                isDeviceContext = true, // Pre-fetch this context
+                isDeviceContext = true
             )
         )
 
@@ -89,8 +90,33 @@ class TvSystemUIAppFunctions {
             DeviceStateItemMetadata(
                 key = KEY_AUDIO_OUTPUT_DEVICE_CURRENT,
                 localizedName = "Current Audio Output Device",
-                description = "Gets or sets the current audio output device. Use device id to set the current output device.",
-                possibleValues = """{"type": "String"}""", // Device id
+                description = "The 'id' of the active audio output. Matches an 'id' from KEY_AUDIO_OUTPUT_DEVICES.",
+                possibleValues = """{"type": "string", "description": "Must be a valid ID string from the output devices list."}""",
+                writable = true,
+                isDeviceContext = true
+            )
+        )
+
+        // Metadata for the current media volume
+        metadataList.add(
+            DeviceStateItemMetadata(
+                key = KEY_AUDIO_VOLUME,
+                localizedName = "Audio Volume",
+                description = "Adjusts the media volume level. Returns a raw string in the format 'currentVolume/maxVolume'.",
+                possibleValues = """{"type": "string", "pattern": "^([+-]?\\d+)(/\\d+)?$"}""",
+                writable = true,
+                isDeviceContext = true,
+                hintText = "Format is 'current/max'. Use signed strings like '+5' for relative steps or unsigned like '10' for absolute levels for the current value. Never use words like 'loud' or 'mute'."
+            )
+        )
+
+        // Metadata for the current audio muted state
+        metadataList.add(
+            DeviceStateItemMetadata(
+                key = KEY_AUDIO_MUTED,
+                localizedName = "Audio Muted State",
+                description = "Gets or sets the current audio muted state.",
+                possibleValues = """{"type": "boolean"}""",
                 writable = true,
                 isDeviceContext = true, // Pre-fetch this context
             )
@@ -149,6 +175,19 @@ class TvSystemUIAppFunctions {
                     } else {
                         GetDeviceStateItemResponse(key = key, value = currentlySelected.name)
                     }
+                }
+
+                KEY_AUDIO_VOLUME -> {
+                    val audioManager = context.context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+                    val currentVolume = audioManager.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+                    val maxVolume = audioManager.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+                    GetDeviceStateItemResponse(key = key, value = "$currentVolume/$maxVolume")
+                }
+
+                KEY_AUDIO_MUTED -> {
+                    val audioManager = context.context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+                    val isMuted = audioManager.isStreamMute(android.media.AudioManager.STREAM_MUSIC)
+                    GetDeviceStateItemResponse(key = key, value = isMuted.toString())
                 }
 
                 else -> {
@@ -233,6 +272,91 @@ class TvSystemUIAppFunctions {
                 )
             }
 
+            KEY_AUDIO_VOLUME -> {
+                val audioManager = context.context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+                val currentVolume = audioManager.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+                val maxVolume = audioManager.getStreamMaxVolume(android.media.AudioManager.STREAM_MUSIC)
+
+                fun createVolumeString(volume: Int, max: Int): String {
+                    return "$volume/$max"
+                }
+
+                val inputValue = if (value.contains("/")) value.split("/")[0] else value
+
+                try {
+                    if (inputValue.startsWith("+") || inputValue.startsWith("-")) {
+                        val delta = inputValue.toInt()
+                        val newVolume = currentVolume + delta
+                        if (newVolume < 0 || newVolume > maxVolume) {
+                            SetDeviceStateItemResponse(
+                                isSuccessful = false,
+                                currentValue = createVolumeString(currentVolume, maxVolume),
+                                failureReason = "Invalid volume value: $value (computed: $newVolume, max: $maxVolume)",
+                            )
+                        } else {
+                            audioManager.setStreamVolume(
+                                android.media.AudioManager.STREAM_MUSIC,
+                                newVolume,
+                                android.media.AudioManager.FLAG_SHOW_UI
+                            )
+                            SetDeviceStateItemResponse(
+                                isSuccessful = true,
+                                currentValue = createVolumeString(newVolume, maxVolume),
+                            )
+                        }
+                    } else {
+                        val setValue = inputValue.toInt()
+                        if (setValue < 0 || setValue > maxVolume) {
+                            SetDeviceStateItemResponse(
+                                isSuccessful = false,
+                                currentValue = createVolumeString(currentVolume, maxVolume),
+                                failureReason = "Invalid volume value: $value",
+                            )
+                        } else {
+                            audioManager.setStreamVolume(
+                                android.media.AudioManager.STREAM_MUSIC,
+                                setValue,
+                                android.media.AudioManager.FLAG_SHOW_UI
+                            )
+                            SetDeviceStateItemResponse(
+                                isSuccessful = true,
+                                currentValue = createVolumeString(setValue, maxVolume),
+                            )
+                        }
+                    }
+                } catch (e: NumberFormatException) {
+                    SetDeviceStateItemResponse(
+                        isSuccessful = false,
+                        currentValue = createVolumeString(currentVolume, maxVolume),
+                        failureReason = "Invalid volume value: $value",
+                    )
+                }
+            }
+
+            KEY_AUDIO_MUTED -> {
+                val audioManager = context.context.getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+                val shouldMute = value.toBooleanStrictOrNull()
+                if (shouldMute == null) {
+                    return SetDeviceStateItemResponse(
+                        isSuccessful = false,
+                        currentValue = audioManager.isStreamMute(android.media.AudioManager.STREAM_MUSIC).toString(),
+                        failureReason = "Invalid boolean value",
+                    )
+                }
+
+                val isCurrentlyMuted = audioManager.isStreamMute(android.media.AudioManager.STREAM_MUSIC)
+
+                if (shouldMute != isCurrentlyMuted) {
+                    val direction = if (shouldMute) android.media.AudioManager.ADJUST_MUTE else android.media.AudioManager.ADJUST_UNMUTE
+                    audioManager.adjustStreamVolume(android.media.AudioManager.STREAM_MUSIC, direction, 0)
+                }
+
+                SetDeviceStateItemResponse(
+                    isSuccessful = true,
+                    currentValue = shouldMute.toString(),
+                )
+            }
+
             else -> {
                 SetDeviceStateItemResponse(
                     isSuccessful = false,
@@ -244,7 +368,7 @@ class TvSystemUIAppFunctions {
     }
 
     suspend fun waitForDeviceListUpdate(context: Context,
-        localMediaManager: LocalMediaManager = getLocalMediaManager(context)): List<MediaDevice> {
+                                        localMediaManager: LocalMediaManager = getLocalMediaManager(context)): List<MediaDevice> {
         return suspendCancellableCoroutine { continuation ->
             val callback =
                 object : LocalMediaManager.DeviceCallback {
