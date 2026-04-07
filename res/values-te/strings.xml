@@ -32,12 +32,12 @@
     <string name="screen_stopped_recording_announcement" msgid="4206290782104851906">"స్క్రీన్ రికార్డింగ్ ఆపివేయబడింది"</string>
     <string name="media_output_dialog_title" msgid="6307582009756803143">"ఆడియో అవుట్‌పుట్"</string>
     <string name="media_output_dialog_other_devices" msgid="3247897577557171573">"ఇతర పరికరాలు"</string>
-    <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"మరొక పరికరాన్ని కనెక్ట్ చేయండి"</string>
+    <string name="media_output_dialog_pairing_new" msgid="5488290054300850034">"మరొక డివైజ్‌ ను కనెక్ట్ చేయండి"</string>
     <string name="media_output_internal_speaker_spdif_subtitle" msgid="98802379666893998">"బిల్ట్-ఇన్ స్పీకర్ + S/PDIF"</string>
     <string name="audio_device_settings_tooltip" msgid="2817501350919310424">"ఆడియో పరికర సెట్టింగ్‌ల కోసం "<annotation icon="dpad_icon">"DPAD"</annotation>"‌ను నొక్కండి."</string>
     <string name="audio_device_settings_content_description" msgid="5204846097117099044">"<xliff:g id="AUDIO_DEVICE_NAME">%1$s</xliff:g> సెట్టింగ్‌లు."</string>
     <string name="hdmi_cec_on_active_source_lost_title" msgid="5570532026531076971">"మీరు ఇంకా చూస్తున్నారా?"</string>
-    <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"మీరు వేరొక ఇన్‌పుట్‌కు మారారని మీ TV ఇండికేట్ చేస్తుంది, ఈ పరికరం త్వరలో స్లీప్ మోడ్‌లోకి వెళ్తుంది. ఈ పరికరాన్ని యాక్టివ్‌గా ఉంచడానికి ఒక ఆప్షన్‌ను ఎంచుకోండి."</string>
+    <string name="hdmi_cec_on_active_source_lost_description" msgid="4366679671166643699">"మీరు వేరొక ఇన్‌పుట్‌కు మారారని మీ TV ఇండికేట్ చేస్తుంది, ఈ డివైజ్‌ త్వరలో స్లీప్ మోడ్‌లోకి వెళ్తుంది. ఈ డివైజ్‌ ను యాక్టివ్‌గా ఉంచడానికి ఒక ఆప్షన్‌ను ఎంచుకోండి."</string>
     <string name="hdmi_cec_on_active_source_lost_ok" msgid="7905385172151500115">"Yes (<xliff:g id="SECONDS">%1$d</xliff:g>సె)"</string>
     <string name="hdmi_cec_on_active_source_lost_do_not_show" msgid="8498435538121140325">"మళ్లీ అడగవద్దు"</string>
 </resources>
